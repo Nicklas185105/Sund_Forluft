@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     android:background="@android:color/white">
 
-    <Button
+    <carbon.widget.Button
         android:id="@+id/button"
         android:layout_width="338dp"
         android:layout_height="80dp"
@@ -22,7 +22,9 @@
         android:paddingStart="72dp"
         android:paddingEnd="72dp"
         android:stateListAnimator="@null"
-        android:elevation="5dp"/>
+        app:carbon_cornerRadius="10dp"
+        app:carbon_elevation="2dp"
+        app:carbon_elevationShadowColor="#40000000"/>
 
     <Button
         android:id="@+id/removeButton"

@@ -83,6 +83,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"/>
 
+
+
+
+    <!--
     <Button
         android:id="@+id/button"
         android:layout_width="0dp"
@@ -102,7 +106,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text"/>
+    -->
 
+
+    <!--
     <Button
         android:id="@+id/removeButton"
         android:layout_width="0dp"
@@ -117,6 +124,7 @@
         app:layout_constraintEnd_toEndOf="@+id/button"
         app:layout_constraintTop_toTopOf="@+id/button"
         app:layout_constraintBottom_toBottomOf="@+id/button"/>
+    -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

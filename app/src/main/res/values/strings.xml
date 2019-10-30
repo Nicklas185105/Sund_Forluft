@@ -2,4 +2,12 @@
     <string name="app_name">Sund Forluft</string>
     <string name="titel"><b>SUND</b> FOR<b>LUFT</b></string>
     <string name="title_activity_maps">Map</string>
+
+
+    <!-- used by models/SchoolMode.java -->
+    <string name="bad_air_quality">Dårlig</string>
+    <string name="medium_air_quality">Medium</string>
+    <string name="good_air_quality">God</string>
+    <string name="best_air_quality">Fremragende</string>
+
 </resources>

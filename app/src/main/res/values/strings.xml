@@ -10,4 +10,6 @@
     <string name="good_air_quality">God</string>
     <string name="best_air_quality">Fremragende</string>
 
+    <string name="favorit"><b>Favorit Skoler</b></string>
+    <string name="favoritButtonText">Gentofte Skole\nLuftkvalitet: God</string>
 </resources>

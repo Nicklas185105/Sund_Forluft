@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Sund Forluft</string>
     <string name="titel"><b>SUND</b> FOR<b>LUFT</b></string>
+    <string name="title_activity_maps">Map</string>
     <string name="favorit"><b>Favorit Skoler</b></string>
     <string name="favoritButtonText">Gentofte Skole\nLuftkvalitet: God</string>
 </resources>

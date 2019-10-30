@@ -21,12 +21,15 @@ public class HomeActivity extends AppCompatActivity {
         SchoolModel[] schoolModels = new SchoolModel[] {
             new SchoolModel(this, "Gentofte Skole", 29),
             new SchoolModel(this, "Dyssegård Skole", 24),
-            new SchoolModel(this, "Ishøj Perker Skole", 4),
+            new SchoolModel(this, "Ishøj Skole", 4),
             new SchoolModel(this, "Hellerup Skole", 42),
         };
         for (SchoolModel schoolModel : schoolModels) { schoolBadgeAdapter.addSchool(schoolModel); }
+        for (SchoolModel schoolModel : schoolModels) { schoolBadgeAdapter.addSchool(schoolModel); }
+        for (SchoolModel schoolModel : schoolModels) { schoolBadgeAdapter.addSchool(schoolModel); }
+        for (SchoolModel schoolModel : schoolModels) { schoolBadgeAdapter.addSchool(schoolModel); }
 
-        ListView schoolModelListView = null;
+        ListView schoolModelListView = findViewById(R.id.listView);
         schoolModelListView.setAdapter(schoolBadgeAdapter);
     }
 

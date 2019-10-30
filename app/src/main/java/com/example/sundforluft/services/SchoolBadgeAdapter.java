@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 
+import com.example.sundforluft.R;
 import com.example.sundforluft.models.SchoolModel;
 
 import java.lang.reflect.Array;
@@ -15,10 +17,12 @@ import java.util.ArrayList;
 public class SchoolBadgeAdapter extends BaseAdapter {
     private ArrayList<SchoolModel> items;
     private final Context context;
+    private final LayoutInflater inflater;
 
     public SchoolBadgeAdapter(Context context) {
         items = new ArrayList<>();
         this.context = context;
+        inflater = LayoutInflater.from(context);
     }
 
     public void addSchool(SchoolModel schoolModel) {
@@ -46,15 +50,16 @@ public class SchoolBadgeAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            //convertView = LayoutInflater.from(context).inflate(, parent, false);
-        }
+        // ...
+        convertView = inflater.inflate(R.layout.activity_listview, null);
 
         // Item to be displayed
         SchoolModel model = items.get(position);
 
         // Change item properties to model values.
-
+        Button button = convertView.findViewById(R.id.button);
+        String schoolModelText = model.getName() + "\n" + model.getAirQualityString();
+        button.setText(schoolModelText);
 
         // return view for current row
         return convertView;

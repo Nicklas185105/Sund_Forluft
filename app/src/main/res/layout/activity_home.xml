@@ -83,27 +83,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText"/>
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:background="@drawable/bg_favorit"
-        android:scaleType="centerCrop"
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="36dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="36dp"
-        android:text="@string/favoritButtonText"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:textAllCaps="false"
-        android:textAlignment="viewStart"
-        android:paddingStart="72dp"
-        android:paddingEnd="72dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text"/>
 
-    <Button
+    <!--<Button
         android:id="@+id/removeButton"
         android:layout_width="0dp"
         android:layout_height="30dp"
@@ -116,7 +107,7 @@
         app:layout_constraintStart_toStartOf="@+id/button"
         app:layout_constraintEnd_toEndOf="@+id/button"
         app:layout_constraintTop_toTopOf="@+id/button"
-        app:layout_constraintBottom_toBottomOf="@+id/button"/>
+        app:layout_constraintBottom_toBottomOf="@+id/button"/>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

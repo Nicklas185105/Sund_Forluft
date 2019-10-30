@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="338dp"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_favorit"
+        android:scaleType="centerCrop"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="36dp"
+        android:text="@string/favoritButtonText"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:textAllCaps="false"
+        android:textAlignment="viewStart"
+        android:paddingStart="72dp"
+        android:paddingEnd="72dp"/>
+
+</LinearLayout>

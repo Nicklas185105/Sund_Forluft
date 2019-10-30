@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    tools:context=".MainActivity"
+    android:background="@android:color/white">
 
     <Button
         android:id="@+id/button"
@@ -17,17 +20,21 @@
         android:textAllCaps="false"
         android:textAlignment="viewStart"
         android:paddingStart="72dp"
-        android:paddingEnd="72dp"/>
+        android:paddingEnd="72dp"
+        android:stateListAnimator="@null"
+        android:elevation="0dp"/>
 
     <Button
         android:id="@+id/removeButton"
-        android:layout_width="0dp"
+        android:layout_width="30dp"
         android:layout_height="30dp"
-        android:background="@drawable/bg_remove_button"
-        android:scaleType="centerCrop"
         android:layout_marginStart="298dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="12dp"/>
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/bg_remove_button"
+        android:stateListAnimator="@null"
+        android:elevation="10dp"
+        android:scaleType="centerCrop" />
 
-</LinearLayout>
+</FrameLayout>

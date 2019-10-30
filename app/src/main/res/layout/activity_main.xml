@@ -12,7 +12,6 @@
         android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="166dp"
-        android:background="@drawable/bg_view"
         android:color="#00BCD4"
         android:bottomRightRadius="30dp"
         android:bottomLeftRadius="30dp"
@@ -39,11 +38,13 @@
         android:id="@+id/sundforluft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="15dp"
         android:text="@string/titel"
         android:textColor="@android:color/black"
         android:textSize="40sp"
+        app:layout_constraintStart_toEndOf="@id/logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

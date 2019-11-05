@@ -5,8 +5,12 @@
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
 
     <!-- Favorit Fragmnet -->
-    <string name="favorit"><b>Favorit Skoler</b></string>
+    <string name="favorit">Favorit Skoler</string>
     <string name="favoritButtonText">Gentofte Skole\nLuftkvalitet: God</string>
+    <string name="searchHint">Søg</string>
+
+    <!-- Rankliste Fragment -->
+    <string name="topSkoler">Top skoler i (region)</string>
 
     <!-- used by models/SchoolModel.java -->
     <string name="bad_air_quality">Dårlig</string>

@@ -7,11 +7,12 @@
     tools:context=".MainActivity"
     android:background="@android:color/white">
 
-    <carbon.widget.Button
+
+    <Button
         android:id="@+id/button"
         android:layout_width="338dp"
         android:layout_height="80dp"
-        android:background="@drawable/bg_favorit"
+        android:background="@drawable/bg_listview_favorit"
         android:scaleType="centerCrop"
         android:layout_marginTop="10dp"
         android:text="@string/favoritButtonText"
@@ -22,9 +23,7 @@
         android:paddingStart="72dp"
         android:paddingEnd="72dp"
         android:stateListAnimator="@null"
-        app:carbon_cornerRadius="10dp"
-        app:carbon_elevation="2dp"
-        app:carbon_elevationShadowColor="#40000000"/>
+        android:elevation="4dp"/>
 
     <Button
         android:id="@+id/removeButton"
@@ -34,7 +33,7 @@
         android:layout_marginTop="35dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="22dp"
-        android:background="@drawable/bg_remove_button"
+        android:background="@drawable/bg_listview_remove"
         android:stateListAnimator="@null"
         android:elevation="10dp"
         android:scaleType="centerCrop"
@@ -46,7 +45,7 @@
         android:layout_height="40dp"
         android:layout_marginTop="30dp"
         android:layout_marginStart="15dp"
-        android:background="@drawable/circle_test"
+        android:background="@drawable/ic_listview_placeholder"
         android:elevation="5dp"/>
 
 </RelativeLayout>

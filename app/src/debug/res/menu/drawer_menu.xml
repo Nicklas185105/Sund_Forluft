@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_favorit"
+            android:icon="@drawable/ic_menu_favorit"
+            android:title="Favorit" />
+        <item
+            android:id="@+id/nav_map"
+            android:icon="@drawable/ic_menu_map"
+            android:title="Kort" />
+        <item
+            android:id="@+id/nav_ranklist"
+            android:icon="@drawable/ic_menu_ranklist"
+            android:title="Rangliste" />
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_menu_about"
+            android:title="Om Os" />
+        <item
+            android:id="@+id/nav_scanner"
+            android:icon="@drawable/ic_menu_scanner"
+            android:title="QR Scanner" />
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_back"
+                android:icon="@drawable/ic_menu_back"
+                android:title="Tilbage" />
+        </menu>
+    </item>
+
+</menu>

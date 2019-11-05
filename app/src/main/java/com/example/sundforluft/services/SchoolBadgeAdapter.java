@@ -1,10 +1,6 @@
 package com.example.sundforluft.services;
 
-import android.content.Context;
-import android.database.DataSetObserver;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
+
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,22 +9,22 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 
 import androidx.core.content.res.ResourcesCompat;
+import androidx.fragment.app.Fragment;
 
 import com.example.sundforluft.R;
 import com.example.sundforluft.models.SchoolModel;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class SchoolBadgeAdapter extends BaseAdapter {
     private ArrayList<SchoolModel> items;
-    private final Context context;
+    private final Fragment fragment;
     private final LayoutInflater inflater;
 
-    public SchoolBadgeAdapter(Context context) {
+    public SchoolBadgeAdapter(Fragment fragment) {
         items = new ArrayList<>();
-        this.context = context;
-        inflater = LayoutInflater.from(context);
+        this.fragment = fragment;
+        inflater = LayoutInflater.from(fragment.getActivity());
     }
 
     public void addSchool(SchoolModel schoolModel) {
@@ -91,18 +87,18 @@ public class SchoolBadgeAdapter extends BaseAdapter {
         // Get quality from model
         switch (model.getAirQuality()) {
             case 1:
-                Drawable redCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.circle_red, null);
+                Drawable redCircle = ResourcesCompat.getDrawable(fragment.getResources(), R.drawable.ic_listview_circle_red, null);
                 convertView.findViewById(R.id.cicle).setBackground(redCircle);
                 break;
 
             case 2:
-                Drawable orangeCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.circle_orange, null);
+                Drawable orangeCircle = ResourcesCompat.getDrawable(fragment.getResources(), R.drawable.ic_listview_circle_orange, null);
                 convertView.findViewById(R.id.cicle).setBackground(orangeCircle);
                 break;
 
             case 3:
             case 4:
-                Drawable greenCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.circle_green, null);
+                Drawable greenCircle = ResourcesCompat.getDrawable(fragment.getResources(), R.drawable.ic_listview_circle_green, null);
                 convertView.findViewById(R.id.cicle).setBackground(greenCircle);
                 break;
         }

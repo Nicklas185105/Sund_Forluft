@@ -1,16 +1,16 @@
 package com.example.sundforluft.models;
 
-import android.content.Context;
+import androidx.fragment.app.Fragment;
 
 import com.example.sundforluft.R;
 
 public class SchoolModel {
     private String name;
     private int currentAir;
-    private final Context context;
+    private final Fragment fragment;
 
-    public SchoolModel(Context context, String name, int currentAir) {
-        this.context = context;
+    public SchoolModel(Fragment fragment, String name, int currentAir) {
+        this.fragment = fragment;
         this.name = name;
         this.currentAir = currentAir;
     }
@@ -33,10 +33,10 @@ public class SchoolModel {
 
     public String getAirQualityString() {
         switch (getAirQuality()) {
-            case 1: return context.getString(R.string.bad_air_quality);
-            case 2: return context.getString(R.string.medium_air_quality);
-            case 3: return context.getString(R.string.good_air_quality);
-            default: return context.getString(R.string.best_air_quality);
+            case 1: return fragment.getString(R.string.bad_air_quality);
+            case 2: return fragment.getString(R.string.medium_air_quality);
+            case 3: return fragment.getString(R.string.good_air_quality);
+            default: return fragment.getString(R.string.best_air_quality);
         }
     }
 

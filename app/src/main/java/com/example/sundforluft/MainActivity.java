@@ -1,72 +1,100 @@
 package com.example.sundforluft;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.Menu;
+import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
-    private ImageView imageView, eller;
-    private TextView titel;
-    private Button elev, laerer, guest;
-    private Animation smalltobig, btta, btta2;
+import com.google.android.material.navigation.NavigationView;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // load this animation
-        smalltobig = AnimationUtils.loadAnimation(this, R.anim.smalltobig);
-        btta = AnimationUtils.loadAnimation(this, R.anim.btta);
-        btta2 = AnimationUtils.loadAnimation(this, R.anim.btta2);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        imageView = findViewById(R.id.logo);
-        titel = findViewById(R.id.sundforluft);
+        drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
-        elev = findViewById(R.id.elev);
-        laerer = findViewById(R.id.laerer);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
-        eller = findViewById(R.id.eller);
-        guest = findViewById(R.id.gaest);
-
-        // passing animation and start it
-        imageView.startAnimation(smalltobig);
-        titel.startAnimation(smalltobig);
-
-        elev.startAnimation(btta);
-        laerer.startAnimation(btta);
-
-        eller.startAnimation(btta2);
-        guest.startAnimation(btta2);
-
-        elev.setOnClickListener(this);
-        laerer.setOnClickListener(this);
-        guest.setOnClickListener(this);
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                    new FavoritFragment()).commit();
+            navigationView.setCheckedItem(R.id.nav_favorit);
+            getSupportActionBar().setTitle("Favorit");
+        }
     }
 
-    public void onClick(View v){
-        if (v == elev){
-            Intent i = new Intent(this, HomeActivity.class);
-            startActivity(i);
-            //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.toolbar_icon, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.nav_favorit:
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                        .replace(R.id.fragment_container, new FavoritFragment()).commit();
+                getSupportActionBar().setTitle("Favorit");
+                break;
+            case R.id.nav_map:
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                        .replace(R.id.fragment_container, new MapFragment()).commit();
+                getSupportActionBar().setTitle("Kort");
+                break;
+            case R.id.nav_ranklist:
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                        .replace(R.id.fragment_container, new RanklisteFragment()).commit();
+                getSupportActionBar().setTitle("Rangliste");
+                break;
+            case R.id.nav_about:
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                        .replace(R.id.fragment_container, new AboutFragment()).commit();
+                getSupportActionBar().setTitle("Om Os");
+                break;
+            case R.id.nav_scanner:
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                        .replace(R.id.fragment_container, new ScannerFragment()).commit();
+                getSupportActionBar().setTitle("QR Scanner");
+                break;
+            case R.id.nav_back:
+                super.onBackPressed();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                break;
         }
-        else if (v == laerer){
-            Intent i = new Intent(this, HomeActivity.class);
-            startActivity(i);
-            //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        }
-        else if (v == guest){
-            Intent i = new Intent(this, HomeActivity.class);
-            startActivity(i);
-            //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
     }
 }

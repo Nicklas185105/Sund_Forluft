@@ -25,10 +25,7 @@
                 android:width="338dp"
                 android:height="72dp"/>
             <corners
-                android:topLeftRadius="3dp"
-                android:topRightRadius="3dp"
-                android:bottomLeftRadius="3dp"
-                android:bottomRightRadius="3dp"/>
+                android:radius="5dp"/>
         </shape>
     </item>
 </layer-list>

@@ -24,7 +24,7 @@
     <style name="EditTextTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorControlNormal">@android:color/transparent</item>
         <item name="colorControlActivated">@color/colorLightBlue</item>
-        <item name="colorControlHighlight">@android:color/transparent</item>
+        <item name="colorControlHighlight">@color/colorLightBlue</item>
     </style>
 
 </resources>

@@ -8,9 +8,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class RanklisteFragment extends Fragment implements View.OnClickListener {
@@ -48,22 +46,22 @@ public class RanklisteFragment extends Fragment implements View.OnClickListener 
             }
             else if (view == midjutland){
                 mFragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new RanklisteNorthJutlandFragment()).commit();
+                        .replace(R.id.fragment_container, new RanklisteMidJutlandFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
             }
             else if (view == southjutland){
                 mFragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new RanklisteNorthJutlandFragment()).commit();
+                        .replace(R.id.fragment_container, new RanklisteSouthdenmarkFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
             }
             else if (view == zealand){
                 mFragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new RanklisteNorthJutlandFragment()).commit();
+                        .replace(R.id.fragment_container, new RanklisteZealandFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
             }
             else if (view == copenhagen){
                 mFragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new RanklisteNorthJutlandFragment()).commit();
+                        .replace(R.id.fragment_container, new RanklisteCopenhagenFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
             }
         } catch (NullPointerException e) {

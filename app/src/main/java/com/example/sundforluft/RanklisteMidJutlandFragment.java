@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class RanklisteNorthJutlandFragment extends Fragment {
+public class RanklisteMidJutlandFragment extends Fragment {
 
     TextView textView;
 
@@ -24,7 +24,7 @@ public class RanklisteNorthJutlandFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
         textView = view.findViewById(R.id.textView);
-        textView.setText("Top skoler i Nordjylland");
+        textView.setText("Top skoler i Midtjylland");
 
         return view;
     }

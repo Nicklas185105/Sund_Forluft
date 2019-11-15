@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@android:color/white">
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="338dp"
+        android:layout_height="80dp"
+        android:background="@drawable/bg_listview_favorit"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="10dp"
+        android:text="@string/favoritButtonText"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:textAllCaps="false"
+        android:textAlignment="viewStart"
+        android:paddingStart="72dp"
+        android:paddingEnd="72dp"
+        android:stateListAnimator="@null"
+        android:elevation="4dp"/>
+
+    <View
+        android:id="@+id/cicle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="15dp"
+        android:background="@drawable/ic_listview_placeholder"
+        android:elevation="5dp"/>
+
+</RelativeLayout>

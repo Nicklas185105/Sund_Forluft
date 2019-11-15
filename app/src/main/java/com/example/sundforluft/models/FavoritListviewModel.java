@@ -4,12 +4,12 @@ import androidx.fragment.app.Fragment;
 
 import com.example.sundforluft.R;
 
-public class SchoolModel {
+public class FavoritListviewModel {
     private String name;
     private int currentAir;
     private final Fragment fragment;
 
-    public SchoolModel(Fragment fragment, String name, int currentAir) {
+    public FavoritListviewModel(Fragment fragment, String name, int currentAir) {
         this.fragment = fragment;
         this.name = name;
         this.currentAir = currentAir;

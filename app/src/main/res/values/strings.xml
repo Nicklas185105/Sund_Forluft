@@ -12,7 +12,7 @@
     <!-- Rankliste Fragment -->
     <string name="topSkoler">Top skoler i (region)</string>
 
-    <!-- used by models/SchoolModel.java -->
+    <!-- used by models/FavoritListviewModel.java -->
     <string name="bad_air_quality">Dårlig</string>
     <string name="medium_air_quality">Medium</string>
     <string name="good_air_quality">God</string>

@@ -35,7 +35,7 @@ public class MapFragment extends Fragment {
     MapView mMapView;
     private GoogleMap mMap;
     private Geocoder mGeo;
-    private HashMap<String, Address> addresses;
+    private HashMap<String, LatLng> addresses;
 
     @Nullable
     @Override
@@ -56,27 +56,23 @@ public class MapFragment extends Fragment {
 
         mGeo = new Geocoder(this.getContext());
         addresses = new HashMap<>();
-        try {
-            addresses.put("DTU Lyngby", mGeo.getFromLocationName("DTU Lyngby",1).get(0));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        addresses.put("DTU Lyngby", new LatLng(55.7855742,12.521381));
 
 
         mMapView.getMapAsync(googleMap -> {
             mMap = googleMap;
 
             addresses.forEach((k,v)-> {
-                LatLng latLng = new LatLng(v.getLatitude(),v.getLongitude());
-                googleMap.addMarker(new MarkerOptions().position(latLng).title(k).snippet("Description"));
+
+                googleMap.addMarker(new MarkerOptions().position(v).title(k).snippet("Description"));
             });
 
 
 
 
             /* Should request user's location as a LatLng, DTU Lyngby temp value */
-            LatLng currentLoc = new LatLng(addresses.get("DTU Lyngby").getLatitude(), addresses.get("DTU Lyngby").getLongitude());
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(currentLoc).zoom(12).build();
+            //LatLng currentLoc = new LatLng(addresses.get("DTU Lyngby").getLatitude(), addresses.get("DTU Lyngby").getLongitude());
+            CameraPosition cameraPosition = new CameraPosition.Builder().target(addresses.values().iterator().next()).zoom(12).build();
             googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
         });
         return rootView;

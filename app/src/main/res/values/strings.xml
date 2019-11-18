@@ -8,16 +8,20 @@
     <string name="favorit">Favorit Skoler</string>
     <string name="favoritButtonText">Gentofte Skole\nLuftkvalitet: God</string>
     <string name="searchHint">Søg</string>
-
-    <!-- Rankliste Fragment -->
-    <string name="topSkoler">Top skoler i (region)</string>
-
-    <!-- used by models/SchoolModel.java -->
+    <!-- used by models/FavoritListviewModel.java -->
     <string name="bad_air_quality">Dårlig</string>
     <string name="medium_air_quality">Medium</string>
     <string name="good_air_quality">God</string>
     <string name="best_air_quality">Fremragende</string>
 
+    <!-- Rankliste Fragment -->
+    <string name="topSkoler">Top skoler i (region)</string>
+    <!-- Rankliste Fragments -->
+    <string name="copenhagen">Top skoler i København</string>
+    <string name="zealand">Top skoler i Sjælland</string>
+    <string name="southdenmark">Top skoler i Syddanmark</string>
+    <string name="midjutland">Top skoler i Midtjylland</string>
+    <string name="northjutland">Top skoler i Nordjylland</string>
 
     <string name="title_activity_maps">Map</string>
 </resources>

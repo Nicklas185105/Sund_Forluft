@@ -6,114 +6,57 @@
     android:orientation="vertical"
     android:background="@color/colorWhite">
 
-    <TextView
-        android:id="@+id/textView"
+    <View
+        android:id="@+id/rankliste_map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="33dp"
-        android:text="@string/topSkoler"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        android:textColor="@color/colorBlack54Op"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/bg_ranklist_map"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <Button
-        android:id="@+id/button"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@drawable/bg_listview_favorit"
-        android:scaleType="centerCrop"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="33dp"
-        android:text="@string/favoritButtonText"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:textAllCaps="false"
-        android:textAlignment="viewStart"
-        android:paddingStart="72dp"
-        android:paddingEnd="72dp"
-        android:stateListAnimator="@null"
-        android:elevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"/>
-    <View
-        android:id="@+id/cicle"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="18sp"
-        android:layout_marginStart="11dp"
-        android:background="@drawable/ic_listview_placeholder"
-        android:elevation="5dp"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toTopOf="@+id/button"/>
+        android:id="@+id/northjutland"
+        android:layout_width="210dp"
+        android:layout_height="235dp"
+        android:layout_marginStart="30dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@drawable/bg_listview_favorit"
-        android:scaleType="centerCrop"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="33dp"
-        android:text="@string/favoritButtonText"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:textAllCaps="false"
-        android:textAlignment="viewStart"
-        android:paddingStart="72dp"
-        android:paddingEnd="72dp"
-        android:stateListAnimator="@null"
-        android:elevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button"/>
-    <View
-        android:id="@+id/cicle2"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="18sp"
-        android:layout_marginStart="11dp"
-        android:background="@drawable/ic_listview_placeholder"
-        android:elevation="5dp"
-        app:layout_constraintStart_toStartOf="@+id/button2"
-        app:layout_constraintTop_toTopOf="@+id/button2"/>
+        android:id="@+id/midjutland"
+        android:layout_width="255dp"
+        android:layout_height="200dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@id/northjutland"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@drawable/bg_listview_favorit"
-        android:scaleType="centerCrop"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="33dp"
-        android:text="@string/favoritButtonText"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:textAllCaps="false"
-        android:textAlignment="viewStart"
-        android:paddingStart="72dp"
-        android:paddingEnd="72dp"
-        android:stateListAnimator="@null"
-        android:elevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"/>
-    <View
-        android:id="@+id/cicle3"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="18sp"
-        android:layout_marginStart="11dp"
-        android:background="@drawable/ic_listview_placeholder"
-        android:elevation="5dp"
-        app:layout_constraintStart_toStartOf="@+id/button3"
-        app:layout_constraintTop_toTopOf="@+id/button3"/>
+        android:id="@+id/southdenmark"
+        android:layout_width="250dp"
+        android:layout_height="280dp"
+        android:layout_marginBottom="20dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@+id/midjutland"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <Button
+        android:id="@+id/zealand"
+        android:layout_width="150dp"
+        android:layout_height="250dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toEndOf="@+id/southdenmark"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/copenhagen"
+        android:layout_width="100dp"
+        android:layout_height="250dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toTopOf="@+id/zealand"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

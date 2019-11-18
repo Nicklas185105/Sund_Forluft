@@ -1,6 +1,5 @@
 package com.example.sundforluft.services;
 
-
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,31 +11,27 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.sundforluft.R;
-import com.example.sundforluft.models.SchoolModel;
+import com.example.sundforluft.models.RanklisteListviewModel;
 
 import java.util.ArrayList;
 
-public class SchoolBadgeAdapter extends BaseAdapter {
-    private ArrayList<SchoolModel> items;
+public class RanklisteListviewAdapter extends BaseAdapter {
+
+    private ArrayList<RanklisteListviewModel> items;
     private final Fragment fragment;
     private final LayoutInflater inflater;
 
-    public SchoolBadgeAdapter(Fragment fragment) {
+    public RanklisteListviewAdapter(Fragment fragment) {
         items = new ArrayList<>();
         this.fragment = fragment;
         inflater = LayoutInflater.from(fragment.getActivity());
     }
 
-    public void addSchool(SchoolModel schoolModel) {
-        items.add(schoolModel);
+    public void addSchool(RanklisteListviewModel ranklisteListviewModel) {
+        items.add(ranklisteListviewModel);
     }
 
-    public void deleteSchool(int position) {
-        //TODO: Delete from favorites (locally saved)
-        items.remove(position);
-    }
-
-    public int getPosition(SchoolModel inputModel) {
+    public int getPosition(RanklisteListviewModel inputModel) {
         for (int i = 0; i < items.size(); i++) {
             if (inputModel.getName().equals(items.get(i).getName())) { return i; }
         }
@@ -61,31 +56,18 @@ public class SchoolBadgeAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Create new object for activity listener
-        convertView = inflater.inflate(R.layout.activity_listview, null);
+        convertView = inflater.inflate(R.layout.activity_rankliste_listview, null);
 
         // Item to be displayed
-        final SchoolModel model = items.get(position);
+        final RanklisteListviewModel model = items.get(position);
 
         // Change item properties to model values.
         Button button = convertView.findViewById(R.id.button);
         String schoolModelText = model.getName() + "\n" + model.getAirQualityString();
         button.setText(schoolModelText);
 
-        // Trigger delete on click
-        Button closeButton = convertView.findViewById(R.id.removeButton);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                int position = getPosition(model);
-
-                if (position >= 0) {
-                    deleteSchool(position);
-                    notifyDataSetChanged();
-                }
-            }
-        });
-
         // Get quality from model
-        switch (model.getAirQuality()) {
+        /*switch (model.getAirQuality()) {
             case 1:
                 Drawable redCircle = ResourcesCompat.getDrawable(fragment.getResources(), R.drawable.ic_listview_circle_red, null);
                 convertView.findViewById(R.id.cicle).setBackground(redCircle);
@@ -101,10 +83,9 @@ public class SchoolBadgeAdapter extends BaseAdapter {
                 Drawable greenCircle = ResourcesCompat.getDrawable(fragment.getResources(), R.drawable.ic_listview_circle_green, null);
                 convertView.findViewById(R.id.cicle).setBackground(greenCircle);
                 break;
-        }
+        }*/
 
         // return view for current row
         return convertView;
     }
-
 }

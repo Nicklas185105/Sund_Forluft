@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.icon) {
+            getSupportFragmentManager().popBackStack();
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
                     .replace(R.id.fragment_container, new ScannerFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_scanner);

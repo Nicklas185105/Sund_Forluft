@@ -11,6 +11,7 @@ import android.widget.Button;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.sundforluft.FavoritFragment;
 import com.example.sundforluft.R;
 import com.example.sundforluft.models.FavoritListviewModel;
 
@@ -70,6 +71,13 @@ public class FavoritListviewAdapter extends BaseAdapter {
         Button button = convertView.findViewById(R.id.button);
         String schoolModelText = model.getName() + "\n" + model.getAirQualityString();
         button.setText(schoolModelText);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                /*convertView.getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                        .replace(R.id.fragment_container, new FavoritFragment()).commit();*/
+            }
+        });
 
         // Trigger delete on click
         Button closeButton = convertView.findViewById(R.id.removeButton);
@@ -83,6 +91,7 @@ public class FavoritListviewAdapter extends BaseAdapter {
                 }
             }
         });
+
 
         // Get quality from model
         switch (model.getAirQuality()) {

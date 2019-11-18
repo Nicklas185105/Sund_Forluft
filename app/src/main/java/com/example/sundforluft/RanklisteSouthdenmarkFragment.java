@@ -4,15 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.sundforluft.models.RanklisteListviewModel;
+import com.example.sundforluft.services.RanklisteListviewAdapter;
+
 public class RanklisteSouthdenmarkFragment extends Fragment {
 
     TextView textView;
+    RanklisteListviewAdapter ranklisteListviewAdapter;
 
     @Nullable
     @Override
@@ -24,7 +29,20 @@ public class RanklisteSouthdenmarkFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
         textView = view.findViewById(R.id.textView);
-        textView.setText("Top skoler i Syddanmark");
+        textView.setText(R.string.southdenmark);
+
+        ranklisteListviewAdapter = new RanklisteListviewAdapter(this);
+
+        RanklisteListviewModel[] favoritListviewModels = new RanklisteListviewModel[] {
+                new RanklisteListviewModel(this, "Espe Skole", 12),
+                new RanklisteListviewModel(this, "Højby Skole", 14),
+                new RanklisteListviewModel(this, "Fjeldstrup Skole", 4),
+                new RanklisteListviewModel(this, "Bakkeskolen Esbjerg", 42),
+        };
+        for (RanklisteListviewModel favoritListviewModel : favoritListviewModels) { ranklisteListviewAdapter.addSchool(favoritListviewModel); }
+
+        ListView schoolModelListView = view.findViewById(R.id.listView);
+        schoolModelListView.setAdapter(ranklisteListviewAdapter);
 
         return view;
     }

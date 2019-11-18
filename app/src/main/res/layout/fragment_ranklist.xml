@@ -34,7 +34,7 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
-        android:id="@+id/southjutland"
+        android:id="@+id/southdenmark"
         android:layout_width="250dp"
         android:layout_height="280dp"
         android:layout_marginBottom="20dp"
@@ -48,7 +48,7 @@
         android:layout_width="150dp"
         android:layout_height="250dp"
         android:background="@android:color/transparent"
-        app:layout_constraintStart_toEndOf="@+id/southjutland"
+        app:layout_constraintStart_toEndOf="@+id/southdenmark"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <Button

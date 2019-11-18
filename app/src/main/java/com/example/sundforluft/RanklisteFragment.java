@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class RanklisteFragment extends Fragment implements View.OnClickListener {
 
-    private Button nortjutland, midjutland, southjutland, zealand, copenhagen;
+    private Button nortjutland, midjutland, southdenmark, zealand, copenhagen;
 
     @Nullable
     @Override
@@ -22,13 +22,13 @@ public class RanklisteFragment extends Fragment implements View.OnClickListener 
 
         nortjutland = view.findViewById(R.id.northjutland);
         midjutland = view.findViewById(R.id.midjutland);
-        southjutland = view.findViewById(R.id.southjutland);
+        southdenmark = view.findViewById(R.id.southdenmark);
         zealand = view.findViewById(R.id.zealand);
         copenhagen = view.findViewById(R.id.copenhagen);
 
         nortjutland.setOnClickListener(this);
         midjutland.setOnClickListener(this);
-        southjutland.setOnClickListener(this);
+        southdenmark.setOnClickListener(this);
         zealand.setOnClickListener(this);
         copenhagen.setOnClickListener(this);
 
@@ -49,7 +49,7 @@ public class RanklisteFragment extends Fragment implements View.OnClickListener 
                         .replace(R.id.fragment_container, new RanklisteMidJutlandFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
             }
-            else if (view == southjutland){
+            else if (view == southdenmark){
                 mFragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
                         .replace(R.id.fragment_container, new RanklisteSouthdenmarkFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);

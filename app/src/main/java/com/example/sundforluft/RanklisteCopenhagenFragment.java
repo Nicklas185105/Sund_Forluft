@@ -29,7 +29,7 @@ public class RanklisteCopenhagenFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
         textView = view.findViewById(R.id.textView);
-        textView.setText("Top skoler i Hovedstaden");
+        textView.setText(R.string.copenhagen);
 
         ranklisteListviewAdapter = new RanklisteListviewAdapter(this);
 

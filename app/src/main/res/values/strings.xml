@@ -3,6 +3,15 @@
     <string name="titel"><b>SUND</b> FOR<b>LUFT</b></string>
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
+    <string name="continueasguest">Fortsæt som gæst</string>
+
+    <!-- Navigation Drawer -->
+    <string name="menuFavorit">Favorit</string>
+    <string name="menuMap">Kort</string>
+    <string name="menuRanklist">Rangliste</string>
+    <string name="menuHelp">Hjælp</string>
+    <string name="menuScanner">QR Scanner</string>
+    <string name="menuBack">Tilbage</string>
 
     <!-- Favorit Fragmnet -->
     <string name="favorit">Favorit Skoler</string>
@@ -22,6 +31,9 @@
     <string name="southdenmark">Top skoler i Syddanmark</string>
     <string name="midjutland">Top skoler i Midtjylland</string>
     <string name="northjutland">Top skoler i Nordjylland</string>
+
+    <!-- Help Fagment -->
+    <string name="helpTitel">Hjælp</string>
 
     <string name="title_activity_maps">Map</string>
 </resources>

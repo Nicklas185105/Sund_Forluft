@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new FavoritFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_favorit);
-            getSupportActionBar().setTitle("Favorit");
+            getSupportActionBar().setTitle(R.string.menuFavorit);
         }
 
         getSupportFragmentManager().addOnBackStackChangedListener(this);
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
                     .replace(R.id.fragment_container, new ScannerFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_scanner);
-            getSupportActionBar().setTitle("QR Scanner");
+            getSupportActionBar().setTitle(R.string.menuScanner);
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -105,27 +105,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_favorit:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
                         .replace(R.id.fragment_container, new FavoritFragment()).commit();
-                getSupportActionBar().setTitle("Favorit");
+                getSupportActionBar().setTitle(R.string.menuFavorit);
                 break;
             case R.id.nav_map:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
                         .replace(R.id.fragment_container, new MapFragment()).commit();
-                getSupportActionBar().setTitle("Kort");
+                getSupportActionBar().setTitle(R.string.menuMap);
                 break;
             case R.id.nav_ranklist:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
                         .replace(R.id.fragment_container, new RanklisteFragment()).commit();
-                getSupportActionBar().setTitle("Rangliste");
+                getSupportActionBar().setTitle(R.string.menuRanklist);
                 break;
-            case R.id.nav_about:
+            case R.id.nav_help:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new AboutFragment()).commit();
-                getSupportActionBar().setTitle("Om Os");
+                        .replace(R.id.fragment_container, new HelpFragment()).commit();
+                getSupportActionBar().setTitle(R.string.menuHelp);
                 break;
             case R.id.nav_scanner:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
                         .replace(R.id.fragment_container, new ScannerFragment()).commit();
-                getSupportActionBar().setTitle("QR Scanner");
+                getSupportActionBar().setTitle(R.string.menuScanner);
                 break;
             case R.id.nav_back:
                 super.onBackPressed();

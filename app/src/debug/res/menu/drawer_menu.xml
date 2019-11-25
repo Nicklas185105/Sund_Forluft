@@ -7,23 +7,23 @@
         <item
             android:id="@+id/nav_favorit"
             android:icon="@drawable/ic_menu_favorit"
-            android:title="Favorit" />
+            android:title="@string/menuFavorit" />
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_menu_map"
-            android:title="Kort" />
+            android:title="@string/menuMap" />
         <item
             android:id="@+id/nav_ranklist"
             android:icon="@drawable/ic_menu_ranklist"
-            android:title="Rangliste" />
+            android:title="@string/menuRanklist" />
         <item
-            android:id="@+id/nav_about"
-            android:icon="@drawable/ic_menu_about"
-            android:title="Om Os" />
+            android:id="@+id/nav_help"
+            android:icon="@drawable/ic_menu_help"
+            android:title="@string/menuHelp" />
         <item
             android:id="@+id/nav_scanner"
             android:icon="@drawable/ic_menu_scanner"
-            android:title="QR Scanner" />
+            android:title="@string/menuScanner" />
     </group>
 
     <item android:title="">
@@ -31,7 +31,7 @@
             <item
                 android:id="@+id/nav_back"
                 android:icon="@drawable/ic_menu_back"
-                android:title="Tilbage" />
+                android:title="@string/menuBack" />
         </menu>
     </item>
 

@@ -17,6 +17,8 @@ public class HelpFavoritFragment extends Fragment implements View.OnClickListene
 
     ImageView imageView;
 
+    int n;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -26,11 +28,62 @@ public class HelpFavoritFragment extends Fragment implements View.OnClickListene
         forward = view.findViewById(R.id.forward);
         imageView = view.findViewById(R.id.imageView);
 
+        back.setOnClickListener(this);
+        forward.setOnClickListener(this);
+
+        imageView.setImageResource(R.drawable.ic_help_1_place);
+        n = 1;
+
         return view;
     }
 
     @Override
     public void onClick(View v) {
-
+        if (v == back){
+            switch (n){
+                case 2:
+                    imageView.setImageResource(R.drawable.ic_help_1_place);
+                    break;
+                case 3:
+                    imageView.setImageResource(R.drawable.ic_help_2_place);
+                    break;
+                case 4:
+                    imageView.setImageResource(R.drawable.ic_help_3_place);
+                    break;
+                case 5:
+                    imageView.setImageResource(R.drawable.ic_help_4_place);
+                    break;
+                case 6:
+                    imageView.setImageResource(R.drawable.ic_help_5_place);
+                    break;
+                case 7:
+                    imageView.setImageResource(R.drawable.ic_help_6_place);
+                    break;
+            }
+            n--;
+        }
+        else if (v == forward){
+            switch (n){
+                case 1:
+                    imageView.setImageResource(R.drawable.ic_help_2_place);
+                    break;
+                case 2:
+                    imageView.setImageResource(R.drawable.ic_help_3_place);
+                    break;
+                case 3:
+                    imageView.setImageResource(R.drawable.ic_help_4_place);
+                    break;
+                case 4:
+                    imageView.setImageResource(R.drawable.ic_help_5_place);
+                    break;
+                case 5:
+                    imageView.setImageResource(R.drawable.ic_help_6_place);
+                    break;
+                case 6:
+                    imageView.setImageResource(R.drawable.ic_help_7_place);
+                    break;
+            }
+            n++;
+        }
     }
 }

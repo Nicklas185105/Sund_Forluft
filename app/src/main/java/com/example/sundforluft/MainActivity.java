@@ -59,8 +59,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (v.getId() == R.id.rankliste)
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
                             .replace(R.id.fragment_container, new RanklisteFragment()).commit();
+                    else{
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                .replace(R.id.fragment_container, new HelpFragment()).commit();
+                    }
                     getSupportFragmentManager().popBackStack();
                 }
             });
@@ -104,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()){
             case R.id.nav_favorit:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new FavoritFragment()).commit();
+                    .replace(R.id.fragment_container, new FavoritFragment()).commit();
                 getSupportActionBar().setTitle(R.string.menuFavorit);
                 break;
             case R.id.nav_map:

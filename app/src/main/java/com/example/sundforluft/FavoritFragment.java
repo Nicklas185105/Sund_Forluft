@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.example.sundforluft.models.FavoritListviewModel;
 import com.example.sundforluft.services.FavoritListviewAdapter;
 
@@ -30,12 +32,14 @@ public class FavoritFragment extends Fragment {
         favoritListviewAdapter.setClickListener(new FavoritListviewAdapter.ClickListener() {
             @Override
             public void onClick(FavoritListviewModel model, FavoritListviewAdapter.ClickListenerType type) {
+                FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction();
                 switch (type) {
                     case School:
-                        getFragmentManager().beginTransaction()
-                                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                                .replace(R.id.fragment_container, new ScannerFragment())
+                        mFragmentTransaction
+                                .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                                .replace(R.id.fragment_container, new FavoritDetailedFragment())
                                 .commit();
+                        mFragmentTransaction.addToBackStack(null);
 
                         break;
                     case Close:

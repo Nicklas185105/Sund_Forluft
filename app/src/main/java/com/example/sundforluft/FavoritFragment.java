@@ -2,14 +2,18 @@ package com.example.sundforluft;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import androidx.fragment.app.FragmentManager;
 import com.example.sundforluft.models.FavoritListviewModel;
 import com.example.sundforluft.services.FavoritListviewAdapter;
 
@@ -23,6 +27,23 @@ public class FavoritFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_favorit, container, false);
 
         favoritListviewAdapter = new FavoritListviewAdapter(this);
+        favoritListviewAdapter.setClickListener(new FavoritListviewAdapter.ClickListener() {
+            @Override
+            public void onClick(FavoritListviewModel model, FavoritListviewAdapter.ClickListenerType type) {
+                switch (type) {
+                    case School:
+                        getFragmentManager().beginTransaction()
+                                .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                .replace(R.id.fragment_container, new ScannerFragment())
+                                .commit();
+
+                        break;
+                    case Close:
+                        favoritListviewAdapter.deleteSchoolByModel(model);
+                        break;
+                }
+            }
+        });
 
         FavoritListviewModel[] favoritListviewModels = new FavoritListviewModel[] {
                 new FavoritListviewModel(this, "Gentofte Skole", 12),
@@ -34,6 +55,21 @@ public class FavoritFragment extends Fragment {
 
         ListView schoolModelListView = view.findViewById(R.id.listView);
         schoolModelListView.setAdapter(favoritListviewAdapter);
+
+        EditText editText = view.findViewById(R.id.editText);
+        editText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction()==MotionEvent.ACTION_DOWN) {
+                    ViewAnimationUtils.createCircularReveal(editText,
+                            (int) event.getX(),
+                            (int) event.getY(),
+                            0,
+                            editText.getHeight() * 2).start();
+                }
+                return false;
+            }
+        });
 
         return view;
     }

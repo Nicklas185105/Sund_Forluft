@@ -75,11 +75,18 @@ public class FavoritDetailedFragment extends Fragment implements OnChartValueSel
 
         // NOTE: The order of the entries when being added to the entries array determines their position around the center of
         // the chart.
-        /*for (int i = 0; i < count ; i++) {
+
+        final String[] parties = new String[] {
+                "Party A", "Party B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
+                "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
+                "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
+                "Party Y", "Party Z"
+        };
+
+        for (int i = 0; i < count ; i++) {
             entries.add(new PieEntry((float) ((Math.random() * range) + range / 5),
-                    parties[i % parties.length],
-                    getResources().getDrawable(R.drawable.star)));
-        }*/
+                    parties[i % parties.length]));
+        }
 
         PieDataSet dataSet = new PieDataSet(entries, "Election Results");
 

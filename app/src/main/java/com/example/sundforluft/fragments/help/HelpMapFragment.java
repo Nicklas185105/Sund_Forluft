@@ -1,4 +1,4 @@
-package com.example.sundforluft;
+package com.example.sundforluft.fragments.help;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

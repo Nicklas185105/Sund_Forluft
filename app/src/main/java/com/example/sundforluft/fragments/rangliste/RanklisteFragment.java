@@ -1,4 +1,4 @@
-package com.example.sundforluft;
+package com.example.sundforluft.fragments.rangliste;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.sundforluft.R;
 
 public class RanklisteFragment extends Fragment implements View.OnClickListener {
 

@@ -1,4 +1,4 @@
-package com.example.sundforluft;
+package com.example.sundforluft.fragments.favorit;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.sundforluft.R;
 import com.example.sundforluft.models.FavoritListviewModel;
 import com.example.sundforluft.services.FavoritListviewAdapter;
 

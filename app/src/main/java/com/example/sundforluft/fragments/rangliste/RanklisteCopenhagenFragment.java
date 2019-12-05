@@ -1,4 +1,4 @@
-package com.example.sundforluft;
+package com.example.sundforluft.fragments.rangliste;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.sundforluft.R;
 import com.example.sundforluft.models.RanklisteListviewModel;
 import com.example.sundforluft.services.RanklisteListviewAdapter;
 

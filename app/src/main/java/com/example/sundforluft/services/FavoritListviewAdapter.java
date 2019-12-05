@@ -11,13 +11,11 @@ import android.widget.Button;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.sundforluft.FavoritFragment;
 import com.example.sundforluft.R;
 import com.example.sundforluft.models.FavoritListviewModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Hashtable;
 
 public class FavoritListviewAdapter extends BaseAdapter implements View.OnClickListener {
     private ArrayList<FavoritListviewModel> items;

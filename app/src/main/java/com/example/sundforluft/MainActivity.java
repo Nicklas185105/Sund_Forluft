@@ -14,6 +14,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.sundforluft.fragments.favorit.FavoritFragment;
+import com.example.sundforluft.fragments.help.HelpFragment;
+import com.example.sundforluft.fragments.kort.MapFragment;
+import com.example.sundforluft.fragments.rangliste.RanklisteFragment;
+import com.example.sundforluft.fragments.scanner.ScannerFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener {

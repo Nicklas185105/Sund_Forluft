@@ -1,4 +1,4 @@
-package com.example.sundforluft;
+package com.example.sundforluft.fragments.rangliste;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,10 +11,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.sundforluft.R;
 import com.example.sundforluft.models.RanklisteListviewModel;
 import com.example.sundforluft.services.RanklisteListviewAdapter;
 
-public class RanklisteZealandFragment extends Fragment {
+public class RanklisteSouthdenmarkFragment extends Fragment {
 
     TextView textView;
     RanklisteListviewAdapter ranklisteListviewAdapter;
@@ -29,15 +30,15 @@ public class RanklisteZealandFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
         textView = view.findViewById(R.id.textView);
-        textView.setText(R.string.zealand);
+        textView.setText(R.string.southdenmark);
 
         ranklisteListviewAdapter = new RanklisteListviewAdapter(this);
 
         RanklisteListviewModel[] favoritListviewModels = new RanklisteListviewModel[] {
-                new RanklisteListviewModel(this, "Borup Skole", 12),
-                new RanklisteListviewModel(this, "Vigersted Skole", 14),
-                new RanklisteListviewModel(this, "Vemmelev Skole", 4),
-                new RanklisteListviewModel(this, "Flakkebjerg Skole", 42),
+                new RanklisteListviewModel(this, "Espe Skole", 12),
+                new RanklisteListviewModel(this, "Højby Skole", 14),
+                new RanklisteListviewModel(this, "Fjeldstrup Skole", 4),
+                new RanklisteListviewModel(this, "Bakkeskolen Esbjerg", 42),
         };
         for (RanklisteListviewModel favoritListviewModel : favoritListviewModels) { ranklisteListviewAdapter.addSchool(favoritListviewModel); }
 

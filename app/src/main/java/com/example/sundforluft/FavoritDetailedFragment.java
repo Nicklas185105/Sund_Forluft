@@ -11,6 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.sundforluft.services.CsvDataBroker;
+import com.example.sundforluft.services.SundForluftDataBroker;
+import com.example.sundforluft.services.SundforluftDataModel;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.Entry;
@@ -23,7 +26,14 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class FavoritDetailedFragment extends Fragment implements OnChartValueSelectedListener {
 
@@ -35,7 +45,7 @@ public class FavoritDetailedFragment extends Fragment implements OnChartValueSel
         View view = inflater.inflate(R.layout.fragment_favorit_detailed, container, false);
 
         chart = view.findViewById(R.id.chart1);
-        chart.setUsePercentValues(true);
+        //chart.setUsePercentValues(true);
         chart.getDescription().setEnabled(false);
         chart.setExtraOffsets(5, 10, 5,5);
 
@@ -67,7 +77,36 @@ public class FavoritDetailedFragment extends Fragment implements OnChartValueSel
         //chart.setEntryLabelTypeface();
         chart.setEntryLabelTextSize(12f);
 
+
+        SundForluftDataBroker dataBroker = new CsvDataBroker( getResources() );
+
+        List<SundforluftDataModel> modelsForSchoolA = dataBroker.GetData(
+            LocalDateTime.parse("2019-08-19T11:37:28.264000"),
+            LocalDateTime.parse("2019-08-20T11:30:07.899000")
+        );
+
+        List<SundforluftDataModel> modelsForSchoolB = dataBroker.GetData(
+            LocalDateTime.parse("2019-08-20T13:01:11.318000"),
+            LocalDateTime.parse("2019-08-20T13:32:35.421000")
+        );
+
+
+        setData(1, getAverage(modelsForSchoolA));
+        setData(2, getAverage(modelsForSchoolB));
+
         return view;
+    }
+
+    private float getAverage(List<SundforluftDataModel> models) {
+        double total = 0;
+        int count = 0;
+
+        for (SundforluftDataModel model : models) {
+            total += model.CO2;
+            count++;
+        }
+
+        return (float)(total / count);
     }
 
     private void setData(int count, float range){
@@ -77,7 +116,7 @@ public class FavoritDetailedFragment extends Fragment implements OnChartValueSel
         // the chart.
 
         final String[] parties = new String[] {
-                "Party A", "Party B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
+                "Skole A", "Skole B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
                 "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
                 "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
                 "Party Y", "Party Z"

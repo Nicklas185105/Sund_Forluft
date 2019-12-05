@@ -1,8 +1,9 @@
 package com.example.sundforluft.services;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public interface SundForluftDataBroker {
     void Load();
-    SundforluftDataModel[] GetData(Date start, Date end);
+    List<SundforluftDataModel> GetData(LocalDateTime start, LocalDateTime end);
 }

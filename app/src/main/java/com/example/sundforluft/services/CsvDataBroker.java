@@ -9,13 +9,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CsvDataBroker implements SundForluftDataBroker {
     private Resources res;
 
-    CsvDataBroker(Resources res) {
+    public CsvDataBroker(Resources res) {
         this.res = res; // getResources()
     }
 
@@ -23,7 +25,7 @@ public class CsvDataBroker implements SundForluftDataBroker {
     public void Load() {  }
 
     @Override
-    public SundforluftDataModel[] GetData(Date start, Date end) {
+    public List<SundforluftDataModel> GetData(LocalDateTime start, LocalDateTime end) {
         InputStream inputStream = res.openRawResource( R.raw.data );
 
         InputStreamReader inputreader = new InputStreamReader(inputStream);
@@ -36,16 +38,18 @@ public class CsvDataBroker implements SundForluftDataBroker {
             while (( line = buffreader.readLine()) != null) {
                 SundforluftDataModel model = parseModel( line );
 
-                if (model.Date.after(start)) {
+                if (model.Date.isAfter(start)) {
                     dataModelArrayList.add(model);
                 }
-                if (model.Date.after(end)) { break; }//stop parsing
+                if (model.Date.isAfter(end)) {
+                    break; //stop parsing
+                }
             }
         } catch (IOException e) {
             return null;
         }
 
-        return (SundforluftDataModel[]) dataModelArrayList.toArray();
+        return dataModelArrayList;
     }
 
     private SundforluftDataModel parseModel(String line) {
@@ -53,8 +57,7 @@ public class CsvDataBroker implements SundForluftDataBroker {
 
         SundforluftDataModel model = new SundforluftDataModel();
 
-        Instant instant = Instant.parse(parts[0]);
-        model.Date = Date.from(instant);
+        model.Date = LocalDateTime.parse(parts[0]);
         model.CO2 = Double.parseDouble( parts[1] );
 
         return model;

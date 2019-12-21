@@ -5,11 +5,21 @@
     android:orientation="vertical"
     android:background="@color/colorWhite">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="QR Scanner"
-        android:textSize="30sp"
-        android:layout_centerInParent="true"/>
 
+    <SurfaceView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:id="@+id/qrCamera"
+        android:layout_centerInParent="true"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/qrText"
+        android:layout_below="@id/qrText"
+        android:layout_marginTop="20dp"
+        android:text="Scan din QR code"
+        android:gravity="center"
+        />
 </RelativeLayout>

@@ -47,6 +47,12 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".LaererLoginActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".GuestLogin"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

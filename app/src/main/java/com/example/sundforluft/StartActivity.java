@@ -58,12 +58,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
         else if (v == laerer){
-            Intent i = new Intent(this, MainActivity.class);
+            Intent i = new Intent(this, LaererLoginActivity.class);
             startActivity(i);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }
         else if (v == guest){
-            Intent i = new Intent(this, MainActivity.class);
+            Intent i = new Intent(this, GuestLogin.class);
             startActivity(i);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         }

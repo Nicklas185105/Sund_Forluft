@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "956227450821",
+    "firebase_url": "https://sund-forluft-5efeb.firebaseio.com",
+    "project_id": "sund-forluft-5efeb",
+    "storage_bucket": "sund-forluft-5efeb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956227450821:android:44f392af64f427f7b2fdac",
+        "android_client_info": {
+          "package_name": "com.example.sundforluft"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956227450821-ts81v6gbqfj2h007ipob4b3jrunfh346.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sundforluft",
+            "certificate_hash": "c9ea15ca8dd4b8ad74fedb8530b73f53985f8662"
+          }
+        },
+        {
+          "client_id": "956227450821-e6v9cnoun485jomk83mgc4njl31b3327.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsp_h2F4udm02qtKo0fi5-5VouYqMU3Xc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956227450821-e6v9cnoun485jomk83mgc4njl31b3327.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

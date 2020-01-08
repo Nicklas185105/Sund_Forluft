@@ -32,8 +32,8 @@ public class LaererLoginActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         if (v == button){
             FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("accesstokens/NpWCNaQC5ULxNkTaJ7FnRYKK");
-            myRef.setValue("4UfGIuzqgvwsG0lqFy6dihxP96yPBMfXwBefc9C0");
+            DatabaseReference myRef = database.getReference("users/admin");
+            myRef.setValue("5f4dcc4b5aa765d61d8327deb882cf99");
 
             /*myRef.addValueEventListener(new ValueEventListener() {
                 @Override

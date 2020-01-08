@@ -81,7 +81,6 @@ public class FavoritDetailedFragment extends Fragment implements OnChartValueSel
         //chart.setEntryLabelTypeface();
         chart.setEntryLabelTextSize(12f);
 
-
         SundForluftDataBroker dataBroker = new CsvDataBroker( getResources() );
 
         List<SundforluftDataModel> modelsForSchoolA = dataBroker.GetData(

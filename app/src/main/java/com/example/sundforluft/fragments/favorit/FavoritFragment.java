@@ -8,6 +8,7 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 import com.example.sundforluft.models.FavoritListviewModel;
 import com.example.sundforluft.services.FavoritListviewAdapter;
+import com.example.sundforluft.services.Globals;
 
 public class FavoritFragment extends Fragment {
 

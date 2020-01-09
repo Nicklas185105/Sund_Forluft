@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_map:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
                         .replace(R.id.fragment_container, new MapFragment()).commit();
-                getSupportActionBar().setTitle(R.string.menuMap);
+                getSupportActionBar().setTitle(R.string.menuSchool);
                 break;
             case R.id.nav_ranklist:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)

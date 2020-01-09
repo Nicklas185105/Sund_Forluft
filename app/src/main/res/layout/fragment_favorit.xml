@@ -7,24 +7,16 @@
     tools:context=".MainActivity"
     android:background="@android:color/white">
 
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_favorit_search"
-        android:drawableStart="@drawable/ic_favorit_search"
-        android:drawablePadding="15dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="15dp"
-        android:ems="8"
-        android:hint="@string/searchHint"
-        android:inputType="textPersonName"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="27dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginTop="40dp"
+        android:text="En Eller anden besked"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/text"
@@ -37,7 +29,7 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView"/>
 
     <ListView
         android:id="@+id/listView"

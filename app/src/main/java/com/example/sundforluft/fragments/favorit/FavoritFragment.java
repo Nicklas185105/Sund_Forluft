@@ -69,21 +69,6 @@ public class FavoritFragment extends Fragment {
         ListView schoolModelListView = view.findViewById(R.id.listView);
         schoolModelListView.setAdapter(favoritListviewAdapter);
 
-        EditText editText = view.findViewById(R.id.editText);
-        editText.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction()==MotionEvent.ACTION_DOWN) {
-                    ViewAnimationUtils.createCircularReveal(editText,
-                            (int) event.getX(),
-                            (int) event.getY(),
-                            0,
-                            editText.getHeight() * 2).start();
-                }
-                return false;
-            }
-        });
-
         // Set title of toolbar
         ((MainActivity) getActivity()).getSupportActionBar().setTitle("Favorit");
 

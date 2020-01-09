@@ -33,49 +33,12 @@ import static android.content.ContentValues.TAG;
 
 public class MapFragment extends Fragment {
 
-    MapView mMapView;
-    private GoogleMap mMap;
-    private Geocoder mGeo;
-    private HashMap<String, LatLng> addresses;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_map, container, false);
 
-        mMapView = (MapView) rootView.findViewById(R.id.map);
-        mMapView.onCreate(savedInstanceState);
 
-        mMapView.onResume();
-
-        try {
-            MapsInitializer.initialize(getActivity().getApplicationContext());
-
-        } catch (   Exception e){
-            e.printStackTrace();
-        }
-
-        mGeo = new Geocoder(this.getContext());
-        addresses = new HashMap<>();
-        addresses.put("DTU Lyngby", new LatLng(55.7855742,12.521381));
-
-
-        mMapView.getMapAsync(googleMap -> {
-            mMap = googleMap;
-
-            addresses.forEach((k,v)-> {
-
-                googleMap.addMarker(new MarkerOptions().position(v).title(k).snippet("Description"));
-            });
-
-
-
-
-            /* Should request user's location as a LatLng, DTU Lyngby temp value */
-            //LatLng currentLoc = new LatLng(addresses.get("DTU Lyngby").getLatitude(), addresses.get("DTU Lyngby").getLongitude());
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(addresses.values().iterator().next()).zoom(12).build();
-            googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-        });
         return rootView;
 
     }

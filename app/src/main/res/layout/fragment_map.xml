@@ -1,14 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/colorWhite">
 
-    <com.google.android.gms.maps.MapView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/map"
-        android:name="com.example.sundforluft.MapFragment"/>
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_favorit_search"
+        android:drawableStart="@drawable/ic_favorit_search"
+        android:drawablePadding="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:ems="8"
+        android:hint="@string/searchHint"
+        android:inputType="textPersonName"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</RelativeLayout>
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="36dp"
+        android:divider="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editText"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

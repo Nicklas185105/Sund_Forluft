@@ -7,7 +7,7 @@
 
     <!-- Navigation Drawer -->
     <string name="menuFavorit">Favorit</string>
-    <string name="menuMap">Kort</string>
+    <string name="menuSchool">Skoler</string>
     <string name="menuRanklist">Rangliste</string>
     <string name="menuHelp">Hjælp</string>
     <string name="menuScanner">QR Scanner</string>
@@ -24,6 +24,9 @@
     <string name="best_air_quality">Fremragende</string>
     <!-- Detailed View -->
     <string name="schoolName">Skole Navn</string>
+    <!-- Detailed Fragment -->
+    <string name="placeholder">Placeholder Class</string>
+    <string name="procent">50%</string>
 
     <!-- Rankliste Fragment -->
     <string name="topSkoler">Top skoler i (region)</string>

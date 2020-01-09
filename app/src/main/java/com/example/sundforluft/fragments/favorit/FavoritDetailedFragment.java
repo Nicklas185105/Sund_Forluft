@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,7 +17,9 @@ import androidx.fragment.app.Fragment;
 import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 
+import com.example.sundforluft.models.FavoritDetailedListviewModel;
 import com.example.sundforluft.services.CsvDataBroker;
+import com.example.sundforluft.services.FavoritDetailedListviewAdapter;
 import com.example.sundforluft.services.SundForluftDataBroker;
 import com.example.sundforluft.services.SundforluftDataModel;
 
@@ -43,6 +47,7 @@ import java.util.List;
 public class FavoritDetailedFragment extends Fragment implements OnChartValueSelectedListener {
 
     private PieChart chart;
+    FavoritDetailedListviewAdapter favoritDetailedListviewAdapter;
 
     @Nullable
     @Override
@@ -101,6 +106,19 @@ public class FavoritDetailedFragment extends Fragment implements OnChartValueSel
 
         // Set title of toolbar
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(this.getArguments().getString("name"));
+
+        favoritDetailedListviewAdapter = new FavoritDetailedListviewAdapter(this);
+
+        FavoritDetailedListviewModel[] favoritDetailedListviewModel = new FavoritDetailedListviewModel[] {
+                new FavoritDetailedListviewModel(this, "Vallensbæk Skole", "50%", 12),
+                new FavoritDetailedListviewModel(this, "Munkegårdsskolen", "25%", 14),
+                new FavoritDetailedListviewModel(this, "Gentofte Skole", "66%", 4),
+                new FavoritDetailedListviewModel(this, "Amager Fælled Skole", "80%", 42),
+        };
+        for (FavoritDetailedListviewModel favoritDetailedListviewModels : favoritDetailedListviewModel) { favoritDetailedListviewAdapter.addSchool(favoritDetailedListviewModels); }
+
+        ListView schoolModelListView = view.findViewById(R.id.listView);
+        schoolModelListView.setAdapter(favoritDetailedListviewAdapter);
 
         return view;
     }

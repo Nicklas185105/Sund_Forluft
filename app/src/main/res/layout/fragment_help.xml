@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
-        android:text="@string/menuMap"
+        android:text="@string/menuSchool"
         android:textColor="@color/colorWhite"
         android:textSize="20sp"
         android:background="@drawable/bg_start_continue"

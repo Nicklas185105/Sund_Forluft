@@ -35,7 +35,7 @@ public class RanklisteCopenhagenFragment extends Fragment {
         ranklisteListviewAdapter = new RanklisteListviewAdapter(this);
 
         RanklisteListviewModel[] favoritListviewModels = new RanklisteListviewModel[] {
-                new RanklisteListviewModel(this, "Vallensbæk Skole", 12),
+                new RanklisteListviewModel(this, "Vallensbæk Skole",  12),
                 new RanklisteListviewModel(this, "Munkegårdsskolen", 14),
                 new RanklisteListviewModel(this, "Gentofte Skole", 4),
                 new RanklisteListviewModel(this, "Amager Fælled Skole", 42),

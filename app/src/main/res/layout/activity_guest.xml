@@ -1,28 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
 
-    <SurfaceView
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:id="@+id/qrCamera"
-        android:layout_centerInParent="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorWhite"
+        android:id="@+id/toolbar"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        android:elevation="4dp"/>
+
+    <me.dm7.barcodescanner.zxing.ZXingScannerView
+        android:id="@+id/zxscan"
+        android:layout_above="@+id/layout_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         />
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/layout_result"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:background="@color/colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/qrText"
-        android:layout_below="@id/qrText"
-        android:layout_marginTop="20dp"
-        android:text="Scan din QR code"
-        android:gravity="center"
-        />
+        >
+        <TextView
+            android:id="@+id/txt_result"
+            android:text=". . ."
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>

@@ -85,7 +85,7 @@ public class ScannerFragment extends Fragment implements ZXingScannerView.Result
         // QR scan result.
         String deviceId = rawResult.getText();
         
-
+        txtResult.setText(rawResult.getText());
 
     }
 

@@ -60,7 +60,7 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
                     if (password.equals(compare)) {
                         Globals.isTeacher = true;
                         
-                        Intent intent = new Intent(LaererLoginActivity.this, MainActivity.class);
+                        Intent intent = new Intent(TeacherLoginActivity.this, MainActivity.class);
                         startActivity(intent);
                     } else {
                         Toast.makeText(getApplicationContext(), "Wrong account information", Toast.LENGTH_SHORT).show();

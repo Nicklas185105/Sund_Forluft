@@ -60,6 +60,10 @@ public class FavoritListviewAdapter extends BaseAdapter implements View.OnClickL
         }
     }
 
+    public String getName(FavoritListviewModel model){
+        return items.get(getPosition(model)).getName();
+    }
+
 
     public FavoritListviewAdapter(Fragment fragment) {
         items = new ArrayList<>();

@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
+import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 
 import com.example.sundforluft.services.CsvDataBroker;
@@ -96,6 +97,10 @@ public class FavoritDetailedFragment extends Fragment implements OnChartValueSel
 
         setData(1, getAverage(modelsForSchoolA));
         setData(2, getAverage(modelsForSchoolB));
+
+
+        // Set title of toolbar
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(this.getArguments().getString("name"));
 
         return view;
     }

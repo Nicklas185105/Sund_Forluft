@@ -22,6 +22,8 @@
     <string name="medium_air_quality">Medium</string>
     <string name="good_air_quality">God</string>
     <string name="best_air_quality">Fremragende</string>
+    <!-- Detailed View -->
+    <string name="schoolName">Skole Navn</string>
 
     <!-- Rankliste Fragment -->
     <string name="topSkoler">Top skoler i (region)</string>
@@ -34,6 +36,14 @@
 
     <!-- Help Fagment -->
     <string name="helpTitel">Hjælp</string>
+
+    <!-- Guest Login -->
+    <string name="tekst">. . .</string>
+
+    <!-- Teacher Login -->
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 
     <string name="title_activity_maps">Map</string>
 </resources>

@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 import com.example.sundforluft.models.FavoritListviewModel;
 import com.example.sundforluft.services.FavoritListviewAdapter;
@@ -35,9 +36,13 @@ public class FavoritFragment extends Fragment {
                 FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction();
                 switch (type) {
                     case School:
+                        Bundle bundle = new Bundle();
+                        bundle.putString("name", favoritListviewAdapter.getName(model));
+                        FavoritDetailedFragment detailedFragment = new FavoritDetailedFragment();
+                        detailedFragment.setArguments(bundle);
                         mFragmentTransaction
                                 .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                                .replace(R.id.fragment_container, new FavoritDetailedFragment())
+                                .replace(R.id.fragment_container, detailedFragment)
                                 .commit();
                         mFragmentTransaction.addToBackStack(null);
 
@@ -74,6 +79,9 @@ public class FavoritFragment extends Fragment {
                 return false;
             }
         });
+
+        // Set title of toolbar
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Favorit");
 
         return view;
     }

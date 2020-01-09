@@ -8,8 +8,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.sundforluft.DAL.SchoolsLocator;
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView imageView, eller;
@@ -21,6 +24,8 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        SchoolsLocator.getInstance(); // Start async loading of all schools.
 
         // load this animation
         smalltobig = AnimationUtils.loadAnimation(this, R.anim.smalltobig);
@@ -52,20 +57,23 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void onClick(View v){
-        if (v == elev){
-            Intent i = new Intent(this, MainActivity.class);
-            startActivity(i);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        }
-        else if (v == laerer){
-            Intent i = new Intent(this, TeacherLoginActivity.class);
-            startActivity(i);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-        }
-        else if (v == guest){
-            Intent i = new Intent(this, GuestLogin.class);
-            startActivity(i);
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        if (SchoolsLocator.getInstance().isLoaded()) {
+            if (v == elev) {
+                Intent i = new Intent(this, MainActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            } else if (v == laerer) {
+                Intent i = new Intent(this, TeacherLoginActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            } else if (v == guest) {
+                Intent i = new Intent(this, GuestLogin.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        } else {
+            /*TODO: Text in Strings.xml*/
+            Toast.makeText(getApplicationContext(), "Henter skoler. Vent venligst.", Toast.LENGTH_SHORT).show();
         }
     }
 }

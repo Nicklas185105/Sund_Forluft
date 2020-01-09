@@ -19,6 +19,7 @@ import com.example.sundforluft.fragments.help.HelpFragment;
 import com.example.sundforluft.fragments.kort.MapFragment;
 import com.example.sundforluft.fragments.rangliste.RanklisteFragment;
 import com.example.sundforluft.fragments.scanner.ScannerFragment;
+import com.example.sundforluft.services.Globals;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentManager.OnBackStackChangedListener {
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Globals.favoriteSchoolPreferences = getSharedPreferences("favorite_schools", MODE_PRIVATE);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

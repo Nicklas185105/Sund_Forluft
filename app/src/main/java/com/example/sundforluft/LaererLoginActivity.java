@@ -1,5 +1,6 @@
 package com.example.sundforluft;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.sundforluft.services.Globals;
 import com.example.sundforluft.services.MD5Converter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,8 +47,10 @@ public class LaererLoginActivity extends AppCompatActivity implements View.OnCli
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String password = dataSnapshot.getValue(String.class);
                     if (password.equals(compare)) {
-                        // Login
-                        Toast.makeText(getApplicationContext(), "Correct account information", Toast.LENGTH_SHORT).show();
+                        Globals.isTeacher = true;
+                        
+                        Intent intent = new Intent(LaererLoginActivity.this, MainActivity.class);
+                        startActivity(intent);
                     } else {
                         Toast.makeText(getApplicationContext(), "Wrong account information", Toast.LENGTH_SHORT).show();
                     }

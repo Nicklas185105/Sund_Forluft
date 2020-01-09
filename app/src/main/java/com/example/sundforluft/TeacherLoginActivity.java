@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.sundforluft.DAL.SchoolsLocator;
 import com.example.sundforluft.services.Globals;
 import com.example.sundforluft.services.MD5Converter;
 import com.google.firebase.database.DataSnapshot;
@@ -21,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class TeacherLoginActivity extends AppCompatActivity implements View.OnClickListener {
-
     Button button;
     Toolbar toolbar;
 
@@ -45,33 +45,46 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if (v == button){
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
             EditText username = findViewById(R.id.usernameEditText);
             EditText password = findViewById(R.id.passwordEditText);
 
-            String compare = MD5Converter.md5(password.getText().toString());
-
-            DatabaseReference myRef = database.getReference("users/" + username.getText().toString());
-
-            myRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String password = dataSnapshot.getValue(String.class);
-                    if (password.equals(compare)) {
-                        Globals.isTeacher = true;
-                        
-                        Intent intent = new Intent(TeacherLoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Wrong account information", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {  }
-            });
+            tryLoginToAccount(
+                    username.getText().toString(),
+                    password.getText().toString()
+            );
         }
     }
+
+    private void tryLoginToAccount(String username, String password) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        String compare = MD5Converter.md5(password);
+
+        DatabaseReference myRef = database.getReference("users/" + username);
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String password = dataSnapshot.child("password").getValue(String.class);
+                if (password.equals(compare)) {
+                    Globals.isTeacher = true;
+
+                    // Obtain school
+                    Globals.school = SchoolsLocator.getInstance().getSchoolById(dataSnapshot.child("schoolId").getValue(Integer.class));
+
+                    // School Obtained & Logged In.
+                    Intent intent = new Intent(TeacherLoginActivity.this, MainActivity.class);
+                    startActivity(intent);
+
+                } else {
+                    /*TODO: Text in strings.xml*/
+                    Toast.makeText(getApplicationContext(), "Forket brugernavn/kodeord", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {  }
+        });
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -61,6 +61,17 @@ public class SchoolsLocator {
         return null;
     }
 
+    public SchoolModel getSchoolByName(String name) {
+        for (SchoolModel school : schools) {
+            if (school.Name.equals(name)) {
+                return school;
+            }
+        }
+
+        return null;
+    }
+
+
     public SchoolModel[] getSchools() {
         return schools;
     }

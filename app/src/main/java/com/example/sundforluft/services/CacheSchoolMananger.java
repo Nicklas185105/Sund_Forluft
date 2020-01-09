@@ -45,12 +45,13 @@ public class CacheSchoolMananger {
         SharedPreferences.Editor editor = Globals.favoriteSchoolPreferences.edit();
         favoriteSchools.add("" + schoolId);
         editor.putStringSet("schools", favoriteSchools);
+        editor.apply();
     }
     public void removeFavoriteSchool(int schoolId) {
         HashSet<String> favoriteSchools = (HashSet<String>)Globals.favoriteSchoolPreferences.getStringSet("schools", new HashSet<>());
         SharedPreferences.Editor editor = Globals.favoriteSchoolPreferences.edit();
         favoriteSchools.remove("" + schoolId);
         editor.putStringSet("schools", favoriteSchools);
-
+        editor.apply();
     }
 }

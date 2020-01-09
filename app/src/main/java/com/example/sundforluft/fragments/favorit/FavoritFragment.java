@@ -16,11 +16,16 @@ import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.sundforluft.DAL.SchoolsLocator;
+import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 import com.example.sundforluft.models.FavoritListviewModel;
+import com.example.sundforluft.services.CacheSchoolMananger;
 import com.example.sundforluft.services.FavoritListviewAdapter;
 import com.example.sundforluft.services.Globals;
+
+import java.util.ArrayList;
 
 public class FavoritFragment extends Fragment {
 
@@ -51,17 +56,21 @@ public class FavoritFragment extends Fragment {
                         break;
                     case Close:
                         favoritListviewAdapter.deleteSchoolByModel(model);
+                        CacheSchoolMananger.getInstance().removeFavoriteSchool(
+                            SchoolsLocator.getInstance().getSchoolByName(model.getName()).Id
+                        );
                         break;
                 }
             }
         });
 
-        FavoritListviewModel[] favoritListviewModels = new FavoritListviewModel[] {
-                new FavoritListviewModel(this, "Gentofte Skole", 12),
-                new FavoritListviewModel(this, "Dyssegård Skole", 14),
-                new FavoritListviewModel(this, "Ishøj Skole", 4),
-                new FavoritListviewModel(this, "Hellerup Skole", 42),
-        };
+        ArrayList<FavoritListviewModel> viewModelList = new ArrayList<>();
+        SchoolModel[] favoriteSchools = CacheSchoolMananger.getInstance().getFavoriteSchools();
+        for (SchoolModel favoriteSchool : favoriteSchools) {
+            viewModelList.add(new FavoritListviewModel(this, favoriteSchool.Name, 41));
+        }
+        FavoritListviewModel[] favoritListviewModels = new FavoritListviewModel[favoriteSchools.length];
+        viewModelList.toArray(favoritListviewModels);
 
 
         for (FavoritListviewModel favoritListviewModel : favoritListviewModels) { favoritListviewAdapter.addSchool(favoritListviewModel); }

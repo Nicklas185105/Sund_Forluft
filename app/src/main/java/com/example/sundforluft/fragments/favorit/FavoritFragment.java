@@ -62,6 +62,8 @@ public class FavoritFragment extends Fragment {
                 new FavoritListviewModel(this, "Ishøj Skole", 4),
                 new FavoritListviewModel(this, "Hellerup Skole", 42),
         };
+
+
         for (FavoritListviewModel favoritListviewModel : favoritListviewModels) { favoritListviewAdapter.addSchool(favoritListviewModel); }
 
         ListView schoolModelListView = view.findViewById(R.id.listView);

@@ -3,12 +3,11 @@ package com.example.sundforluft.services;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.example.sundforluft.DAL.SchoolsLocator;
 import com.example.sundforluft.DAO.SchoolModel;
 
 import java.util.HashMap;
 import java.util.HashSet;
-
-import kotlin.NotImplementedError;
 
 public class CacheSchoolMananger {
     private static CacheSchoolMananger instance;
@@ -19,29 +18,26 @@ public class CacheSchoolMananger {
     public static CacheSchoolMananger getInstance() {
         if (instance == null) {
             instance = new CacheSchoolMananger();
-
-
         }
 
         return instance;
     }
 
     public SchoolModel[] getFavoriteSchools() {
-        /*
         HashSet<String> favoriteSchools = (HashSet<String>)Globals.favoriteSchoolPreferences.getStringSet("schools", new HashSet<>());
 
         int[] favSchoolIds = favoriteSchools.stream()
                 .mapToInt(entry -> Integer.parseInt(entry))
                 .toArray();
-        SchoolModel[]
 
-        for (int favSchoolId : favSchoolIds) {
-
+        SchoolModel[] models = new SchoolModel[favSchoolIds.length];
+        for (int i = 0; i < favSchoolIds.length; i++) {
+            if (favSchoolIds[i] != 0) {
+                models[i] = SchoolsLocator.getInstance().getSchoolById(favSchoolIds[i]);
+            }
         }
-        */
 
-
-        throw new NotImplementedError();
+        return models;
     }
 
     public void addFavoriteSchool(int schoolId) {

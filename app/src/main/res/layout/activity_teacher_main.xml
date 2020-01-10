@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorWhite">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,6 +17,81 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Velkommen Admin"
+        android:textSize="30sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
+    <Button
+        android:id="@+id/addSchool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tilføj Skole"
+        android:layout_marginTop="150dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:background="@drawable/bg_start_continue"
+        android:elevation="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome"/>
+
+    <Button
+        android:id="@+id/schools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Oversigt Over Skoler"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:background="@drawable/bg_start_continue"
+        android:elevation="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addSchool"/>
+
+    <Button
+        android:id="@+id/removeSchool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fjern Skole"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:background="@drawable/bg_start_continue"
+        android:elevation="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/schools"/>
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Log Ud"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        android:background="@drawable/bg_start_continue"
+        android:elevation="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/removeSchool"/>
 
 
 

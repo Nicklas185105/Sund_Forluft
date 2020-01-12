@@ -1,5 +1,6 @@
 package com.example.sundforluft;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -141,7 +142,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportActionBar().setTitle(R.string.menuScanner);
                 break;
             case R.id.nav_back:
-                super.onBackPressed();
+                Intent intent = new Intent(MainActivity.this, StartActivity.class);
+                intent.putExtra("animation", false);
+                startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
         }
@@ -156,7 +159,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Intent intent = new Intent(MainActivity.this, StartActivity.class);
+            intent.putExtra("animation", false);
+            startActivity(intent);
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
     }

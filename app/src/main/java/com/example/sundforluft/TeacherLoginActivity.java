@@ -70,8 +70,16 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
                     Globals.school = SchoolsLocator.getInstance().getSchoolById(dataSnapshot.child("schoolId").getValue(Integer.class));
 
                     // School Obtained & Logged In.
-                    Intent intent = new Intent(TeacherLoginActivity.this, MainActivity.class);
-                    startActivity(intent);
+                    if (username.equals("admin")){
+                        Intent intent = new Intent(TeacherLoginActivity.this, AdminLoginActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+                    else {
+                        Intent intent = new Intent(TeacherLoginActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
 
                 } else {
                     /*TODO: Text in strings.xml*/
@@ -89,10 +97,18 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
-            super.onBackPressed();
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+            onBackPressed();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent intent = new Intent(TeacherLoginActivity.this, StartActivity.class);
+        intent.putExtra("animation", false);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

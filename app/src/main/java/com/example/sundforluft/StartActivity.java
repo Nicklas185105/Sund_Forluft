@@ -25,6 +25,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        Intent intent = getIntent();
+        boolean animation = intent.getBooleanExtra("animation", true);
+
         SchoolsLocator.getInstance(); // Start async loading of all schools.
 
         // load this animation
@@ -42,14 +45,16 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         guest = findViewById(R.id.gaest);
 
         // passing animation and start it
-        imageView.startAnimation(smalltobig);
-        titel.startAnimation(smalltobig);
+        if (animation) {
+            imageView.startAnimation(smalltobig);
+            titel.startAnimation(smalltobig);
 
-        elev.startAnimation(btta);
-        laerer.startAnimation(btta);
+            elev.startAnimation(btta);
+            laerer.startAnimation(btta);
 
-        eller.startAnimation(btta2);
-        guest.startAnimation(btta2);
+            eller.startAnimation(btta2);
+            guest.startAnimation(btta2);
+        }
 
         elev.setOnClickListener(this);
         laerer.setOnClickListener(this);

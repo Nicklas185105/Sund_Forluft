@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.sundforluft.DAL.SchoolsLocator;
+import com.example.sundforluft.admin.AdminLoginActivity;
 import com.example.sundforluft.services.Globals;
 import com.example.sundforluft.services.MD5Converter;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +35,7 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        /*TODO: Text in strings.xml*/
         getSupportActionBar().setTitle("Lærer Login");
 
         // Arrow Click
@@ -57,11 +59,12 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
     private void tryLoginToAccount(String username, String password) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         String compare = MD5Converter.md5(password);
-
+        /*TODO: Text in strings.xml*/
         DatabaseReference myRef = database.getReference("users/" + username);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                /*TODO: Text in strings.xml*/
                 String password = dataSnapshot.child("password").getValue(String.class);
                 if (password.equals(compare)) {
                     Globals.isTeacher = true;
@@ -70,6 +73,7 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
                     Globals.school = SchoolsLocator.getInstance().getSchoolById(dataSnapshot.child("schoolId").getValue(Integer.class));
 
                     // School Obtained & Logged In.
+                    /*TODO: Text in strings.xml*/
                     if (username.equals("admin")){
                         Intent intent = new Intent(TeacherLoginActivity.this, AdminLoginActivity.class);
                         startActivity(intent);
@@ -82,8 +86,7 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
                     }
 
                 } else {
-                    /*TODO: Text in strings.xml*/
-                    Toast.makeText(getApplicationContext(), "Forket brugernavn/kodeord", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.toastWrongUserPass, Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -107,6 +110,7 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
     public void onBackPressed() {
         //super.onBackPressed();
         Intent intent = new Intent(TeacherLoginActivity.this, StartActivity.class);
+        /*TODO: Text in strings.xml*/
         intent.putExtra("animation", false);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);

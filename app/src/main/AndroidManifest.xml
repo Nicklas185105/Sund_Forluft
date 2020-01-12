@@ -57,8 +57,17 @@
             android:name=".GuestLogin"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AdminLoginActivity"
+            android:name=".admin.AdminLoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".admin.AddSchoolActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".admin.AllSchoolsActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".admin.RemoveSchoolActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

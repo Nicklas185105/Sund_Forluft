@@ -12,7 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.sundforluft.DAL.SchoolsLocator;
-import com.example.sundforluft.admin.AdminLoginActivity;
+import com.example.sundforluft.Teacher.TeacherMainActivity;
+import com.example.sundforluft.admin.AdminMainActivity;
 import com.example.sundforluft.services.Globals;
 import com.example.sundforluft.services.MD5Converter;
 import com.google.firebase.database.DataSnapshot;
@@ -75,12 +76,13 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
                     // School Obtained & Logged In.
                     /*TODO: Text in strings.xml*/
                     if (username.equals("admin")){
-                        Intent intent = new Intent(TeacherLoginActivity.this, AdminLoginActivity.class);
+                        Intent intent = new Intent(TeacherLoginActivity.this, AdminMainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                     else {
-                        Intent intent = new Intent(TeacherLoginActivity.this, MainActivity.class);
+                        Intent intent = new Intent(TeacherLoginActivity.this, TeacherMainActivity.class);
+                        intent.putExtra("name", username);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }

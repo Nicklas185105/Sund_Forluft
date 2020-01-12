@@ -57,7 +57,7 @@
             android:name=".GuestLogin"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".admin.AdminLoginActivity"
+            android:name=".admin.AdminMainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".admin.AddSchoolActivity"
@@ -67,6 +67,9 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".admin.RemoveSchoolActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Teacher.TeacherMainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

@@ -1,15 +1,14 @@
-package com.example.sundforluft.fragments.kort;
+package com.example.sundforluft.fragments.Schools;
 
-import android.Manifest;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -20,29 +19,20 @@ import com.example.sundforluft.DAL.SchoolsLocator;
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.R;
 import com.example.sundforluft.services.CacheSchoolMananger;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
-import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 
-import static android.content.ContentValues.TAG;
-
-public class MapFragment extends Fragment {
+public class SchoolsFragment extends Fragment {
+    EditText filter;
+    private ArrayAdapter adapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_map, container, false);
+
+        SchoolsFragment self = this;
+        filter = rootView.findViewById(R.id.editText);
 
         ListView listView = rootView.findViewById(R.id.listView);
         ArrayList<String> schools = new ArrayList<>();
@@ -52,9 +42,26 @@ public class MapFragment extends Fragment {
             }
         }
 
-        ArrayAdapter adapter = new ArrayAdapter(getContext(), R.layout.custom_listview, schools);
+        adapter = new ArrayAdapter(getContext(), R.layout.custom_listview, schools);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+        filter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                (self).adapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -72,4 +79,5 @@ public class MapFragment extends Fragment {
         return rootView;
 
     }
+
 }

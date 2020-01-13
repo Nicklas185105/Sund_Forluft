@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.sundforluft.fragments.favorit.FavoritFragment;
 import com.example.sundforluft.fragments.help.HelpFragment;
-import com.example.sundforluft.fragments.kort.MapFragment;
+import com.example.sundforluft.fragments.Schools.SchoolsFragment;
 import com.example.sundforluft.fragments.rangliste.RanklisteFragment;
 import com.example.sundforluft.fragments.scanner.ScannerFragment;
 import com.example.sundforluft.services.Globals;
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_map:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new MapFragment()).commit();
+                        .replace(R.id.fragment_container, new SchoolsFragment()).commit();
                 getSupportActionBar().setTitle(R.string.menuSchool);
                 break;
             case R.id.nav_ranklist:

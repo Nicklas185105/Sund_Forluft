@@ -2,13 +2,9 @@ package com.example.sundforluft.fragments.favorit;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,14 +12,13 @@ import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.sundforluft.DAL.SchoolsLocator;
+import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 import com.example.sundforluft.models.FavoritListviewModel;
 import com.example.sundforluft.services.CacheSchoolMananger;
 import com.example.sundforluft.services.FavoritListviewAdapter;
-import com.example.sundforluft.services.Globals;
 
 import java.util.ArrayList;
 
@@ -57,7 +52,7 @@ public class FavoritFragment extends Fragment {
                     case Close:
                         favoritListviewAdapter.deleteSchoolByModel(model);
                         CacheSchoolMananger.getInstance().removeFavoriteSchool(
-                            SchoolsLocator.getInstance().getSchoolByName(model.getName()).Id
+                            DataAccessLayer.getInstance().getSchoolByName(model.getName()).Id
                         );
                         break;
                 }

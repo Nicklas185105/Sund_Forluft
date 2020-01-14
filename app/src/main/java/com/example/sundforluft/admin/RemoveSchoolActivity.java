@@ -8,19 +8,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.sundforluft.DAL.SchoolsLocator;
+import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.R;
-import com.example.sundforluft.services.Globals;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -50,7 +43,7 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
         dropdown = findViewById(R.id.dropdown);
 
         // Display de skoler der bliver hentet i dropdown menuen
-        SchoolModel[] schools = SchoolsLocator.getInstance().getSchools();
+        SchoolModel[] schools = DataAccessLayer.getInstance().getSchools();
         ArrayList<String> items = new ArrayList<>();
         for (SchoolModel model : schools) {
             items.add(model.Name);
@@ -65,8 +58,8 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         String schoolName = (String)dropdown.getSelectedItem();
-        SchoolModel foundModel = SchoolsLocator.getInstance().getSchoolByName(schoolName);
-        SchoolsLocator.getInstance().removeSchool(foundModel);
+        SchoolModel foundModel = DataAccessLayer.getInstance().getSchoolByName(schoolName);
+        DataAccessLayer.getInstance().removeSchool(foundModel);
     }
 
     @Override

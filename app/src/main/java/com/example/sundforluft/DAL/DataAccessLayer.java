@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.DAO.UserModel;
-import com.example.sundforluft.services.MD5Converter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,20 +12,20 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class SchoolsLocator {
-    private static SchoolsLocator instance = null;
+public class DataAccessLayer {
+    private static DataAccessLayer instance = null;
     private ArrayList<SchoolModel> schools;
     private boolean loaded = false;
     private ArrayList<UserModel> users;
 
-    private SchoolsLocator(){
+    private DataAccessLayer(){
         schools = new ArrayList<>();
         users = new ArrayList<>();
     }
 
-    public static SchoolsLocator getInstance() {
+    public static DataAccessLayer getInstance() {
         if (instance == null) {
-            instance = new SchoolsLocator();
+            instance = new DataAccessLayer();
             instance.reloadFromInternet();
         }
         return instance;

@@ -71,6 +71,9 @@
         <activity
             android:name=".Teacher.TeacherMainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".Teacher.AddCloudActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

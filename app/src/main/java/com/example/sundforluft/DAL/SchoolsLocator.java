@@ -7,50 +7,73 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class SchoolsLocator {
     private static SchoolsLocator instance = null;
-    private SchoolModel[] schools;
+    private ArrayList<SchoolModel> schools;
     private boolean loaded = false;
 
-    private SchoolsLocator(){}
+    private SchoolsLocator(){
+        schools = new ArrayList<>();
+    }
 
     public static SchoolsLocator getInstance() {
         if (instance == null) {
             instance = new SchoolsLocator();
-
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-            DatabaseReference myRef = database.getReference("schools");
-            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    instance.schools = new SchoolModel[(int)dataSnapshot.getChildrenCount()];
-
-                    int currentSchoolIndex = 0;
-                    for (DataSnapshot child : dataSnapshot.getChildren())
-                    {
-                        int schoolId = Integer.parseInt( child.getKey() );
-                        String schoolName = child.getValue(String.class);
-
-                        instance.schools[currentSchoolIndex++] = new SchoolModel(schoolId, schoolName);
-                    }
-
-                    instance.loaded = true;
-                }
-
-                @Override
-                public void onCancelled(DatabaseError error) {  }
-            });
-
-
+            instance.reloadFromInternet();
         }
         return instance;
     }
 
+    public int getMaxId() {
+        int id = 1;
+        for (SchoolModel school : schools) {
+            if (school.Id > id) {
+                id = school.Id + 1;
+            }
+        }
+        return id;
+    }
+
+    public void removeSchool(SchoolModel model) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("schools/" + model.Id);
+        myRef.removeValue();
+        schools.remove(model);
+    }
+
+    public void reloadFromInternet() {
+        loaded = false;
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        DatabaseReference myRef = database.getReference("schools");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                instance.schools = new ArrayList<>();
+
+                for (DataSnapshot child : dataSnapshot.getChildren())
+                {
+                    int schoolId = Integer.parseInt( child.getKey() );
+                    String schoolName = child.getValue(String.class);
+
+                    instance.schools.add(new SchoolModel(schoolId, schoolName));
+                }
+
+                instance.loaded = true;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {  }
+        });
+    }
+
+
+
     public boolean isLoaded() {
         return loaded;
     }
-
     public SchoolModel getSchoolById(int schoolId) {
         for (SchoolModel school : schools) {
             if (school.Id == schoolId) {
@@ -60,7 +83,6 @@ public class SchoolsLocator {
 
         return null;
     }
-
     public SchoolModel getSchoolByName(String name) {
         for (SchoolModel school : schools) {
             if (school.Name.equals(name)) {
@@ -70,9 +92,9 @@ public class SchoolsLocator {
 
         return null;
     }
-
-
     public SchoolModel[] getSchools() {
-        return schools;
+        SchoolModel[] array = new SchoolModel[schools.size()];
+        schools.toArray(array);
+        return array;
     }
 }

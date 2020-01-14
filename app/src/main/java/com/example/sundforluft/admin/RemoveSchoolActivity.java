@@ -5,6 +5,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.sundforluft.DAL.SchoolsLocator;
+import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.R;
 import com.example.sundforluft.services.Globals;
 import com.google.firebase.database.DataSnapshot;
@@ -20,20 +22,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class RemoveSchoolActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+import java.util.ArrayList;
 
+public class RemoveSchoolActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     Toolbar toolbar;
     Spinner dropdown;
-    String[] items;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef;
-    long schoolCount;
-    int i;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_remove_school);
+
+        button = findViewById(R.id.button);
+        button.setOnClickListener(this);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,52 +48,25 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
 
 
         dropdown = findViewById(R.id.dropdown);
-        myRef = database.getReference("schools");
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        /*for (DataSnapshot snap: dataSnapshot.getChildren()){
-                            Log.e(snap.getKey(), snap.getChildrenCount() + "");
-                        }*/
-                schoolCount = dataSnapshot.getChildrenCount();
-                System.out.println(schoolCount);
-                items = new String[(int)schoolCount+1];
-                for (i = 0; i < schoolCount; i++){
-                    myRef = database.getReference("schools/" + i);
-                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            items[i] = dataSnapshot.getValue().toString();
-                            //System.out.println(dataSnapshot.getValue());
-                            System.out.println(items[i]);
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         // Display de skoler der bliver hentet i dropdown menuen
+        SchoolModel[] schools = SchoolsLocator.getInstance().getSchools();
+        ArrayList<String> items = new ArrayList<>();
+        for (SchoolModel model : schools) {
+            items.add(model.Name);
+        }
 
-        /*ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(adapter);
-        dropdown.setOnItemSelectedListener(this);*/
+        dropdown.setOnItemSelectedListener(this);
     }
 
     @Override
     public void onClick(View v) {
-
+        String schoolName = (String)dropdown.getSelectedItem();
+        SchoolModel foundModel = SchoolsLocator.getInstance().getSchoolByName(schoolName);
+        SchoolsLocator.getInstance().removeSchool(foundModel);
     }
 
     @Override
@@ -104,24 +79,6 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
 
     }
 
-    void getSchoolCount(){
-        myRef = database.getReference("schools");
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        /*for (DataSnapshot snap: dataSnapshot.getChildren()){
-                            Log.e(snap.getKey(), snap.getChildrenCount() + "");
-                        }*/
-                RemoveSchoolActivity.this.schoolCount = dataSnapshot.getChildrenCount();
-                //System.out.println(RemoveSchoolActivity.this.schoolCount);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import com.example.sundforluft.DAL.SchoolsLocator;
 import com.example.sundforluft.DAO.SchoolModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -30,14 +31,22 @@ public class CacheSchoolMananger {
                 .mapToInt(entry -> Integer.parseInt(entry))
                 .toArray();
 
-        SchoolModel[] models = new SchoolModel[favSchoolIds.length];
+        ArrayList<SchoolModel> models = new ArrayList<>();
         for (int i = 0; i < favSchoolIds.length; i++) {
             if (favSchoolIds[i] != 0) {
-                models[i] = SchoolsLocator.getInstance().getSchoolById(favSchoolIds[i]);
+                SchoolModel model = SchoolsLocator.getInstance().getSchoolById(favSchoolIds[i]);
+                if (model != null) {
+                    models.add(model);
+                } else {
+                    /*TODO: Add toast that this school was removed*/
+                    CacheSchoolMananger.getInstance().removeFavoriteSchool(favSchoolIds[i]);
+                }
             }
         }
 
-        return models;
+        SchoolModel[] array = new SchoolModel[models.size()];
+        models.toArray(array);
+        return array;
     }
 
     public void addFavoriteSchool(int schoolId) {
@@ -50,8 +59,13 @@ public class CacheSchoolMananger {
     public void removeFavoriteSchool(int schoolId) {
         HashSet<String> favoriteSchools = (HashSet<String>)Globals.favoriteSchoolPreferences.getStringSet("schools", new HashSet<>());
         SharedPreferences.Editor editor = Globals.favoriteSchoolPreferences.edit();
-        favoriteSchools.remove("" + schoolId);
-        editor.putStringSet("schools", favoriteSchools);
-        editor.apply();
+
+        if (favoriteSchools.size()==1) {
+            editor.remove("schools");
+        } else {
+            favoriteSchools.remove("" + schoolId);
+            editor.putStringSet("schools", favoriteSchools);
+            editor.apply();
+        }
     }
 }

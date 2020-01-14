@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.sundforluft.R;
 import com.example.sundforluft.StartActivity;
+import com.example.sundforluft.services.MD5Converter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,10 +58,10 @@ public class AddSchoolActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(android.view.View v) {
         if (v == add){
-            if (!username.getText().toString().equals(null) && !password.getText().toString().equals(null) && !school.getText().toString().equals(null)){
+            if (!username.getText().toString().equals("") && !password.getText().toString().equals("") && !school.getText().toString().equals("")){
                 // Tilføj username til users og tilføj password (Kryptering mangler)
                 myRef = database.getReference("users/" + username.getText().toString() + "/password");
-                myRef.setValue(password.getText().toString());
+                myRef.setValue(MD5Converter.md5(password.getText().toString()));
 
                 // Tjek hvad næste skole id skal være og tilføj skole til "schools"
                 System.out.println(schoolCount);

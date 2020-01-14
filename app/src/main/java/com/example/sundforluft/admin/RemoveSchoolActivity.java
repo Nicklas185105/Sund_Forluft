@@ -21,6 +21,9 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
     Toolbar toolbar;
     Spinner dropdown;
     Button button;
+    ArrayList<String> items;
+    SchoolModel[] schools;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,17 +45,27 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
 
         dropdown = findViewById(R.id.dropdown);
 
+        schoolLoader();
+
+        dropdown.setOnItemSelectedListener(this);
+    }
+
+    void schoolLoader(){
+
         // Display de skoler der bliver hentet i dropdown menuen
-        SchoolModel[] schools = DataAccessLayer.getInstance().getSchools();
-        ArrayList<String> items = new ArrayList<>();
+        schools = DataAccessLayer.getInstance().getSchools();
+        items = new ArrayList<>();
+
+
         for (SchoolModel model : schools) {
-            items.add(model.Name);
+            if (model.Id != 0) {
+                items.add(model.Name);
+            }
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(adapter);
-        dropdown.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -60,6 +73,9 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
         String schoolName = (String)dropdown.getSelectedItem();
         SchoolModel foundModel = DataAccessLayer.getInstance().getSchoolByName(schoolName);
         DataAccessLayer.getInstance().removeSchool(foundModel);
+        while (!DataAccessLayer.getInstance().isLoaded()){}
+
+        schoolLoader();
     }
 
     @Override

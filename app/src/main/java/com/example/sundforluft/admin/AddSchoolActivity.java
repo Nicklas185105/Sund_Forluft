@@ -45,6 +45,8 @@ public class AddSchoolActivity extends AppCompatActivity implements View.OnClick
         username = findViewById(R.id.usernameEditText);
         password = findViewById(R.id.passwordEditText);
         school = findViewById(R.id.schoolEditText);
+
+        //TODO: onClick, tøm editext og giv confirm toast
     }
 
     @Override

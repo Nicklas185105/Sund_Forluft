@@ -3,6 +3,8 @@ package com.example.sundforluft.Teacher;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,10 +13,11 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.sundforluft.R;
 import com.example.sundforluft.StartActivity;
 
-public class TeacherMainActivity extends AppCompatActivity {
+public class TeacherMainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Toolbar toolbar;
     TextView text;
+    Button addCloud;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,10 @@ public class TeacherMainActivity extends AppCompatActivity {
         text = findViewById(R.id.welcome);
         Intent intent = getIntent();
         text.setText("Velkommen " + intent.getStringExtra("name"));
+
+        addCloud = findViewById(R.id.addCloud);
+
+        addCloud.setOnClickListener(this);
     }
 
     @Override
@@ -43,6 +50,17 @@ public class TeacherMainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.addCloud:
+                Intent i = new Intent(TeacherMainActivity.this, AddCloudActivity.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+        }
     }
 
     @Override

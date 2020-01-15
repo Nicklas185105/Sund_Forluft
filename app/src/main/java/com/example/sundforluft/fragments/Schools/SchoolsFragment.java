@@ -15,7 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.sundforluft.DAL.SchoolsLocator;
+import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.R;
 import com.example.sundforluft.services.CacheSchoolMananger;
@@ -36,7 +36,7 @@ public class SchoolsFragment extends Fragment {
 
         ListView listView = rootView.findViewById(R.id.listView);
         ArrayList<String> schools = new ArrayList<>();
-        for (SchoolModel model : SchoolsLocator.getInstance().getSchools()) {
+        for (SchoolModel model : DataAccessLayer.getInstance().getSchools()) {
             if (model.Id != 0) {
                 schools.add(model.Name);
             }
@@ -70,7 +70,7 @@ public class SchoolsFragment extends Fragment {
                 //this assumes that you have an array of your checkboxes as well. called checkbox
                 String name = (String)adapter.getItem(position);
                 CacheSchoolMananger.getInstance().addFavoriteSchool(
-                    SchoolsLocator.getInstance().getSchoolByName(name).Id
+                    DataAccessLayer.getInstance().getSchoolByName(name).Id
                 );
 
             }

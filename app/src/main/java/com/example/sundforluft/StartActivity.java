@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.sundforluft.DAL.SchoolsLocator;
+import com.example.sundforluft.DAL.DataAccessLayer;
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView imageView, eller;
@@ -28,7 +28,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
         boolean animation = intent.getBooleanExtra("animation", true);
 
-        SchoolsLocator.getInstance(); // Start async loading of all schools.
+        DataAccessLayer.getInstance(); // Start async loading of all schools.
 
         // load this animation
         smalltobig = AnimationUtils.loadAnimation(this, R.anim.smalltobig);
@@ -62,7 +62,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     }
 
     public void onClick(View v){
-        if (SchoolsLocator.getInstance().isLoaded()) {
+        if (DataAccessLayer.getInstance().isLoaded()) {
             if (v == elev) {
                 Intent i = new Intent(this, MainActivity.class);
                 startActivity(i);

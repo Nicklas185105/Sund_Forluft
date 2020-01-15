@@ -1,13 +1,11 @@
 package com.example.sundforluft.services;
 
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
-import com.example.sundforluft.DAL.SchoolsLocator;
+import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.SchoolModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class CacheSchoolMananger {
@@ -34,7 +32,7 @@ public class CacheSchoolMananger {
         ArrayList<SchoolModel> models = new ArrayList<>();
         for (int i = 0; i < favSchoolIds.length; i++) {
             if (favSchoolIds[i] != 0) {
-                SchoolModel model = SchoolsLocator.getInstance().getSchoolById(favSchoolIds[i]);
+                SchoolModel model = DataAccessLayer.getInstance().getSchoolById(favSchoolIds[i]);
                 if (model != null) {
                     models.add(model);
                 } else {

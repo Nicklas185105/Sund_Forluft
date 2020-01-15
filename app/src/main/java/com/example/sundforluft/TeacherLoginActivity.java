@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.sundforluft.DAL.SchoolsLocator;
+import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.Teacher.TeacherMainActivity;
 import com.example.sundforluft.admin.AdminMainActivity;
 import com.example.sundforluft.services.Globals;
@@ -71,7 +71,7 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
                     Globals.isTeacher = true;
 
                     // Obtain school
-                    Globals.school = SchoolsLocator.getInstance().getSchoolById(dataSnapshot.child("schoolId").getValue(Integer.class));
+                    Globals.school = DataAccessLayer.getInstance().getSchoolById(dataSnapshot.child("schoolId").getValue(Integer.class));
 
                     // School Obtained & Logged In.
                     /*TODO: Text in strings.xml*/

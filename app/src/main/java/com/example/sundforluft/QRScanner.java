@@ -11,8 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.sundforluft.Teacher.AddCloudActivity;
-import com.example.sundforluft.Teacher.TeacherMainActivity;
+import com.example.sundforluft.teacher.AddCloudActivity;
 import com.example.sundforluft.services.Globals;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -102,11 +101,16 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
                     if (Globals.hasTeacherRights()) {
                         // Go to cloud view.
                         Intent i = new Intent(QRScanner.this, AddCloudActivity.class);
+                        i.putExtra("accessToken", accessToken);
+                        i.putExtra("deviceId", deviceId);
+
                         startActivity(i);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
                     } else {
                         // Go To Detailed View.
+
+
+
 
                     }
                 } else

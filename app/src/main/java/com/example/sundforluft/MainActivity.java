@@ -15,7 +15,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.sundforluft.fragments.favorit.FavoritFragment;
+import com.example.sundforluft.fragments.favorite.FavoriteFragment;
 import com.example.sundforluft.fragments.help.HelpFragment;
 import com.example.sundforluft.fragments.schools.SchoolsFragment;
 import com.example.sundforluft.fragments.rangliste.RanklisteFragment;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new FavoritFragment()).commit();
+                    new FavoriteFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_favorit);
             getSupportActionBar().setTitle(R.string.menuFavorit);
         }
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()){
             case R.id.nav_favorit:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                    .replace(R.id.fragment_container, new FavoritFragment()).commit();
+                    .replace(R.id.fragment_container, new FavoriteFragment()).commit();
                 getSupportActionBar().setTitle(R.string.menuFavorit);
                 break;
             case R.id.nav_map:

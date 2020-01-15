@@ -83,9 +83,9 @@ public class ScannerFragment extends Fragment implements ZXingScannerView.Result
     @Override
     public void handleResult(Result rawResult){
         // QR scan result.
+        //TODO: check if deviceID is valid
         String deviceId = rawResult.getText();
-        
-        txtResult.setText(rawResult.getText());
+
 
     }
 

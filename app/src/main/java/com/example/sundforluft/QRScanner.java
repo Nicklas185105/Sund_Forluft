@@ -109,9 +109,6 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
                     } else {
                         // Go To Detailed View.
 
-
-
-
                     }
                 } else
                 {

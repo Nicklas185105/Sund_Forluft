@@ -17,10 +17,10 @@ import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 
 import com.example.sundforluft.models.FavoritDetailedListviewModel;
-import com.example.sundforluft.services.CsvDataBroker;
+import com.example.sundforluft.services.DataBroker.CsvDataBroker;
 import com.example.sundforluft.services.FavoritDetailedListviewAdapter;
-import com.example.sundforluft.services.SundForluftDataBroker;
-import com.example.sundforluft.services.SundforluftDataModel;
+import com.example.sundforluft.services.DataBroker.DataBroker;
+import com.example.sundforluft.services.DataBroker.AirQualityDataModel;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -81,17 +81,18 @@ public class FavoriteDetailedFragment extends Fragment implements OnChartValueSe
         //chart.setEntryLabelTypeface();
         chart.setEntryLabelTextSize(12f);
 
-        SundForluftDataBroker dataBroker = new CsvDataBroker( getResources() );
+        DataBroker dataBroker = new CsvDataBroker( getResources() );
 
-        List<SundforluftDataModel> modelsForSchoolA = dataBroker.GetData(
-            LocalDateTime.parse("2019-08-19T11:37:28.264000"),
-            LocalDateTime.parse("2019-08-20T11:30:07.899000")
-        );
+        List<AirQualityDataModel> modelsForSchoolA = new ArrayList<>();
+        List<AirQualityDataModel> modelsForSchoolB = new ArrayList<>();
 
-        List<SundforluftDataModel> modelsForSchoolB = dataBroker.GetData(
-            LocalDateTime.parse("2019-08-20T13:01:11.318000"),
-            LocalDateTime.parse("2019-08-20T13:32:35.421000")
-        );
+        if (dataBroker.load(LocalDateTime.parse("2019-08-19T11:37:28.264000"), LocalDateTime.parse("2019-08-20T11:30:07.899000"))) {
+            modelsForSchoolA = dataBroker.getData();
+        }
+
+        if (dataBroker.load(LocalDateTime.parse("2019-08-20T13:01:11.318000"), LocalDateTime.parse("2019-08-20T13:32:35.421000"))) {
+             modelsForSchoolB = dataBroker.getData();
+        }
 
 
         setData(1, getAverage(modelsForSchoolA));
@@ -117,11 +118,11 @@ public class FavoriteDetailedFragment extends Fragment implements OnChartValueSe
         return view;
     }
 
-    private float getAverage(List<SundforluftDataModel> models) {
+    private float getAverage(List<AirQualityDataModel> models) {
         double total = 0;
         int count = 0;
 
-        for (SundforluftDataModel model : models) {
+        for (AirQualityDataModel model : models) {
             total += model.CO2;
             count++;
         }

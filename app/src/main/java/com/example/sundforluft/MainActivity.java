@@ -17,7 +17,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.sundforluft.fragments.favorit.FavoritFragment;
 import com.example.sundforluft.fragments.help.HelpFragment;
-import com.example.sundforluft.fragments.Schools.SchoolsFragment;
+import com.example.sundforluft.fragments.schools.SchoolsFragment;
 import com.example.sundforluft.fragments.rangliste.RanklisteFragment;
 import com.example.sundforluft.fragments.scanner.ScannerFragment;
 import com.example.sundforluft.services.Globals;

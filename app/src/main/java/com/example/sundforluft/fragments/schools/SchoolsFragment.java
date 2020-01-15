@@ -1,4 +1,4 @@
-package com.example.sundforluft.fragments.Schools;
+package com.example.sundforluft.fragments.schools;
 
 import android.os.Bundle;
 import android.text.Editable;

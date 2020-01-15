@@ -77,8 +77,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         } else {
-            /*TODO: Text in Strings.xml*/
-            Toast.makeText(getApplicationContext(), "Henter skoler. Vent venligst.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.gettingSchools, Toast.LENGTH_SHORT).show();
         }
     }
 }

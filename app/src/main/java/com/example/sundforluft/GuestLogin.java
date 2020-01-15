@@ -42,7 +42,7 @@ public class GuestLogin extends AppCompatActivity implements ZXingScannerView.Re
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Guest - QR Scanner");
+        getSupportActionBar().setTitle(R.string.guest);
 
         // Arrow Click
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -62,7 +62,7 @@ public class GuestLogin extends AppCompatActivity implements ZXingScannerView.Re
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(self, "You need to accept permission", Toast.LENGTH_LONG).show();
+                        Toast.makeText(self, R.string.acceptPermission, Toast.LENGTH_LONG).show();
                     }
 
                     @Override

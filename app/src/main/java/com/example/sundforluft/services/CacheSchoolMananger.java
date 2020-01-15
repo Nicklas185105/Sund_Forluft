@@ -36,7 +36,6 @@ public class CacheSchoolMananger {
                 if (model != null) {
                     models.add(model);
                 } else {
-                    /*TODO: Add toast that this school was removed*/
                     CacheSchoolMananger.getInstance().removeFavoriteSchool(favSchoolIds[i]);
                 }
             }

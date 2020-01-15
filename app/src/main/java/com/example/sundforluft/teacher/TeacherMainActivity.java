@@ -1,4 +1,4 @@
-package com.example.sundforluft.Teacher;
+package com.example.sundforluft.teacher;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,7 +27,7 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         /*TODO: Text in strings.xml*/
-        getSupportActionBar().setTitle("Velkommen");
+        getSupportActionBar().setTitle(R.string.welcome);
 
         // Arrow Click
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

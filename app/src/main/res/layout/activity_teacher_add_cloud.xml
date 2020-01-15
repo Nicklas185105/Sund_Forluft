@@ -12,18 +12,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/indtast_klasseværelse"
+            android:text="@string/classroom"
             android:textSize="35dp"
             />
 
         <EditText
             android:id="@+id/addCloudEditText"
-            android:focusedByDefault="true"
             android:layout_width="match_parent"
+            android:focusableInTouchMode="true"
             android:layout_height="60dp"
             android:layout_marginHorizontal="100dp"
             android:layout_gravity="center"
             android:textSize="35dp"
+            android:text=""
             android:gravity="center"/>
 
         <Button

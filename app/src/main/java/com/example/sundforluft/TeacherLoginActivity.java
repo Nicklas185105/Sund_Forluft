@@ -26,10 +26,23 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
     Button button;
     Toolbar toolbar;
 
+    EditText username;
+    EditText password;
+
+    Button teacherLoginButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_login);
+        password = findViewById(R.id.passwordEditText);
+        username = findViewById(R.id.usernameEditText);
+
+        teacherLoginButton = findViewById(R.id.teacherLoginButton);
+        teacherLoginButton.setOnClickListener(v -> {
+            username.setText("brugernavn");
+            password.setText("password");
+        });
 
         button = findViewById(R.id.button);
         button.setOnClickListener(this);
@@ -47,8 +60,6 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if (v == button){
-            EditText username = findViewById(R.id.usernameEditText);
-            EditText password = findViewById(R.id.passwordEditText);
 
             tryLoginToAccount(
                     username.getText().toString(),

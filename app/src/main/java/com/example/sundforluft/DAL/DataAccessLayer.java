@@ -76,11 +76,11 @@ public class DataAccessLayer {
 
         //Db insert
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("classrooms/"+classroom.id+"/accessToken");
+
+        DatabaseReference reference = database.getReference("classrooms/"+classroom.id+"/"+deviceId+"/accessToken");
         reference.setValue(classroom.accessToken);
-        reference = database.getReference("classrooms/"+classroom.id+"/deviceId");
-        reference.setValue(classroom.deviceId);
-        reference = database.getReference("classrooms/"+classroom.id+"/name");
+
+        reference = database.getReference("classrooms/"+classroom.id+"/"+deviceId+"/name");
         reference.setValue(classroom.name);
 
     }
@@ -166,10 +166,10 @@ public class DataAccessLayer {
                 //Retrieve classrooms
                 for (DataSnapshot classroomParent : dataSnapshot.getChildren()) {
                     //Id from this particular record
-                    int id = Integer.parseInt(classroomParent.getValue(String.class));
+                    int id = Integer.parseInt(classroomParent.getKey());
                     //Child records
                     for (DataSnapshot deviceIdChild : classroomParent.getChildren()){
-                        String deviceId = deviceIdChild.getValue(String.class);
+                        String deviceId = deviceIdChild.getKey();
                         String accessToken = deviceIdChild.child("accessToken").getValue(String.class);
                         String name = deviceIdChild.child("name").getValue(String.class);
                         ClassroomModel classroom = new ClassroomModel(id, accessToken, deviceId, name);

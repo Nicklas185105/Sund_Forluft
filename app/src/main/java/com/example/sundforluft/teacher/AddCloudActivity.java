@@ -19,6 +19,7 @@ public class AddCloudActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_teacher_add_cloud);
 
         editText = findViewById(R.id.addCloudEditText);
         submitButton = findViewById(R.id.addCloudSubmitButton);
@@ -27,7 +28,7 @@ public class AddCloudActivity extends AppCompatActivity {
         int id = Globals.school.Id;
         String accessToken = bundle.getString("accessToken");
         String deviceId = bundle.getString("deviceId");
-        String name = bundle.getString("name");
+        String name = editText.getText().toString();
 
 
         submitButton.setOnClickListener(v -> {
@@ -36,7 +37,5 @@ public class AddCloudActivity extends AppCompatActivity {
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_in_left);
         });
-
-        setContentView(R.layout.activity_teacher_add_cloud);
     }
 }

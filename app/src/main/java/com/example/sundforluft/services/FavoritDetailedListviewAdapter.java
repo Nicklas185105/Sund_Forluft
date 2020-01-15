@@ -1,6 +1,5 @@
 package com.example.sundforluft.services;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.sundforluft.R;
@@ -57,7 +55,7 @@ public class FavoritDetailedListviewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Create new object for activity listener
-        convertView = inflater.inflate(R.layout.activity_favorit_detailed_listview, null);
+        convertView = inflater.inflate(R.layout.activity_favorite_detailed_listview, null);
 
         // Item to be displayed
         final FavoritDetailedListviewModel model = items.get(position);

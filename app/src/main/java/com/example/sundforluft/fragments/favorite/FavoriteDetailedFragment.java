@@ -46,7 +46,7 @@ public class FavoriteDetailedFragment extends Fragment implements OnChartValueSe
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorit_detailed, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorite_detailed, container, false);
 
         chart = view.findViewById(R.id.chart1);
         //chart.setUsePercentValues(true);

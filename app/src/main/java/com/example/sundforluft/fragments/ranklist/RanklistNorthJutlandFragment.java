@@ -1,4 +1,4 @@
-package com.example.sundforluft.fragments.rangliste;
+package com.example.sundforluft.fragments.ranklist;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +15,7 @@ import com.example.sundforluft.R;
 import com.example.sundforluft.models.RanklisteListviewModel;
 import com.example.sundforluft.services.RanklisteListviewAdapter;
 
-public class RanklisteZealandFragment extends Fragment {
+public class RanklistNorthJutlandFragment extends Fragment {
 
     TextView textView;
     RanklisteListviewAdapter ranklisteListviewAdapter;
@@ -23,22 +23,22 @@ public class RanklisteZealandFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_rankliste_rankin, container, false);
+        View view = inflater.inflate(R.layout.fragment_ranklist_ranking, container, false);
 
         /*// Arrow Click
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);*/
 
         textView = view.findViewById(R.id.textView);
-        textView.setText(R.string.zealand);
+        textView.setText(R.string.northjutland);
 
         ranklisteListviewAdapter = new RanklisteListviewAdapter(this);
 
         RanklisteListviewModel[] favoritListviewModels = new RanklisteListviewModel[] {
-                new RanklisteListviewModel(this, "Borup Skole", 12),
-                new RanklisteListviewModel(this, "Vigersted Skole", 14),
-                new RanklisteListviewModel(this, "Vemmelev Skole", 4),
-                new RanklisteListviewModel(this, "Flakkebjerg Skole", 42),
+                new RanklisteListviewModel(this, "Løgstør Skole", 12),
+                new RanklisteListviewModel(this, "Farsø Skole", 14),
+                new RanklisteListviewModel(this, "Vesterkærets Skole", 4),
+                new RanklisteListviewModel(this, "Gammel Hasseris Skole", 42),
         };
         for (RanklisteListviewModel favoritListviewModel : favoritListviewModels) { ranklisteListviewAdapter.addSchool(favoritListviewModel); }
 
@@ -53,7 +53,7 @@ public class RanklisteZealandFragment extends Fragment {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
             getFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                    .replace(R.id.fragment_container, new RanklisteFragment()).commit();
+                    .replace(R.id.fragment_container, new RanklistFragment()).commit();
         }
 
         return super.onOptionsItemSelected(item);

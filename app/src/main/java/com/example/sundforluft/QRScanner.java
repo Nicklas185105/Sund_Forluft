@@ -107,8 +107,15 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
                         startActivity(i);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     } else {
-                        // Go To Detailed View.
+                        // Go To Graph View.
+                        /*
+                        Intent i = new Intent(QRScanner.this, );
+                        i.putExtra("accessToken", accessToken);
+                        i.putExtra("deviceId", deviceId);
 
+                        startActivity(i);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        */
                     }
                 } else
                 {

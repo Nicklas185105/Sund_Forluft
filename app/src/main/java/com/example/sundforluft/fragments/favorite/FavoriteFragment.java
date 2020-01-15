@@ -29,7 +29,7 @@ public class FavoriteFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorit, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
 
         favoritListviewAdapter = new FavoritListviewAdapter(this);
         favoritListviewAdapter.setClickListener(new FavoritListviewAdapter.ClickListener() {

@@ -24,7 +24,7 @@ public class HelpFavoritFragment extends Fragment implements View.OnClickListene
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_help_favorit, container, false);
+        View view = inflater.inflate(R.layout.fragment_help_favorite, container, false);
 
         back = view.findViewById(R.id.back);
         forward = view.findViewById(R.id.forward);

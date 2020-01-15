@@ -68,19 +68,20 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
                 /*TODO: Text in strings.xml*/
                 String password = dataSnapshot.child("password").getValue(String.class);
                 if (password.equals(compare)) {
-                    Globals.isTeacher = true;
-
                     // Obtain school
                     Globals.school = DataAccessLayer.getInstance().getSchoolById(dataSnapshot.child("schoolId").getValue(Integer.class));
 
                     // School Obtained & Logged In.
                     /*TODO: Text in strings.xml*/
-                    if (username.equals("admin")){
+                    if (username.toLowerCase().equals("admin")){
+                        Globals.isAdmin = true;
                         Intent intent = new Intent(TeacherLoginActivity.this, AdminMainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                     else {
+                        Globals.isTeacher = true;
+
                         Intent intent = new Intent(TeacherLoginActivity.this, TeacherMainActivity.class);
                         intent.putExtra("name", username);
                         startActivity(intent);

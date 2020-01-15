@@ -10,8 +10,10 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.sundforluft.QRScanner;
 import com.example.sundforluft.R;
 import com.example.sundforluft.StartActivity;
+import com.example.sundforluft.services.Globals;
 
 public class TeacherMainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -56,7 +58,7 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.addCloud:
-                Intent i = new Intent(TeacherMainActivity.this, AddCloudActivity.class);
+                Intent i = new Intent(TeacherMainActivity.this, QRScanner.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
@@ -66,6 +68,7 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+        Globals.isTeacher = false; // Revoke teacher rights.
         Intent intent = new Intent(TeacherMainActivity.this, StartActivity.class);
         intent.putExtra("animation", false);
         startActivity(intent);

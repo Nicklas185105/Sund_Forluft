@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sundforluft.R;
 import com.example.sundforluft.StartActivity;
+import com.example.sundforluft.services.Globals;
 
 import carbon.view.View;
 
@@ -59,6 +60,7 @@ public class AdminMainActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
+        Globals.isAdmin = false; // Revoke admin rights.
         Intent intent = new Intent(AdminMainActivity.this, StartActivity.class);
         intent.putExtra("animation", false);
         startActivity(intent);

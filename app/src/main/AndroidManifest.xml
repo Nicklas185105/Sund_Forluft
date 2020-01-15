@@ -54,7 +54,7 @@
             android:name=".TeacherLoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".GuestLogin"
+            android:name=".QRScanner"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".admin.AdminMainActivity"

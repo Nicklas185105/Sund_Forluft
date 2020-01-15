@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.sundforluft.DAL.DataAccessLayer;
-import com.example.sundforluft.teacher.TeacherMainActivity;
+import com.example.sundforluft.Teacher.TeacherMainActivity;
 import com.example.sundforluft.admin.AdminMainActivity;
 import com.example.sundforluft.services.Globals;
 import com.example.sundforluft.services.MD5Converter;
@@ -25,7 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 public class TeacherLoginActivity extends AppCompatActivity implements View.OnClickListener {
     Button button;
     Toolbar toolbar;
-    EditText username, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,54 +36,52 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.teacherLogin);
+        /*TODO: Text in strings.xml*/
+        getSupportActionBar().setTitle("Lærer Login");
 
         // Arrow Click
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        username = findViewById(R.id.usernameEditText);
-        password = findViewById(R.id.passwordEditText);
     }
 
     @Override
     public void onClick(View v) {
         if (v == button){
-            if (!username.getText().toString().equals("") && !password.getText().toString().equals("")) {
-                tryLoginToAccount(
-                        username.getText().toString(),
-                        password.getText().toString()
-                );
-            }
-            else {
-                Toast.makeText(getApplicationContext(),
-                        R.string.fill,
-                        Toast.LENGTH_SHORT).show();
-            }
+            EditText username = findViewById(R.id.usernameEditText);
+            EditText password = findViewById(R.id.passwordEditText);
+
+            tryLoginToAccount(
+                    username.getText().toString(),
+                    password.getText().toString()
+            );
         }
     }
 
     private void tryLoginToAccount(String username, String password) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         String compare = MD5Converter.md5(password);
+        /*TODO: Text in strings.xml*/
         DatabaseReference myRef = database.getReference("users/" + username);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                /*TODO: Text in strings.xml*/
                 String password = dataSnapshot.child("password").getValue(String.class);
                 if (password.equals(compare)) {
-                    Globals.isTeacher = true;
-
                     // Obtain school
                     Globals.school = DataAccessLayer.getInstance().getSchoolById(dataSnapshot.child("schoolId").getValue(Integer.class));
 
                     // School Obtained & Logged In.
-                    if (username.equals("admin")){
+                    /*TODO: Text in strings.xml*/
+                    if (username.toLowerCase().equals("admin")){
+                        Globals.isAdmin = true;
                         Intent intent = new Intent(TeacherLoginActivity.this, AdminMainActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                     else {
+                        Globals.isTeacher = true;
+
                         Intent intent = new Intent(TeacherLoginActivity.this, TeacherMainActivity.class);
                         intent.putExtra("name", username);
                         startActivity(intent);
@@ -116,6 +113,7 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
     public void onBackPressed() {
         //super.onBackPressed();
         Intent intent = new Intent(TeacherLoginActivity.this, StartActivity.class);
+        /*TODO: Text in strings.xml*/
         intent.putExtra("animation", false);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);

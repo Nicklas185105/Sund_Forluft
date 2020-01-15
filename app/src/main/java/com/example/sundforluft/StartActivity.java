@@ -72,7 +72,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             } else if (v == guest) {
-                Intent i = new Intent(this, GuestLogin.class);
+                Intent i = new Intent(this, QRScanner.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

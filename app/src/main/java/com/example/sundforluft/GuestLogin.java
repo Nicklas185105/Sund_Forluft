@@ -88,11 +88,11 @@ public class GuestLogin extends AppCompatActivity implements ZXingScannerView.Re
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null){
-                    Toast.makeText(getApplicationContext(), "Wuuhhuuu du fandt en gyldig lorte kode", Toast.LENGTH_SHORT).show();
+
                 } else
                 {
                     scannerView.resumeCameraPreview(resultSelf);
-                    Toast.makeText(getApplicationContext(), "Din QR kode er ikke gyldig", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Advarsel: Vådt vand", Toast.LENGTH_SHORT).show();
                 }
             }
 

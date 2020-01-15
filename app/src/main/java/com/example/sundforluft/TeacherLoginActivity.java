@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.sundforluft.DAL.DataAccessLayer;
-import com.example.sundforluft.Teacher.TeacherMainActivity;
+import com.example.sundforluft.teacher.TeacherMainActivity;
 import com.example.sundforluft.admin.AdminMainActivity;
 import com.example.sundforluft.services.Globals;
 import com.example.sundforluft.services.MD5Converter;

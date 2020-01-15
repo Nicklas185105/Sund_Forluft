@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.sundforluft.R;
 
-public class HelpMapFragment extends Fragment implements View.OnClickListener {
+public class HelpSkolerFragment extends Fragment implements View.OnClickListener {
 
     Button back, forward;
 

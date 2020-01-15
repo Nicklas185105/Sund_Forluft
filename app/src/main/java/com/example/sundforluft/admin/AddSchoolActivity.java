@@ -12,8 +12,6 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.UserModel;
 import com.example.sundforluft.R;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import carbon.view.View;
 
@@ -22,9 +20,6 @@ public class AddSchoolActivity extends AppCompatActivity implements View.OnClick
     Toolbar toolbar;
     Button add;
     EditText username, password, school;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef;
-    long schoolCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +28,7 @@ public class AddSchoolActivity extends AppCompatActivity implements View.OnClick
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*TODO: Text in strings.xml*/
-        getSupportActionBar().setTitle("Tilføj Skole");
+        getSupportActionBar().setTitle(R.string.addSchool);
 
         // Arrow Click
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -46,8 +40,6 @@ public class AddSchoolActivity extends AppCompatActivity implements View.OnClick
         username = findViewById(R.id.usernameEditText);
         password = findViewById(R.id.passwordEditText);
         school = findViewById(R.id.schoolEditText);
-
-        //TODO: onClick, tøm editext og giv confirm toast
     }
 
     @Override
@@ -60,7 +52,7 @@ public class AddSchoolActivity extends AppCompatActivity implements View.OnClick
                 );
                 while (!DataAccessLayer.getInstance().isLoaded()){}
                 Toast.makeText(getApplicationContext(),
-                        "Succesfuldt tilføjet skole '" + school.getText().toString() + "'",
+                        R.string.schoolAdded + school.getText().toString() + R.string.schoolAddedRemoved,
                         Toast.LENGTH_SHORT).show();
                 username.setText("");
                 password.setText("");

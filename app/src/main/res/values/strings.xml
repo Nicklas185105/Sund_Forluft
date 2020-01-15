@@ -39,14 +39,29 @@
     <string name="procent">50%</string>
     <!-- Help Fagment -->
     <string name="helpTitel">Hjælp</string>
+    <!-- Scanner Fragment -->
+    <string name="acceptPermission">You need to accept permission</string>
 
     <!-- Guest Login -->
     <string name="tekst">. . .</string>
 
-    <!-- Teacher Login -->
+    <!-- Teacher/Admin Login -->
     <string name="login">Login</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="addSchool">Tilføj Skole</string>
+    <string name="schoolAdded">Succesfuldt tilføjet skole "</string>
+    <string name="schoolAddedRemoved">"</string>
+    <string name="allSchools">Oversigt Over Skoler</string>
+    <string name="removeSchool">Fjern Skole</string>
+    <string name="schoolRemoved">Succesfuldt fjernet skole "</string>
+    <string name="welcome">Velkommen</string>
+    <string name="guest">Guest - QR Scanner</string>
+    <string name="qrNotFound">Din QR kode er ikke gyldig</string>
+    <string name="teacherLogin">Lærer Login</string>
+
+    <string name="gettingSchools">Henter skoler. Vent venligst.</string>
+    <string name="fill">Venligst udfyld felterne</string>
 
     <string name="toastWrongUserPass">Forkert brugernavn/kodeord</string>
 </resources>

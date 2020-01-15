@@ -20,7 +20,7 @@ public class AllSchoolsActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         /*TODO: Text in strings.xml*/
-        getSupportActionBar().setTitle("Oversigt Over Skoler");
+        getSupportActionBar().setTitle(R.string.allSchools);
 
         // Arrow Click
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

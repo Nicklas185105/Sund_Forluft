@@ -37,7 +37,7 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         /*TODO: Text in strings.xml*/
-        getSupportActionBar().setTitle("Fjern Skole");
+        getSupportActionBar().setTitle(R.string.removeSchool);
 
         // Arrow Click
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -75,7 +75,9 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
         SchoolModel foundModel = DataAccessLayer.getInstance().getSchoolByName(schoolName);
         DataAccessLayer.getInstance().removeSchool(foundModel);
         while (!DataAccessLayer.getInstance().isLoaded()){}
-        Toast.makeText(getApplicationContext(), "Succesfuldt fjernet skole '" + dropdown.getSelectedItem() + "'", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),
+                R.string.schoolRemoved + "" + dropdown.getSelectedItem() + R.string.schoolAddedRemoved,
+                Toast.LENGTH_SHORT).show();
         schoolLoader();
     }
 

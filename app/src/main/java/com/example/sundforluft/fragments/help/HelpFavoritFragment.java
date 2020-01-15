@@ -43,56 +43,38 @@ public class HelpFavoritFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        if (v == back){
-            switch (n){
-                case 2:
-                    imageView.setImageResource(R.drawable.ic_help_1_place);
-                    help_container.setImageResource(R.drawable.help_favorit_search);
-                    break;
-                case 3:
-                    imageView.setImageResource(R.drawable.ic_help_2_place);
-                    help_container.setImageResource(R.drawable.help_favorit_favorit);
-                    break;
-                case 4:
-                    imageView.setImageResource(R.drawable.ic_help_3_place);
-                    help_container.setImageResource(R.drawable.help_favorit_remove);
-                    break;
-                /*case 5:
-                    imageView.setImageResource(R.drawable.ic_help_4_place);
-                    break;
-                case 6:
-                    imageView.setImageResource(R.drawable.ic_help_5_place);
-                    break;
-                case 7:
-                    imageView.setImageResource(R.drawable.ic_help_6_place);
-                    break;*/
-            }
-            n--;
+        if (n == 1){
+            n=7;
+        } else if (n == 7){
+            n=1;
+        } else {
+            n = v == back ? n-1 : n+1;
         }
-        else if (v == forward){
-            switch (n){
-                case 1:
-                    imageView.setImageResource(R.drawable.ic_help_2_place);
-                    help_container.setImageResource(R.drawable.help_favorit_favorit);
-                    break;
-                case 2:
-                    imageView.setImageResource(R.drawable.ic_help_3_place);
-                    help_container.setImageResource(R.drawable.help_favorit_remove);
-                    break;
-                /*case 3:
-                    imageView.setImageResource(R.drawable.ic_help_4_place);
-                    break;
-                case 4:
-                    imageView.setImageResource(R.drawable.ic_help_5_place);
-                    break;
-                case 5:
-                    imageView.setImageResource(R.drawable.ic_help_6_place);
-                    break;
-                case 6:
-                    imageView.setImageResource(R.drawable.ic_help_7_place);
-                    break;*/
-            }
-            n++;
+        switch (n){
+            case 1:
+                imageView.setImageResource(R.drawable.ic_help_1_place);
+                help_container.setImageResource(R.drawable.help_favorit_search);
+                break;
+            case 2:
+                imageView.setImageResource(R.drawable.ic_help_2_place);
+                help_container.setImageResource(R.drawable.help_favorit_favorit);
+                break;
+            case 3:
+                imageView.setImageResource(R.drawable.ic_help_3_place);
+                help_container.setImageResource(R.drawable.help_favorit_remove);
+                break;
+            case 4:
+                imageView.setImageResource(R.drawable.ic_help_4_place);
+                break;
+            case 5:
+                imageView.setImageResource(R.drawable.ic_help_5_place);
+                break;
+            case 6:
+                imageView.setImageResource(R.drawable.ic_help_6_place);
+                break;
+            case 7:
+                imageView.setImageResource(R.drawable.ic_help_7_place);
+                break;
         }
     }
 }

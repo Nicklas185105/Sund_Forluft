@@ -2,6 +2,7 @@ package com.example.sundforluft.DAL;
 
 import androidx.annotation.NonNull;
 
+import com.example.sundforluft.DAO.ClassroomModel;
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.DAO.UserModel;
 import com.google.firebase.database.DataSnapshot;
@@ -17,10 +18,12 @@ public class DataAccessLayer {
     private ArrayList<SchoolModel> schools;
     private boolean loaded = false;
     private ArrayList<UserModel> users;
+    private ArrayList<ClassroomModel> classrooms;
 
     private DataAccessLayer(){
         schools = new ArrayList<>();
         users = new ArrayList<>();
+        classrooms = new ArrayList<>();
     }
 
     public static DataAccessLayer getInstance() {
@@ -66,6 +69,22 @@ public class DataAccessLayer {
         myRef.setValue(newId);
     }
 
+    public void addClassroom(int schoolId, String accessToken, String deviceId, String name){
+        //Cache classroom
+        ClassroomModel classroom = new ClassroomModel(schoolId, accessToken, deviceId, name);
+        classrooms.add(classroom);
+
+        //Db insert
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("classrooms/"+classroom.id+"/accessToken");
+        reference.setValue(classroom.accessToken);
+        reference = database.getReference("classrooms/"+classroom.id+"/deviceId");
+        reference.setValue(classroom.deviceId);
+        reference = database.getReference("classrooms/"+classroom.id+"/name");
+        reference.setValue(classroom.name);
+
+    }
+
     public void removeSchool(SchoolModel model) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("schools/" + model.Id);
@@ -81,8 +100,8 @@ public class DataAccessLayer {
         loaded = false;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        DatabaseReference myRef = database.getReference("schools");
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference schoolRef = database.getReference("schools");
+        schoolRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 instance.schools = new ArrayList<>();
@@ -137,6 +156,33 @@ public class DataAccessLayer {
             @Override
             public void onCancelled(DatabaseError error) {  }
         });
+        DatabaseReference classroomRef = database.getReference("classrooms");
+        classroomRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                instance.classrooms = new ArrayList<>();
+
+                
+                //Retrieve classrooms
+                for (DataSnapshot classroomParent : dataSnapshot.getChildren()) {
+                    //Id from this particular record
+                    int id = Integer.parseInt(classroomParent.getValue(String.class));
+                    //Child records
+                    for (DataSnapshot deviceIdChild : classroomParent.getChildren()){
+                        String deviceId = deviceIdChild.getValue(String.class);
+                        String accessToken = deviceIdChild.child("accessToken").getValue(String.class);
+                        String name = deviceIdChild.child("name").getValue(String.class);
+                        ClassroomModel classroom = new ClassroomModel(id, accessToken, deviceId, name);
+                        classrooms.add(classroom);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public boolean isLoaded() {
@@ -152,6 +198,7 @@ public class DataAccessLayer {
 
         return null;
     }
+
     public SchoolModel getSchoolByName(String name) {
         for (SchoolModel school : schools) {
             if (school.Name.equals(name)) {
@@ -161,6 +208,13 @@ public class DataAccessLayer {
 
         return null;
     }
+
+    public ArrayList<ClassroomModel> getClassroomBySchoolId(int schoolId){
+        ArrayList<ClassroomModel> classroomModels = new ArrayList();
+        classrooms.forEach((c) -> { if (c.id == schoolId) classroomModels.add(c); });
+        return classroomModels;
+    }
+
     public UserModel getUserBySchool(SchoolModel model) {
         for (UserModel user : users) {
             if (model.Id == user.getSchoolId()) {
@@ -176,4 +230,6 @@ public class DataAccessLayer {
         schools.toArray(array);
         return array;
     }
+
+
 }

@@ -74,7 +74,7 @@ public class FavoritFragment extends Fragment {
         schoolModelListView.setAdapter(favoritListviewAdapter);
 
         // Set title of toolbar
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("Favorit");
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.menuFavorit);
 
         return view;
     }

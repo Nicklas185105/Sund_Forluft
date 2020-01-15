@@ -64,7 +64,7 @@ public class ScannerFragment extends Fragment implements ZXingScannerView.Result
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Toast.makeText(getActivity(), "You need to accept permission", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), R.string.acceptPermission, Toast.LENGTH_LONG).show();
                     }
 
                     @Override

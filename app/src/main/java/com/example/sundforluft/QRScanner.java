@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.example.sundforluft.fragments.scanner.ScannerFragment;
+import com.example.sundforluft.services.Globals;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +27,7 @@ import com.karumi.dexter.listener.single.PermissionListener;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class GuestLogin extends AppCompatActivity implements ZXingScannerView.ResultHandler {
+public class QRScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private ZXingScannerView scannerView;
     private TextView txtResult;
     Toolbar toolbar;
@@ -42,13 +42,15 @@ public class GuestLogin extends AppCompatActivity implements ZXingScannerView.Re
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Guest - QR Scanner");
+
+        String name = Globals.hasTeacherRights() ? "Lærer" : "Gæst";
+        getSupportActionBar().setTitle(String.format("%s - QR Scanner", name));
 
         // Arrow Click
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        GuestLogin self = this;
+        QRScanner self = this;
 
         //Request permission
         Dexter.withActivity(self)
@@ -87,12 +89,20 @@ public class GuestLogin extends AppCompatActivity implements ZXingScannerView.Re
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null){
-                    Toast.makeText(getApplicationContext(), "Wuuhhuuu du fandt en gyldig lorte kode", Toast.LENGTH_SHORT).show();
+                if (dataSnapshot.getValue() != null) {
+                    if (Globals.hasTeacherRights()) {
+                        // Setup Teacher
+                        String token = dataSnapshot.getValue(String.class);
+
+
+
+                    } else {
+                        // Go To Detailed View.
+
+                    }
                 } else
                 {
                     scannerView.resumeCameraPreview(resultSelf);
-                    Toast.makeText(getApplicationContext(), "Din QR kode er ikke gyldig", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -118,7 +128,7 @@ public class GuestLogin extends AppCompatActivity implements ZXingScannerView.Re
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent = new Intent(GuestLogin.this, StartActivity.class);
+        Intent intent = new Intent(QRScanner.this, StartActivity.class);
         intent.putExtra("animation", false);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);

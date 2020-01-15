@@ -54,7 +54,7 @@
             android:name=".TeacherLoginActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".GuestLogin"
+            android:name=".QRScanner"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".admin.AdminMainActivity"
@@ -69,10 +69,10 @@
             android:name=".admin.RemoveSchoolActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".Teacher.TeacherMainActivity"
+            android:name=".teacher.TeacherMainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".Teacher.AddCloudActivity"
+            android:name=".teacher.AddCloudActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

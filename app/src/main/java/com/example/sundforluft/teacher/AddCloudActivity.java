@@ -1,4 +1,4 @@
-package com.example.sundforluft.Teacher;
+package com.example.sundforluft.teacher;
 
 import android.os.Bundle;
 

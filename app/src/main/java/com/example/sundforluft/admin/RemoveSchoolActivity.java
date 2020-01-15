@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -74,7 +75,7 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
         SchoolModel foundModel = DataAccessLayer.getInstance().getSchoolByName(schoolName);
         DataAccessLayer.getInstance().removeSchool(foundModel);
         while (!DataAccessLayer.getInstance().isLoaded()){}
-
+        Toast.makeText(getApplicationContext(), "Succesfuldt fjernet skole '" + dropdown.getSelectedItem() + "'", Toast.LENGTH_SHORT).show();
         schoolLoader();
     }
 

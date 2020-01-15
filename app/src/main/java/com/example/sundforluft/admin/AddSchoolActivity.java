@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -57,6 +58,13 @@ public class AddSchoolActivity extends AppCompatActivity implements View.OnClick
                         school.getText().toString(),
                         new UserModel(username.getText().toString(), password.getText().toString())
                 );
+                while (!DataAccessLayer.getInstance().isLoaded()){}
+                Toast.makeText(getApplicationContext(),
+                        "Succesfuldt tilføjet skole '" + school.getText().toString() + "'",
+                        Toast.LENGTH_SHORT).show();
+                username.setText("");
+                password.setText("");
+                school.setText("");
             }
         }
     }

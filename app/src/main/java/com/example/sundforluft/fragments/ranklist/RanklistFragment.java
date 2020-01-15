@@ -1,4 +1,4 @@
-package com.example.sundforluft.fragments.rangliste;
+package com.example.sundforluft.fragments.ranklist;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.sundforluft.R;
 
-public class RanklisteFragment extends Fragment implements View.OnClickListener {
+public class RanklistFragment extends Fragment implements View.OnClickListener {
 
     private Button nortjutland, midjutland, southdenmark, zealand, copenhagen;
 
@@ -43,27 +43,27 @@ public class RanklisteFragment extends Fragment implements View.OnClickListener 
         try {
             if (view == nortjutland){
                 mFragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new RanklisteNorthJutlandFragment()).commit();
+                        .replace(R.id.fragment_container, new RanklistNorthJutlandFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
             }
             else if (view == midjutland){
                 mFragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new RanklisteMidJutlandFragment()).commit();
+                        .replace(R.id.fragment_container, new RanklistMidJutlandFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
             }
             else if (view == southdenmark){
                 mFragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new RanklisteSouthdenmarkFragment()).commit();
+                        .replace(R.id.fragment_container, new RanklistSouthdenmarkFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
             }
             else if (view == zealand){
                 mFragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new RanklisteZealandFragment()).commit();
+                        .replace(R.id.fragment_container, new RanklistZealandFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
             }
             else if (view == copenhagen){
                 mFragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new RanklisteCopenhagenFragment()).commit();
+                        .replace(R.id.fragment_container, new RanklistCopenhagenFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
             }
         } catch (NullPointerException e) {

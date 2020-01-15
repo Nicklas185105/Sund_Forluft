@@ -1,9 +1,9 @@
-package com.example.sundforluft.services;
+package com.example.sundforluft.services.DataBroker;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 
-public class SundforluftDataModel {
+public class AirQualityDataModel {
     public LocalDateTime Date;
     public double CO2;
 }

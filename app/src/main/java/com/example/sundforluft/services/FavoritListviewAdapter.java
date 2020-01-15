@@ -105,7 +105,7 @@ public class FavoritListviewAdapter extends BaseAdapter implements View.OnClickL
     @Override
     public View getView(int position, View convertView, final ViewGroup parent) {
         // Create new object for activity listener
-        convertView = inflater.inflate(R.layout.activity_favorit_listview, null);
+        convertView = inflater.inflate(R.layout.activity_favorite_listview, null);
 
         // Item to be displayed
         FavoritListviewModel model = items.get(position);

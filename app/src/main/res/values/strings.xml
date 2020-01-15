@@ -64,6 +64,7 @@
     <string name="fill">Venligst udfyld felterne</string>
 
     <string name="toastWrongUserPass">Forkert brugernavn/kodeord</string>
-    <string name="indtast_klasseværelse">Indtast navnet på klasseværelset</string>
-    <string name="submit">Tilføj</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

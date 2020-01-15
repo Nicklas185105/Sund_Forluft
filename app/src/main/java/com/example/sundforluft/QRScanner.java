@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.sundforluft.teacher.AddCloudActivity;
 import com.example.sundforluft.services.Globals;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -90,15 +91,31 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null) {
+                    String accessToken = dataSnapshot.getValue(String.class);
+
+                    /*
+                    * deviceName, accessToken has been retrieved.
+                    * Forward to next view using these details.
+                    * */
+
                     if (Globals.hasTeacherRights()) {
-                        // Setup Teacher
-                        String token = dataSnapshot.getValue(String.class);
+                        // Go to cloud view.
+                        Intent i = new Intent(QRScanner.this, AddCloudActivity.class);
+                        i.putExtra("accessToken", accessToken);
+                        i.putExtra("deviceId", deviceId);
 
-
-
+                        startActivity(i);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     } else {
-                        // Go To Detailed View.
+                        // Go To Graph View.
+                        /*
+                        Intent i = new Intent(QRScanner.this, );
+                        i.putExtra("accessToken", accessToken);
+                        i.putExtra("deviceId", deviceId);
 
+                        startActivity(i);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        */
                     }
                 } else
                 {

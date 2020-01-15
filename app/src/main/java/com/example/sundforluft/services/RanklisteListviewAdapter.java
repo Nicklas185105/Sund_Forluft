@@ -1,13 +1,11 @@
 package com.example.sundforluft.services;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.sundforluft.R;
@@ -56,7 +54,7 @@ public class RanklisteListviewAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Create new object for activity listener
-        convertView = inflater.inflate(R.layout.activity_rankliste_listview, null);
+        convertView = inflater.inflate(R.layout.activity_ranklist_listview, null);
 
         // Item to be displayed
         final RanklisteListviewModel model = items.get(position);

@@ -1,4 +1,4 @@
-package com.example.sundforluft.fragments.favorit;
+package com.example.sundforluft.fragments.favorite;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,14 +22,14 @@ import com.example.sundforluft.services.FavoritListviewAdapter;
 
 import java.util.ArrayList;
 
-public class FavoritFragment extends Fragment {
+public class FavoriteFragment extends Fragment {
 
     FavoritListviewAdapter favoritListviewAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorit, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorite, container, false);
 
         favoritListviewAdapter = new FavoritListviewAdapter(this);
         favoritListviewAdapter.setClickListener(new FavoritListviewAdapter.ClickListener() {
@@ -40,7 +40,7 @@ public class FavoritFragment extends Fragment {
                     case School:
                         Bundle bundle = new Bundle();
                         bundle.putString("name", favoritListviewAdapter.getName(model));
-                        FavoritDetailedFragment detailedFragment = new FavoritDetailedFragment();
+                        FavoriteDetailedFragment detailedFragment = new FavoriteDetailedFragment();
                         detailedFragment.setArguments(bundle);
                         mFragmentTransaction
                                 .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)

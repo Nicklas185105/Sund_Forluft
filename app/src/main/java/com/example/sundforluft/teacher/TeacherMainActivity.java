@@ -37,6 +37,8 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
 
         text = findViewById(R.id.welcome);
         Intent intent = getIntent();
+
+        // TODO: Use strings.xml
         text.setText("Velkommen " + intent.getStringExtra("name"));
 
         addCloud = findViewById(R.id.addCloud);

@@ -15,10 +15,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.sundforluft.fragments.favorit.FavoritFragment;
+import com.example.sundforluft.fragments.favorite.FavoriteFragment;
 import com.example.sundforluft.fragments.help.HelpFragment;
 import com.example.sundforluft.fragments.schools.SchoolsFragment;
-import com.example.sundforluft.fragments.rangliste.RanklisteFragment;
+import com.example.sundforluft.fragments.ranklist.RanklistFragment;
 import com.example.sundforluft.fragments.scanner.ScannerFragment;
 import com.example.sundforluft.services.Globals;
 import com.google.android.material.navigation.NavigationView;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                    new FavoritFragment()).commit();
+                    new FavoriteFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_favorit);
             getSupportActionBar().setTitle(R.string.menuFavorit);
         }
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 public void onClick(View v) {
                     if (v.getId() == R.id.rankliste)
                     getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                            .replace(R.id.fragment_container, new RanklisteFragment()).commit();
+                            .replace(R.id.fragment_container, new RanklistFragment()).commit();
                     else{
                         getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
                                 .replace(R.id.fragment_container, new HelpFragment()).commit();
@@ -118,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (menuItem.getItemId()){
             case R.id.nav_favorit:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                    .replace(R.id.fragment_container, new FavoritFragment()).commit();
+                    .replace(R.id.fragment_container, new FavoriteFragment()).commit();
                 getSupportActionBar().setTitle(R.string.menuFavorit);
                 break;
             case R.id.nav_map:
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_ranklist:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new RanklisteFragment()).commit();
+                        .replace(R.id.fragment_container, new RanklistFragment()).commit();
                 getSupportActionBar().setTitle(R.string.menuRanklist);
                 break;
             case R.id.nav_help:

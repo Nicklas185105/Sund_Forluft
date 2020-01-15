@@ -1,4 +1,4 @@
-package com.example.sundforluft.fragments.favorit;
+package com.example.sundforluft.fragments.favorite;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,10 +17,10 @@ import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 
 import com.example.sundforluft.models.FavoritDetailedListviewModel;
-import com.example.sundforluft.services.CsvDataBroker;
+import com.example.sundforluft.services.DataBroker.CsvDataBroker;
 import com.example.sundforluft.services.FavoritDetailedListviewAdapter;
-import com.example.sundforluft.services.SundForluftDataBroker;
-import com.example.sundforluft.services.SundforluftDataModel;
+import com.example.sundforluft.services.DataBroker.DataBroker;
+import com.example.sundforluft.services.DataBroker.AirQualityDataModel;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -35,16 +34,11 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
-import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class FavoritDetailedFragment extends Fragment implements OnChartValueSelectedListener {
+public class FavoriteDetailedFragment extends Fragment implements OnChartValueSelectedListener {
 
     private PieChart chart;
     FavoritDetailedListviewAdapter favoritDetailedListviewAdapter;
@@ -52,7 +46,7 @@ public class FavoritDetailedFragment extends Fragment implements OnChartValueSel
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorit_detailed, container, false);
+        View view = inflater.inflate(R.layout.fragment_favorite_detailed, container, false);
 
         chart = view.findViewById(R.id.chart1);
         //chart.setUsePercentValues(true);
@@ -87,17 +81,18 @@ public class FavoritDetailedFragment extends Fragment implements OnChartValueSel
         //chart.setEntryLabelTypeface();
         chart.setEntryLabelTextSize(12f);
 
-        SundForluftDataBroker dataBroker = new CsvDataBroker( getResources() );
+        DataBroker dataBroker = new CsvDataBroker( getResources() );
 
-        List<SundforluftDataModel> modelsForSchoolA = dataBroker.GetData(
-            LocalDateTime.parse("2019-08-19T11:37:28.264000"),
-            LocalDateTime.parse("2019-08-20T11:30:07.899000")
-        );
+        List<AirQualityDataModel> modelsForSchoolA = new ArrayList<>();
+        List<AirQualityDataModel> modelsForSchoolB = new ArrayList<>();
 
-        List<SundforluftDataModel> modelsForSchoolB = dataBroker.GetData(
-            LocalDateTime.parse("2019-08-20T13:01:11.318000"),
-            LocalDateTime.parse("2019-08-20T13:32:35.421000")
-        );
+        if (dataBroker.load(LocalDateTime.parse("2019-08-19T11:37:28.264000"), LocalDateTime.parse("2019-08-20T11:30:07.899000"))) {
+            modelsForSchoolA = dataBroker.getData();
+        }
+
+        if (dataBroker.load(LocalDateTime.parse("2019-08-20T13:01:11.318000"), LocalDateTime.parse("2019-08-20T13:32:35.421000"))) {
+             modelsForSchoolB = dataBroker.getData();
+        }
 
 
         setData(1, getAverage(modelsForSchoolA));
@@ -123,11 +118,11 @@ public class FavoritDetailedFragment extends Fragment implements OnChartValueSel
         return view;
     }
 
-    private float getAverage(List<SundforluftDataModel> models) {
+    private float getAverage(List<AirQualityDataModel> models) {
         double total = 0;
         int count = 0;
 
-        for (SundforluftDataModel model : models) {
+        for (AirQualityDataModel model : models) {
             total += model.CO2;
             count++;
         }

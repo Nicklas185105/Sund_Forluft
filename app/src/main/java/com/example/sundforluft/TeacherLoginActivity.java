@@ -29,8 +29,6 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
     EditText username;
     EditText password;
 
-    Button teacherLoginButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +36,7 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
         password = findViewById(R.id.passwordEditText);
         username = findViewById(R.id.usernameEditText);
 
-        teacherLoginButton = findViewById(R.id.teacherLoginButton);
-        teacherLoginButton.setOnClickListener(v -> {
-            username.setText("brugernavn");
-            password.setText("password");
-        });
+
 
         button = findViewById(R.id.button);
         button.setOnClickListener(this);

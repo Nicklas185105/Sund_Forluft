@@ -20,6 +20,7 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
     Toolbar toolbar;
     TextView text;
     Button addCloud;
+    Button allClouds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +47,10 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
         text.setText(welcome);
 
         addCloud = findViewById(R.id.addCloud);
+        allClouds = findViewById(R.id.allClouds);
 
         addCloud.setOnClickListener(this);
+        allClouds.setOnClickListener(this);
     }
 
     @Override
@@ -62,9 +65,15 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
+        Intent i;
         switch(v.getId()){
             case R.id.addCloud:
-                Intent i = new Intent(TeacherMainActivity.this, QRScanner.class);
+                i = new Intent(TeacherMainActivity.this, QRScanner.class);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+            case R.id.allClouds:
+                i = new Intent(this, CloudsOverviewActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;

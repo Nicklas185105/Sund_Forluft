@@ -65,6 +65,7 @@ public class AddCloudActivity extends AppCompatActivity {
                     builder.setMessage("Dette device er allerede registreret med navnet: "+modelFromDeviceId.name+"\nVil du overskrive dette device?")
                             .setNegativeButton("Nej", null)
                             .setPositiveButton("Ja", (dialog, which) -> {
+                                dataAccessLayer.removeClassroom(modelFromDeviceId);
                                 dataAccessLayer.addClassroom(id, accessToken, deviceId, name);
                                 Intent intent = new Intent(AddCloudActivity.this, TeacherMainActivity.class);
                                 startActivity(intent);

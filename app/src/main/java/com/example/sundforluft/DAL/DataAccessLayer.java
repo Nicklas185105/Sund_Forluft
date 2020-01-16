@@ -101,8 +101,7 @@ public class DataAccessLayer {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("classrooms/"+model.id+"/"+model.deviceId);
         ref.removeValue();
-
-        classrooms.remove(model);
+        boolean idsjd = classrooms.remove(model);
     }
 
 

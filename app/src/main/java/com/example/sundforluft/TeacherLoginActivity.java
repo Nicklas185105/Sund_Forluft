@@ -79,6 +79,10 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void tryLoginToAccount(String username, String password) {
+        if (username.length()==0 || password.length()==0){
+            Toast.makeText(this, R.string.fill, Toast.LENGTH_SHORT).show();
+            return;
+        }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         String compare = MD5Converter.md5(password);
         DatabaseReference myRef = database.getReference("users/" + username);

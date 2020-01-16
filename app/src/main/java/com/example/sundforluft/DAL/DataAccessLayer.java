@@ -96,6 +96,15 @@ public class DataAccessLayer {
 
         schools.remove(model);
     }
+
+    public void removeClassroom(ClassroomModel model){
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("classrooms/"+model.id+"/"+model.deviceId);
+        ref.removeValue();
+        boolean idsjd = classrooms.remove(model);
+    }
+
+
     public void reloadFromInternet() {
         loaded = false;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -209,10 +218,28 @@ public class DataAccessLayer {
         return null;
     }
 
-    public ArrayList<ClassroomModel> getClassroomBySchoolId(int schoolId){
+    public ArrayList<ClassroomModel> getClassroomsBySchoolId(int schoolId){
         ArrayList<ClassroomModel> classroomModels = new ArrayList();
-        classrooms.forEach((c) -> { if (c.id == schoolId) classroomModels.add(c); });
+        classrooms.forEach(c -> { if (c.id == schoolId) classroomModels.add(c); });
         return classroomModels;
+    }
+
+    public ClassroomModel getClassroomByDeviceId(String deviceId){
+        for ( ClassroomModel model : classrooms ){
+            if (model.deviceId.equals(deviceId)){
+                return model;
+            }
+        }
+        return null;
+    }
+
+    public ClassroomModel getClassroomBySchooldAndName(int schooldId, String name){
+        for( ClassroomModel model : classrooms ){
+            if (model.id == schooldId && model.name.equals(name)){
+                return model;
+            }
+        }
+        return null;
     }
 
     public UserModel getUserBySchool(SchoolModel model) {

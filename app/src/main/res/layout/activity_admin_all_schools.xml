@@ -21,7 +21,7 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Oversigt Over Skoler"
+        android:text="@string/oversigt_over_skoler"
         android:textSize="30sp"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"

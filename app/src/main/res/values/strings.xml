@@ -71,4 +71,5 @@
     <string name="classroom">Indtast navnet på klasseværelse</string>
     <string name="submit">Tilføj</string>
     <string name="classroomHint">Klasseværelse</string>
+    <string name="oversigt_over_skoler">Oversigt Over Skoler</string>
 </resources>

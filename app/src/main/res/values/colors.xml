@@ -9,4 +9,5 @@
     <color name="colorBlack87Op">#DE000000</color>
     <color name="colorLightBlue">#00BCD4</color>
     <color name="colorLightBlue12Op">#1F00BCD4</color>
+    <color name="textColor">#808080</color>
 </resources>

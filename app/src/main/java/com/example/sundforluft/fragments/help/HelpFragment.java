@@ -15,7 +15,7 @@ import com.example.sundforluft.R;
 
 public class HelpFragment extends Fragment implements View.OnClickListener {
 
-    Button favorit, map, rankliste, scanner;
+    Button favorit, skoler, rankliste, scanner;
 
     @Nullable
     @Override
@@ -23,12 +23,12 @@ public class HelpFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_help, container, false);
 
         favorit = view.findViewById(R.id.favorit);
-        map = view.findViewById(R.id.map);
+        skoler = view.findViewById(R.id.skoler);
         rankliste = view.findViewById(R.id.rankliste);
         scanner = view.findViewById(R.id.scanner);
 
         favorit.setOnClickListener(this);
-        map.setOnClickListener(this);
+        skoler.setOnClickListener(this);
         rankliste.setOnClickListener(this);
         scanner.setOnClickListener(this);
 
@@ -43,16 +43,16 @@ public class HelpFragment extends Fragment implements View.OnClickListener {
                 mFragmentTransaction.replace(R.id.fragment_container, new HelpFavoritFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
                 break;
-            case R.id.map:
-                mFragmentTransaction.replace(R.id.fragment_container, new HelpFavoritFragment()).commit();
+            case R.id.skoler:
+                mFragmentTransaction.replace(R.id.fragment_container, new HelpSkolerFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
                 break;
             case R.id.rankliste:
-                mFragmentTransaction.replace(R.id.fragment_container, new HelpFavoritFragment()).commit();
+                mFragmentTransaction.replace(R.id.fragment_container, new HelpRanklisteFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
                 break;
             case R.id.scanner:
-                mFragmentTransaction.replace(R.id.fragment_container, new HelpFavoritFragment()).commit();
+                mFragmentTransaction.replace(R.id.fragment_container, new HelpScannerFragment()).commit();
                 mFragmentTransaction.addToBackStack(null);
                 break;
         }

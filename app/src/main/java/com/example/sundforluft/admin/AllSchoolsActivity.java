@@ -19,7 +19,6 @@ public class AllSchoolsActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*TODO: Text in strings.xml*/
         getSupportActionBar().setTitle(R.string.allSchools);
 
         // Arrow Click

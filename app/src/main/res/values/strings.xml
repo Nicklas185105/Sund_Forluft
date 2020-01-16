@@ -56,6 +56,7 @@
     <string name="removeSchool">Fjern Skole</string>
     <string name="schoolRemoved">Succesfuldt fjernet skole "</string>
     <string name="welcome">Velkommen</string>
+    <string name="welcome2">Velkommen </string>
     <string name="guest">Guest - QR Scanner</string>
     <string name="qrNotFound">Din QR kode er ikke gyldig</string>
     <string name="teacherLogin">Lærer Login</string>

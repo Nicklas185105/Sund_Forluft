@@ -76,9 +76,12 @@ public class CloudDetailedFragment extends Fragment {
                         biggestTime = time;
                     }
 
-                    addEntry((float)measurement.CO2);
+                    addEntry((float)measurement.CO2, 0);
+                    addEntry((float)measurement.CO2, 1);
+                    addEntry((float)measurement.CO2, 2);
+                    chart.invalidate();
                 }
-            chart.getLegend().setEnabled(false);
+            //chart.getLegend().setEnabled(false);
         }).start();
 
         // add some transparency to the color with "& 0x90FFFFFF"
@@ -89,7 +92,7 @@ public class CloudDetailedFragment extends Fragment {
         return view;
     }
 
-    private void addEntry(float yValue) {
+    private void addEntry(float yValue, int index) {
         LineData data = chart.getData();
 
         if (data == null) {
@@ -97,13 +100,22 @@ public class CloudDetailedFragment extends Fragment {
             chart.setData(data);
         }
 
-        ILineDataSet set = data.getDataSetByIndex(0);
+        ILineDataSet set = data.getDataSetByIndex(index);
         if (set == null) {
-            set = createSet();
+            if (index == 0) {
+                set = createSet("Max", index);
+            }
+            else if (index == 1){
+                set = createSet("Average", index);
+            }
+            else {
+                set = createSet("Min", index);
+            }
             data.addDataSet(set);
+            chart.notifyDataSetChanged();
         }
 
-        data.addEntry(new Entry(set.getEntryCount(), yValue),0);
+        data.addEntry(new Entry(set.getEntryCount(), yValue),index);
         data.notifyDataChanged();
         chart.notifyDataSetChanged();
         chart.setVisibleXRangeMaximum(6);
@@ -111,11 +123,20 @@ public class CloudDetailedFragment extends Fragment {
         chart.moveViewTo(data.getEntryCount() - 7, 400f, YAxis.AxisDependency.LEFT);
     }
 
-    private LineDataSet createSet() {
-        LineDataSet set = new LineDataSet(null, "Dataset 1");
+    private LineDataSet createSet(String name, int index) {
+        LineDataSet set = new LineDataSet(null, name);
         set.setLineWidth(2.5f);
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setCircleRadius(4.5f);
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        if (index == 0){
+            set.setColor(Color.RED);
+            set.setCircleColor(Color.RED);
+        }
+        else if (index == 2){
+            set.setColor(Color.GREEN);
+            set.setCircleColor(Color.GREEN);
+        }
         return set;
     }
 }

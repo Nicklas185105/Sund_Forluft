@@ -33,6 +33,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -47,7 +48,7 @@ public class CloudDetailedFragment extends Fragment {
 
         chart = view.findViewById(R.id.chart);
 
-        LineData data = getData(40.0, 40.0);
+        LineData data = getData();
 
         // add some transparency to the color with "& 0x90FFFFFF"
         setupChart(chart, data, Color.WHITE);
@@ -102,11 +103,10 @@ public class CloudDetailedFragment extends Fragment {
         XAxis xAxis = chart.getXAxis();
         xAxis.setDrawGridLines(false);
         xAxis.setValueFormatter(new ValueFormatter() {
-
-            private final SimpleDateFormat mFormat = new SimpleDateFormat("dd/MM");
+            private final SimpleDateFormat mFormat = new SimpleDateFormat("dd/MM", Locale.ENGLISH);
             @Override
             public String getFormattedValue(float value) {
-                long millis = TimeUnit.HOURS.toMillis((long) value);
+                long millis = (long)value;
                 return mFormat.format(new Date(millis));
             }
         });
@@ -116,23 +116,15 @@ public class CloudDetailedFragment extends Fragment {
         chart.animateX(2500);
     }
 
-    private LineData getData(Double co2, Double date) {
-
+    private LineData getData() {
+        // now in hours
+        long now = System.currentTimeMillis();
         ArrayList<Entry> values = new ArrayList<>();
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM");
-        final Calendar cal = Calendar.getInstance();
-
-        for (int i = 0; i < 7; i++) {
-            if (i == 0) {
-                cal.add(Calendar.DATE, 0);
-            }
-            else {
-                cal.add(Calendar.DATE, -1);
-            }
-
-            long time = cal.getTimeInMillis();
-            values.add(new Entry(time, 1f));
+        // increment by 1 hour
+        for (float x = now - 1000 * 60 * 60 * 24 * 7; x < now; x += 1000 * 60 * 60 * 24) {
+            float y = (float) Math.random();
+            values.add(new Entry(x, y)); // add one entry per hour
         }
 
         // create a dataset and give it a type

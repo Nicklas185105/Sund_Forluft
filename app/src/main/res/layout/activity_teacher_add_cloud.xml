@@ -19,12 +19,14 @@
         <EditText
             android:id="@+id/addCloudEditText"
             android:layout_width="match_parent"
-            android:focusableInTouchMode="true"
-            android:layout_height="60dp"
-            android:layout_marginHorizontal="100dp"
-            android:layout_gravity="center"
-            android:textSize="35dp"
-            android:text=""
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="50dp"
+            android:background="@drawable/bg_favorit_search"
+            android:ems="8"
+            android:hint="@string/username"
+            android:inputType="textPersonName"
             android:gravity="center"/>
 
         <Button

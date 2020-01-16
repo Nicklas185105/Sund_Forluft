@@ -32,10 +32,10 @@ public class AddCloudActivity extends AppCompatActivity {
 
 
         submitButton.setOnClickListener(v -> {
-            DataAccessLayer.getInstance().addClassroom(id, accessToken, deviceId, name);
+            DataAccessLayer.getInstance().addClassroom(id, accessToken, deviceId, editText.getText().toString());
             Intent intent = new Intent(AddCloudActivity.this, TeacherMainActivity.class);
             startActivity(intent);
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_in_right);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
     }
 }

@@ -20,6 +20,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import kotlin.NotImplementedError;
@@ -75,10 +76,16 @@ public class ATTCommunicator {
 
     // Public functions
     // This method must be called from a thread!
-    public ATTDeviceInfo loadMeasurementsForDevice(ATTDevice device) {
+    public ATTDeviceInfo loadMeasurementsForDevice(ATTDevice device, Date start) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(start);
+        cal.add(Calendar.MONTH, 1);
+        return loadMeasurementsForDevice(device, start, cal.getTime());
+    }
+    public ATTDeviceInfo loadMeasurementsForDevice(ATTDevice device, Date start, Date end) {
         try {
-            String from = "2019-12-17T17:48:24+00:00";
-            String to = "2020-01-16T17:48:24+00:00";
+            String from = start.toInstant().toString().replace("Z", "+00:00");
+            String to = end.toInstant().toString().replace("Z", "+00:00");
 
             String query = String.format("from=%s&to=%s&resolution=day", URLEncoder.encode(from, "UTF-8"), URLEncoder.encode(to, "UTF-8"));
             String uri = String.format("https://api.allthingstalk.io/asset/%s/activity?%s", device.CO2AssetId, query);

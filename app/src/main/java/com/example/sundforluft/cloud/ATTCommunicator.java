@@ -77,11 +77,11 @@ public class ATTCommunicator {
     // This method must be called from a thread!
     public ATTDeviceInfo loadMeasurementsForDevice(ATTDevice device) {
         try {
-            String from = "2020-01-16T14:27:18+00:00";
-            String to = "2020-01-16T14:32:18+00:00";
+            String from = "2019-12-17T17:48:24+00:00";
+            String to = "2020-01-16T17:48:24+00:00";
 
-            String query = String.format("from=%s&to=%s", URLEncoder.encode(from, "UTF-8"), URLEncoder.encode(to, "UTF-8"));
-            String uri = String.format("https://api.allthingstalk.io/asset/%s/states?%s", device.CO2AssetId, query);
+            String query = String.format("from=%s&to=%s&resolution=day", URLEncoder.encode(from, "UTF-8"), URLEncoder.encode(to, "UTF-8"));
+            String uri = String.format("https://api.allthingstalk.io/asset/%s/activity?%s", device.CO2AssetId, query);
 
             HttpURLConnection connection = (HttpURLConnection) new URL(uri).openConnection();
             connection.setRequestMethod("GET");
@@ -106,9 +106,13 @@ public class ATTCommunicator {
             ArrayList<ATTDeviceInfoMeasurement> measurementList = new ArrayList<>();
             for (int i = 0; i < data.length(); i++) {
                 JSONObject dataPoint = (JSONObject) data.get(i);
-
                 Instant instant = Instant.parse(dataPoint.getString("at"));
-                measurementList.add(new ATTDeviceInfoMeasurement(dataPoint.getDouble("data"), Date.from(instant)));
+                JSONObject entryData = (JSONObject) dataPoint.get("data");
+                double min = entryData.getDouble("min");
+                double max = entryData.getDouble("max");
+                double avg = entryData.getDouble("avg");
+
+                measurementList.add(new ATTDeviceInfoMeasurement(avg, min, max, Date.from(instant)));
             }
 
             ATTDeviceInfoMeasurement[] measurements = new ATTDeviceInfoMeasurement[measurementList.size()];

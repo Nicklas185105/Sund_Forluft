@@ -71,12 +71,12 @@ public class CloudDetailedFragment extends Fragment {
             ATTDeviceInfo deviceInfo = communicator.loadMeasurementsForDevice(communicator.getDeviceById(deviceId));
                 float biggestTime = 0;
                 for (ATTDeviceInfoMeasurement measurement : deviceInfo.getMeasurements()) {
-                    float time = (float) measurement.Time.getTime();
+                    float time = (float) measurement.time.getTime();
                     if (time >= biggestTime) {
                         biggestTime = time;
                     }
 
-                    addEntry((float)measurement.CO2);
+                    addEntry((float)measurement.average);
                 }
             chart.getLegend().setEnabled(false);
         }).start();

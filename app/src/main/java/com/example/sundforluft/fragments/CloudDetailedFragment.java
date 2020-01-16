@@ -68,10 +68,12 @@ public class CloudDetailedFragment extends Fragment {
         new Thread(() -> {
             ATTCommunicator communicator = ATTCommunicator.getInstance();
             communicator.waitForLoad();
-            ATTDeviceInfo deviceInfo = communicator.loadMeasurementsForDevice(communicator.getDeviceById(deviceId));
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, -1);
+            ATTDeviceInfo deviceInfo = communicator.loadMeasurementsForDevice(communicator.getDeviceById(deviceId), cal.getTime());
                 float biggestTime = 0;
                 for (ATTDeviceInfoMeasurement measurement : deviceInfo.getMeasurements()) {
-                    float time = (float) measurement.Time.getTime();
+                    float time = (float) measurement.time.getTime();
                     if (time >= biggestTime) {
                         biggestTime = time;
                     }

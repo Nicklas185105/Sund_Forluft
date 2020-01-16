@@ -16,6 +16,8 @@ import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.ATTOAuthToken;
 
+import java.util.Calendar;
+
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView imageView, eller;
     private TextView titel;
@@ -32,8 +34,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         new Thread(() -> {
             ATTCommunicator communicator = ATTCommunicator.getInstance();
             communicator.waitForLoad();
-            communicator.loadMeasurementsForDevice(communicator.getDevices().get(0));
-
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, -1);
+            communicator.loadMeasurementsForDevice(communicator.getDevices().get(0), cal.getTime());
         }).start();
 
 

@@ -58,7 +58,7 @@ public class CloudDetailedFragment extends Fragment {
         chart.getDescription().setEnabled(false);
         // TODO: Strings.xml
         chart.setNoDataText("Data is being loaded from cloud.. Please wait");
-        chart.invalidate();
+        chart.setPinchZoom(true);
 
 
         final String deviceId =  "NpWCNaQC5ULxNkTaJ7FnRYKK"; //getActivity().getIntent().getStringExtra("deviceId");
@@ -78,9 +78,9 @@ public class CloudDetailedFragment extends Fragment {
                         biggestTime = time;
                     }
 
-                    addEntry((float)measurement.CO2, 0);
-                    addEntry((float)measurement.CO2, 1);
-                    addEntry((float)measurement.CO2, 2);
+                    addEntry((float)measurement.maximum, 0);
+                    addEntry((float)measurement.average, 1);
+                    addEntry((float)measurement.minimum, 2);
                     chart.invalidate();
                 }
             //chart.getLegend().setEnabled(false);
@@ -128,7 +128,7 @@ public class CloudDetailedFragment extends Fragment {
     private LineDataSet createSet(String name, int index) {
         LineDataSet set = new LineDataSet(null, name);
         set.setLineWidth(2.5f);
-        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+        //set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setCircleRadius(4.5f);
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
         if (index == 0){

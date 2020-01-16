@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sundforluft.DAL.DataAccessLayer;
+import com.example.sundforluft.cloud.ATTCommunicator;
+import com.example.sundforluft.cloud.ATTOAuthToken;
 
 public class StartActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageView imageView, eller;
@@ -24,6 +26,16 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        ATTOAuthToken.getInstance(); // retrieve token async.
+        ATTCommunicator.getInstance();
+        new Thread(() -> {
+            ATTCommunicator communicator = ATTCommunicator.getInstance();
+            communicator.waitForLoad();
+            communicator.loadMeasurementsForDevice(communicator.getDevices().get(0));
+
+        }).start();
+
 
         Intent intent = getIntent();
         boolean animation = intent.getBooleanExtra("animation", true);

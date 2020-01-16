@@ -5,17 +5,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.R;
+import com.example.sundforluft.cloud.ATTCommunicator;
+import com.example.sundforluft.cloud.DAO.ATTDeviceInfo;
+import com.example.sundforluft.cloud.DAO.ATTDeviceInfoMeasurement;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -23,6 +29,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.text.DateFormat;
@@ -45,105 +52,70 @@ public class CloudDetailedFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cloud_detailed, container, false);
-
         chart = view.findViewById(R.id.chart);
 
-        LineData data = getData();
+        chart.setDrawGridBackground(false);
+        chart.getDescription().setEnabled(false);
+        // TODO: Strings.xml
+        chart.setNoDataText("Data is being loaded from cloud.. Please wait");
+        chart.invalidate();
+
+
+        final String deviceId =  "NpWCNaQC5ULxNkTaJ7FnRYKK"; //getActivity().getIntent().getStringExtra("deviceId");
+
+        // TODO: Strings.xml
+        Toast.makeText(getContext(), "Loading data from cloud", Toast.LENGTH_SHORT).show();
+        new Thread(() -> {
+            ATTCommunicator communicator = ATTCommunicator.getInstance();
+            communicator.waitForLoad();
+            ATTDeviceInfo deviceInfo = communicator.loadMeasurementsForDevice(communicator.getDeviceById(deviceId));
+                float biggestTime = 0;
+                for (ATTDeviceInfoMeasurement measurement : deviceInfo.getMeasurements()) {
+                    float time = (float) measurement.Time.getTime();
+                    if (time >= biggestTime) {
+                        biggestTime = time;
+                    }
+
+                    addEntry((float)measurement.CO2);
+                }
+            chart.getLegend().setEnabled(false);
+        }).start();
 
         // add some transparency to the color with "& 0x90FFFFFF"
-        setupChart(chart, data, Color.WHITE);
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
+        chart.getAxisRight().setEnabled(false);
         return view;
     }
 
-    private void setupChart(LineChart chart, LineData data, int color) {
+    private void addEntry(float yValue) {
+        LineData data = chart.getData();
 
-        ((LineDataSet) data.getDataSetByIndex(0)).setCircleHoleColor(color);
-
-        // no description text
-        chart.getDescription().setEnabled(false);
-
-        // chart.setDrawHorizontalGrid(false);
-        //
-        // enable / disable grid background
-        chart.setDrawGridBackground(false);
-//        chart.getRenderer().getGridPaint().setGridColor(Color.WHITE & 0x70FFFFFF);
-
-        // enable touch gestures
-        chart.setTouchEnabled(true);
-
-        // enable scaling and dragging
-        chart.setDragEnabled(true);
-        chart.setScaleEnabled(true);
-
-        // if disabled, scaling can be done on x- and y-axis separately
-        chart.setPinchZoom(false);
-
-        chart.setBackgroundColor(color);
-
-        // set custom chart offsets (automatic offset calculation is hereby disabled)
-        //chart.setViewPortOffsets(10, 0, 10, 0);
-
-        // add data
-        chart.setData(data);
-
-        // get the legend (only possible after setting data)
-        Legend l = chart.getLegend();
-        l.setEnabled(false);
-
-        chart.getAxisLeft().setEnabled(true);
-        chart.getAxisLeft().setSpaceTop(40);
-        chart.getAxisLeft().setSpaceBottom(40);
-        chart.getAxisRight().setEnabled(false);
-        chart.getAxisLeft().setDrawGridLines(false);
-
-        chart.getXAxis().setEnabled(true);
-        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setDrawGridLines(false);
-        xAxis.setValueFormatter(new ValueFormatter() {
-            private final SimpleDateFormat mFormat = new SimpleDateFormat("dd/MM", Locale.ENGLISH);
-            @Override
-            public String getFormattedValue(float value) {
-                long millis = (long)value;
-                return mFormat.format(new Date(millis));
-            }
-        });
-        xAxis.setGranularity(1f);
-
-        // animate calls invalidate()...
-        chart.animateX(2500);
-    }
-
-    private LineData getData() {
-        // now in hours
-        long now = System.currentTimeMillis();
-        ArrayList<Entry> values = new ArrayList<>();
-
-        // increment by 1 hour
-        for (float x = now - 1000 * 60 * 60 * 24 * 7; x < now; x += 1000 * 60 * 60 * 24) {
-            float y = (float) Math.random();
-            values.add(new Entry(x, y)); // add one entry per hour
+        if (data == null) {
+            data = new LineData();
+            chart.setData(data);
         }
 
-        // create a dataset and give it a type
-        LineDataSet set1 = new LineDataSet(values, "DataSet 1");
-        // set1.setFillAlpha(110);
-        // set1.setFillColor(Color.RED);
+        ILineDataSet set = data.getDataSetByIndex(0);
+        if (set == null) {
+            set = createSet();
+            data.addDataSet(set);
+        }
 
-        set1.setLineWidth(1.75f);
-        set1.setCircleRadius(5f);
-        set1.setCircleHoleRadius(2.5f);
-        set1.setColor(Color.rgb(0,188,212));
-        set1.setCircleColor(Color.rgb(0,188,212));
-        set1.setHighLightColor(Color.rgb(0,188,212));
-        set1.setDrawValues(true);
-        set1.setValueTextColor(Color.rgb(128,128,128));
-        set1.setValueTextSize(10f);
+        data.addEntry(new Entry(set.getEntryCount(), yValue),0);
+        data.notifyDataChanged();
+        chart.notifyDataSetChanged();
+        chart.setVisibleXRangeMaximum(6);
 
-        // create a data object with the data sets
-        return new LineData(set1);
+        chart.moveViewTo(data.getEntryCount() - 7, 400f, YAxis.AxisDependency.LEFT);
     }
 
+    private LineDataSet createSet() {
+        LineDataSet set = new LineDataSet(null, "Dataset 1");
+        set.setLineWidth(2.5f);
+        set.setCircleRadius(4.5f);
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        return set;
+    }
 }

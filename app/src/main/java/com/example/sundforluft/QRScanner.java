@@ -11,6 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.sundforluft.cloud.ATTCommunicator;
+import com.example.sundforluft.cloud.DAO.ATTDevice;
+import com.example.sundforluft.cloud.DAO.ATTDeviceInfo;
+import com.example.sundforluft.fragments.CloudDetailedFragment;
 import com.example.sundforluft.teacher.AddCloudActivity;
 import com.example.sundforluft.services.Globals;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +29,8 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
+
+import java.util.ArrayList;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -86,50 +92,28 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
         ZXingScannerView.ResultHandler resultSelf = this;
         //TODO check if device is valid for guest
         String deviceId = rawResult.getText();
-        DatabaseReference myRef = database.getReference("accesstokens/" + deviceId);
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getValue() != null) {
-                    String accessToken = dataSnapshot.getValue(String.class);
 
-                    /*
-                    * deviceName, accessToken has been retrieved.
-                    * Forward to next view using these details.
-                    * */
+        ATTCommunicator.getInstance().waitForLoad();
+        ATTDevice foundDevice = ATTCommunicator.getInstance().getDeviceById(deviceId);
 
-                    if (Globals.hasTeacherRights()) {
-                        // Go to cloud view.
-                        Intent i = new Intent(QRScanner.this, AddCloudActivity.class);
-                        i.putExtra("accessToken", accessToken);
-                        i.putExtra("deviceId", deviceId);
+        if (foundDevice == null) {
+            scannerView.resumeCameraPreview(resultSelf);
+            // TODO: Invalid QR code toast!.
+        } else {
+            if (Globals.hasTeacherRights()) {
+                // Go to cloud view.
+                Intent i = new Intent(QRScanner.this, AddCloudActivity.class);
+                i.putExtra("deviceId", deviceId);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
-                        startActivity(i);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    } else {
-                        // Go To Graph View.
-                        /*
-                        Intent i = new Intent(QRScanner.this, );
-                        i.putExtra("accessToken", accessToken);
-                        i.putExtra("deviceId", deviceId);
-
-                        startActivity(i);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                        */
-                    }
-                } else
-                {
-                    scannerView.resumeCameraPreview(resultSelf);
-                }
+            } else {
+                Intent i = new Intent(QRScanner.this, CloudDetailedFragment.class);
+                i.putExtra("deviceId", deviceId);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-
+        }
     }
 
     @Override

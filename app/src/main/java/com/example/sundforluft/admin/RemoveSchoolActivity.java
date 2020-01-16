@@ -36,7 +36,6 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*TODO: Text in strings.xml*/
         getSupportActionBar().setTitle(R.string.removeSchool);
 
         // Arrow Click

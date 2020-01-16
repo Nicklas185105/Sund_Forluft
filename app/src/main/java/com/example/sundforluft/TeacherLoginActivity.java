@@ -23,28 +23,29 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class TeacherLoginActivity extends AppCompatActivity implements View.OnClickListener {
-    Button button;
+    Button button, teacher, admin;
     Toolbar toolbar;
-
-    EditText username;
-    EditText password;
+    EditText username, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_login);
-        password = findViewById(R.id.passwordEditText);
-        username = findViewById(R.id.usernameEditText);
 
+        username = findViewById(R.id.usernameEditText);
+        password = findViewById(R.id.passwordEditText);
 
 
         button = findViewById(R.id.button);
+        teacher = findViewById(R.id.teacherLoginButton);
+        admin = findViewById(R.id.adminLoginButton);
         button.setOnClickListener(this);
+        teacher.setOnClickListener(this);
+        admin.setOnClickListener(this);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*TODO: Text in strings.xml*/
-        getSupportActionBar().setTitle("Lærer Login");
+        getSupportActionBar().setTitle(R.string.teacherLogin);
 
         // Arrow Click
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -54,7 +55,22 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v) {
         if (v == button){
-
+            tryLoginToAccount(
+                    username.getText().toString(),
+                    password.getText().toString()
+            );
+        }
+        else if (v == teacher){
+            username.setText("brugernavn");
+            password.setText("password");
+            tryLoginToAccount(
+                    username.getText().toString(),
+                    password.getText().toString()
+            );
+        }
+        else if (v == admin){
+            username.setText("admin");
+            password.setText("password");
             tryLoginToAccount(
                     username.getText().toString(),
                     password.getText().toString()
@@ -65,19 +81,16 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
     private void tryLoginToAccount(String username, String password) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         String compare = MD5Converter.md5(password);
-        /*TODO: Text in strings.xml*/
         DatabaseReference myRef = database.getReference("users/" + username);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                /*TODO: Text in strings.xml*/
                 String password = dataSnapshot.child("password").getValue(String.class);
                 if (password.equals(compare)) {
                     // Obtain school
                     Globals.school = DataAccessLayer.getInstance().getSchoolById(dataSnapshot.child("schoolId").getValue(Integer.class));
 
                     // School Obtained & Logged In.
-                    /*TODO: Text in strings.xml*/
                     if (username.toLowerCase().equals("admin")){
                         Globals.isAdmin = true;
                         Intent intent = new Intent(TeacherLoginActivity.this, AdminMainActivity.class);
@@ -118,7 +131,6 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
     public void onBackPressed() {
         //super.onBackPressed();
         Intent intent = new Intent(TeacherLoginActivity.this, StartActivity.class);
-        /*TODO: Text in strings.xml*/
         intent.putExtra("animation", false);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);

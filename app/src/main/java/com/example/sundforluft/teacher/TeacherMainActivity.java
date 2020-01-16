@@ -28,18 +28,22 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*TODO: Text in strings.xml*/
-        getSupportActionBar().setTitle(R.string.welcome);
+        try {
+            getSupportActionBar().setTitle(R.string.welcome);
 
-        // Arrow Click
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+            // Arrow Click
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
         text = findViewById(R.id.welcome);
         Intent intent = getIntent();
 
-        // TODO: Use strings.xml
-        text.setText("Velkommen " + intent.getStringExtra("name"));
+        text.setText(R.string.welcome2);
+        String welcome = text.getText() + " " + intent.getStringExtra("name");
+        text.setText(welcome);
 
         addCloud = findViewById(R.id.addCloud);
 

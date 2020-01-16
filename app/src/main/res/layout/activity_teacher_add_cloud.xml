@@ -25,7 +25,7 @@
             android:layout_marginEnd="50dp"
             android:background="@drawable/bg_favorit_search"
             android:ems="8"
-            android:hint="@string/username"
+            android:hint="@string/classroomHint"
             android:inputType="textPersonName"
             android:gravity="center"/>
 

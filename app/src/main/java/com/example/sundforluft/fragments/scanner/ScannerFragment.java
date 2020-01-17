@@ -21,6 +21,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.sundforluft.R;
+import com.example.sundforluft.cloud.ATTCommunicator;
+import com.example.sundforluft.cloud.DAO.ATTDevice;
+import com.example.sundforluft.fragments.CloudDetailedFragment;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -40,6 +43,7 @@ public class ScannerFragment extends Fragment implements ZXingScannerView.Result
     private ZXingScannerView scannerView;
     private TextView txtResult;
 
+    private String lastScannedQR  = "";
 
     @Nullable
     @Override
@@ -83,10 +87,35 @@ public class ScannerFragment extends Fragment implements ZXingScannerView.Result
     @Override
     public void handleResult(Result rawResult){
         // QR scan result.
-        //TODO: check if deviceID is valid
         String deviceId = rawResult.getText();
+        ZXingScannerView.ResultHandler resultSelf = this;
 
+        if (lastScannedQR.equals(deviceId)) {
+            scannerView.resumeCameraPreview(resultSelf);
+            return;
+        }
+        lastScannedQR = deviceId;
 
+        ATTCommunicator.getInstance().waitForLoad();
+        ATTDevice foundDevice = ATTCommunicator.getInstance().getDeviceById(deviceId);
+
+        if (foundDevice == null) {
+            scannerView.resumeCameraPreview(resultSelf);
+
+            //TODO: Strings.xml
+            Toast.makeText(getContext(), "Invalid QR code.", Toast.LENGTH_SHORT).show();
+
+        } else {
+
+            Fragment fragment = new CloudDetailedFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("deviceId", deviceId);
+            fragment.setArguments(bundle);
+
+            getActivity().getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                    .replace(R.id.fragment_container, fragment).commit();
+            getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        }
     }
 
 }

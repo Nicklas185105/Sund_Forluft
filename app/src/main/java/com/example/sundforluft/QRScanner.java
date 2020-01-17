@@ -36,6 +36,9 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
     private TextView txtResult;
     Toolbar toolbar;
     DataAccessLayer dataAccessLayer;
+
+    private String lastScannedQR  = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,10 +89,14 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
     }
     @Override
     public void handleResult(Result rawResult){
-        // QR scan result.
-        ZXingScannerView.ResultHandler resultSelf = this;
-        //TODO check if device is valid for guest
         String deviceId = rawResult.getText();
+        ZXingScannerView.ResultHandler resultSelf = this;
+
+        if (lastScannedQR.equals(deviceId)) {
+            scannerView.resumeCameraPreview(resultSelf);
+            return;
+        }
+        lastScannedQR = deviceId;
 
         ATTCommunicator.getInstance().waitForLoad();
         ATTDevice foundDevice = ATTCommunicator.getInstance().getDeviceById(deviceId);

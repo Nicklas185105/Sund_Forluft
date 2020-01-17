@@ -18,6 +18,7 @@ import com.example.sundforluft.cloud.DAO.ATTDevice;
 import com.example.sundforluft.fragments.CloudDetailedFragment;
 import com.example.sundforluft.services.Globals;
 import com.example.sundforluft.teacher.AddCloudActivity;
+import com.example.sundforluft.teacher.TeacherMainActivity;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -101,14 +102,33 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
                 if (isRemove){
                     //Remove Cloud directly
                     ClassroomModel model = dataAccessLayer.getClassroomByDeviceId(deviceId);
+                    if (model == null){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setMessage("Dette device er ikke registreret, vil du registrere det nu?");
+                        builder.setPositiveButton("Ja", (dialog, which) -> {
+                            Intent intent = new Intent(getApplicationContext(), AddCloudActivity.class);
+                            intent.putExtra("deviceId", deviceId);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        });
+                        builder.setNegativeButton("Nej", (dialog, which) -> {
+                            Intent intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        }).create().show();
+                    }
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setMessage("DeviceId: "+model.deviceId+"\nNavn: "+model.name+"\nEr du sikker på at du vil fjerne dette device?");
                     builder.setPositiveButton("Ja", (dialog, which) -> {
                         dataAccessLayer.removeClassroom(model);
-                        onBackPressed();
+                        Intent intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     });
                     builder.setNegativeButton("Nej", (dialog, which) -> {
-                        onBackPressed();
+                        Intent intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }).create().show();
                 } else {
                     // Go to AddCloud view.

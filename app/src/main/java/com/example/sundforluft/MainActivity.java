@@ -143,13 +143,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportActionBar().setTitle(R.string.menuScanner);
                 break;
             case R.id.nav_back:
-                /*Intent intent = new Intent(MainActivity.this, StartActivity.class);
+                Intent intent = new Intent(MainActivity.this, StartActivity.class);
                 intent.putExtra("animation", false);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);*/
-                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new CloudDetailedFragment()).commit();
-                getSupportActionBar().setTitle("test");
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
         }
 

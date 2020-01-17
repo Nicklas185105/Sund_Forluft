@@ -1,5 +1,6 @@
 package com.example.sundforluft.fragments;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,47 +12,42 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.R;
 import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.DAO.ATTDeviceInfo;
 import com.example.sundforluft.cloud.DAO.ATTDeviceInfoMeasurement;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 
-import java.text.DateFormat;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 public class CloudDetailedFragment extends Fragment {
 
     LineChart chart;
+    LineData data;
+
+    ArrayList<Long> times;
+    DateFormatter dateFormatter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cloud_detailed, container, false);
+        dateFormatter = new DateFormatter();
+
         chart = view.findViewById(R.id.chart);
 
         chart.setDrawGridBackground(false);
@@ -60,8 +56,9 @@ public class CloudDetailedFragment extends Fragment {
         chart.setNoDataText("Data is being loaded from cloud.. Please wait");
         chart.setPinchZoom(true);
 
+        final String deviceId = "NpWCNaQC5ULxNkTaJ7FnRYKK"; //getActivity().getIntent().getStringExtra("deviceId");
 
-        final String deviceId =  "NpWCNaQC5ULxNkTaJ7FnRYKK"; //getActivity().getIntent().getStringExtra("deviceId");
+        Activity self = getActivity();
 
         // TODO: Strings.xml
         Toast.makeText(getContext(), "Loading data from cloud", Toast.LENGTH_SHORT).show();
@@ -71,31 +68,51 @@ public class CloudDetailedFragment extends Fragment {
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.MONTH, -1);
             ATTDeviceInfo deviceInfo = communicator.loadMeasurementsForDevice(communicator.getDeviceById(deviceId), cal.getTime());
-                float biggestTime = 0;
-                for (ATTDeviceInfoMeasurement measurement : deviceInfo.getMeasurements()) {
-                    float time = (float) measurement.time.getTime();
-                    if (time >= biggestTime) {
-                        biggestTime = time;
-                    }
 
-                    addEntry((float)measurement.maximum, 0);
-                    addEntry((float)measurement.average, 1);
-                    addEntry((float)measurement.minimum, 2);
-                    chart.invalidate();
+            ATTDeviceInfoMeasurement[] measurements = deviceInfo.getMeasurements();
+            Arrays.sort(measurements);
+
+            times = new ArrayList<>();
+
+            try {
+                int count = 0;
+                for (ATTDeviceInfoMeasurement measurement : deviceInfo.getMeasurements()) {
+                    times.add(measurement.time.getTime());
+
+                    addEntry(count, (float) measurement.maximum, 0);
+                    addEntry(count, (float) measurement.average, 1);
+                    addEntry(count, (float) measurement.minimum, 2);
+                    count++;
                 }
+
+                dateFormatter.setDates(times);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            //TODO: Tilpas legend https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/LineChartActivity2.java
             //chart.getLegend().setEnabled(false);
+
+            self.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    chart.animateX(1500);
+                    chart.setVisibleXRangeMaximum(7);
+                    chart.moveViewToX(data.getEntryCount());
+                }
+            });
         }).start();
 
         // add some transparency to the color with "& 0x90FFFFFF"
         XAxis xAxis = chart.getXAxis();
+        xAxis.setValueFormatter(dateFormatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         chart.getAxisRight().setEnabled(false);
         return view;
     }
 
-    private void addEntry(float yValue, int index) {
-        LineData data = chart.getData();
+    private void addEntry(float xValue, float yValue, int index) {
+        data = chart.getData();
 
         if (data == null) {
             data = new LineData();
@@ -106,23 +123,19 @@ public class CloudDetailedFragment extends Fragment {
         if (set == null) {
             if (index == 0) {
                 set = createSet("Max", index);
-            }
-            else if (index == 1){
+            } else if (index == 1) {
                 set = createSet("Average", index);
-            }
-            else {
+            } else {
                 set = createSet("Min", index);
             }
             data.addDataSet(set);
             chart.notifyDataSetChanged();
         }
 
-        data.addEntry(new Entry(set.getEntryCount(), yValue),index);
+        data.addEntry(new Entry(xValue, yValue), index);
         data.notifyDataChanged();
         chart.notifyDataSetChanged();
         chart.setVisibleXRangeMaximum(6);
-
-        chart.moveViewTo(data.getEntryCount() - 7, 400f, YAxis.AxisDependency.LEFT);
     }
 
     private LineDataSet createSet(String name, int index) {
@@ -131,14 +144,30 @@ public class CloudDetailedFragment extends Fragment {
         //set.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         set.setCircleRadius(4.5f);
         set.setAxisDependency(YAxis.AxisDependency.LEFT);
-        if (index == 0){
+        if (index == 0) {
             set.setColor(Color.RED);
             set.setCircleColor(Color.RED);
-        }
-        else if (index == 2){
+        } else if (index == 2) {
             set.setColor(Color.GREEN);
             set.setCircleColor(Color.GREEN);
         }
         return set;
+    }
+
+    private class DateFormatter extends ValueFormatter {
+        private ArrayList<Long> dates;
+        public void setDates(ArrayList<Long> dates) { this.dates = dates; }
+
+        @Override
+        public String getAxisLabel(float value, AxisBase axis) {
+            int index = (int)value;
+
+            if (dates != null && dates.size() > index) {
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM", Locale.GERMAN);
+                String date = simpleDateFormat.format(new Date(dates.get(index)));
+                return date;
+            }
+            return "";
+        }
     }
 }

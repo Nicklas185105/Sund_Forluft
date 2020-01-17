@@ -43,12 +43,13 @@ public class HelpFavoritFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        if (n == 1){
-            n=7;
-        } else if (n == 7){
-            n=1;
+        if (v == back && n != 1){
+            n--;
+        } else if (v == forward && n != 7){
+            n++;
         } else {
-            n = v == back ? n-1 : n+1;
+            if(n <= 1)n = 7;
+            if(n >= 7)n = 1;
         }
         switch (n){
             case 1:

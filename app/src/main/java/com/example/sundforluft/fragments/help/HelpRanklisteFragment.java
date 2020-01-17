@@ -17,7 +17,7 @@ public class HelpRanklisteFragment extends Fragment implements View.OnClickListe
 
     Button back, forward;
 
-    ImageView imageView;
+    ImageView imageView,  help_container;
 
     int n;
 
@@ -29,63 +29,28 @@ public class HelpRanklisteFragment extends Fragment implements View.OnClickListe
         back = view.findViewById(R.id.back);
         forward = view.findViewById(R.id.forward);
         imageView = view.findViewById(R.id.imageView);
-
+        help_container = view.findViewById(R.id.help_container);
         back.setOnClickListener(this);
         forward.setOnClickListener(this);
 
         imageView.setImageResource(R.drawable.ic_help_1_place);
+        help_container.setImageResource(R.drawable.help_favorit_search);
         n = 1;
+
 
         return view;
     }
 
     @Override
     public void onClick(View v) {
-        if (v == back){
-            switch (n){
-                case 2:
-                    imageView.setImageResource(R.drawable.ic_help_1_place);
-                    break;
-                case 3:
-                    imageView.setImageResource(R.drawable.ic_help_2_place);
-                    break;
-                case 4:
-                    imageView.setImageResource(R.drawable.ic_help_3_place);
-                    break;
-                case 5:
-                    imageView.setImageResource(R.drawable.ic_help_4_place);
-                    break;
-                case 6:
-                    imageView.setImageResource(R.drawable.ic_help_5_place);
-                    break;
-                case 7:
-                    imageView.setImageResource(R.drawable.ic_help_6_place);
-                    break;
-            }
+
+        if (v == back && n != 1){
             n--;
-        }
-        else if (v == forward){
-            switch (n){
-                case 1:
-                    imageView.setImageResource(R.drawable.ic_help_2_place);
-                    break;
-                case 2:
-                    imageView.setImageResource(R.drawable.ic_help_3_place);
-                    break;
-                case 3:
-                    imageView.setImageResource(R.drawable.ic_help_4_place);
-                    break;
-                case 4:
-                    imageView.setImageResource(R.drawable.ic_help_5_place);
-                    break;
-                case 5:
-                    imageView.setImageResource(R.drawable.ic_help_6_place);
-                    break;
-                case 6:
-                    imageView.setImageResource(R.drawable.ic_help_7_place);
-                    break;
-            }
+        } else if (v == forward && n != 7){
             n++;
+        } else {
+            if(n <= 1)n = 7;
+            if(n >= 7)n = 1;
         }
     }
 }

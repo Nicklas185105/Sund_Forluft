@@ -21,6 +21,8 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
     TextView text;
     Button addCloud;
     Button allClouds;
+    Button removeCloud;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +50,11 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
 
         addCloud = findViewById(R.id.addCloud);
         allClouds = findViewById(R.id.allClouds);
+        removeCloud = findViewById(R.id.removeCloud);
 
         addCloud.setOnClickListener(this);
         allClouds.setOnClickListener(this);
+        removeCloud.setOnClickListener(this);
     }
 
     @Override
@@ -73,9 +77,18 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             case R.id.allClouds:
-                i = new Intent(this, CloudsOverviewActivity.class);
+                i = new Intent(getApplicationContext(), CloudsOverviewActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+            case R.id.removeCloud:
+                i = new Intent(getApplicationContext(), QRScanner.class);
+                i.putExtra("isRemove", true);
+                startActivity(i);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                break;
+            case R.id.logout:
+                onBackPressed();
                 break;
         }
     }

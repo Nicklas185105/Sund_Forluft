@@ -1,27 +1,24 @@
 package com.example.sundforluft;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.sundforluft.DAL.DataAccessLayer;
+import com.example.sundforluft.DAO.ClassroomModel;
 import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.DAO.ATTDevice;
-import com.example.sundforluft.cloud.DAO.ATTDeviceInfo;
 import com.example.sundforluft.fragments.CloudDetailedFragment;
-import com.example.sundforluft.teacher.AddCloudActivity;
 import com.example.sundforluft.services.Globals;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.sundforluft.teacher.AddCloudActivity;
+import com.example.sundforluft.teacher.TeacherMainActivity;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -30,15 +27,13 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-import java.util.ArrayList;
-
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QRScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private ZXingScannerView scannerView;
     private TextView txtResult;
     Toolbar toolbar;
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DataAccessLayer dataAccessLayer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +52,7 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        dataAccessLayer = DataAccessLayer.getInstance();
         QRScanner self = this;
 
         //Request permission
@@ -101,12 +97,46 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
             // TODO: Invalid QR code toast!.
         } else {
             if (Globals.hasTeacherRights()) {
-                // Go to cloud view.
-                Intent i = new Intent(QRScanner.this, AddCloudActivity.class);
-                i.putExtra("deviceId", deviceId);
-                startActivity(i);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-
+                boolean isRemove = getIntent().getBooleanExtra("isRemove", false);
+                Intent i;
+                if (isRemove){
+                    //Remove Cloud directly
+                    ClassroomModel model = dataAccessLayer.getClassroomByDeviceId(deviceId);
+                    if (model == null){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setMessage("Dette device er ikke registreret, vil du registrere det nu?");
+                        builder.setPositiveButton("Ja", (dialog, which) -> {
+                            Intent intent = new Intent(getApplicationContext(), AddCloudActivity.class);
+                            intent.putExtra("deviceId", deviceId);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        });
+                        builder.setNegativeButton("Nej", (dialog, which) -> {
+                            Intent intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        }).create().show();
+                    }
+                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                    builder.setMessage("DeviceId: "+model.deviceId+"\nNavn: "+model.name+"\nEr du sikker på at du vil fjerne dette device?");
+                    builder.setPositiveButton("Ja", (dialog, which) -> {
+                        dataAccessLayer.removeClassroom(model);
+                        Intent intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    });
+                    builder.setNegativeButton("Nej", (dialog, which) -> {
+                        Intent intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }).create().show();
+                } else {
+                    // Go to AddCloud view.
+                    i = new Intent(QRScanner.this, AddCloudActivity.class);
+                    i.putExtra("deviceId", deviceId);
+                    startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                }
             } else {
                 Intent i = new Intent(QRScanner.this, CloudDetailedFragment.class);
                 i.putExtra("deviceId", deviceId);

@@ -1,5 +1,6 @@
 package com.example.sundforluft.fragments.favorite;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,18 +8,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 
+import com.example.sundforluft.DAL.DataAccessLayer;
+import com.example.sundforluft.DAO.ClassroomModel;
+import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 
-import com.example.sundforluft.models.FavoritDetailedListviewModel;
+import com.example.sundforluft.cloud.ATTCommunicator;
+import com.example.sundforluft.cloud.DAO.ATTDevice;
+import com.example.sundforluft.cloud.DAO.ATTDeviceInfo;
+import com.example.sundforluft.models.FavoriteDetailedListViewModel;
 import com.example.sundforluft.services.DataBroker.CsvDataBroker;
-import com.example.sundforluft.services.FavoritDetailedListviewAdapter;
+import com.example.sundforluft.services.FavoriteDetailedListviewAdapter;
 import com.example.sundforluft.services.DataBroker.DataBroker;
 import com.example.sundforluft.services.DataBroker.AirQualityDataModel;
 
@@ -36,12 +44,13 @@ import com.github.mikephil.charting.utils.MPPointF;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 public class FavoriteDetailedFragment extends Fragment implements OnChartValueSelectedListener {
 
     private PieChart chart;
-    FavoritDetailedListviewAdapter favoritDetailedListviewAdapter;
 
     @Nullable
     @Override
@@ -98,22 +107,48 @@ public class FavoriteDetailedFragment extends Fragment implements OnChartValueSe
         setData(1, getAverage(modelsForSchoolA));
         setData(2, getAverage(modelsForSchoolB));
 
+        String schoolName = this.getArguments().getString("name");
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(schoolName);
 
-        // Set title of toolbar
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle(this.getArguments().getString("name"));
+        FavoriteDetailedListviewAdapter favoriteDetailedListviewAdapter = new FavoriteDetailedListviewAdapter(this);
+        SchoolModel school = DataAccessLayer.getInstance().getSchoolByName(schoolName);
+        ArrayList<ClassroomModel> classrooms = DataAccessLayer.getInstance().getClassroomsBySchoolId( school.Id );
 
-        favoritDetailedListviewAdapter = new FavoritDetailedListviewAdapter(this);
+        final Activity activity = getActivity();
+        final Fragment self = this;
 
-        FavoritDetailedListviewModel[] favoritDetailedListviewModel = new FavoritDetailedListviewModel[] {
-                new FavoritDetailedListviewModel(this, "Vallensbæk Skole", "50%", 12),
-                new FavoritDetailedListviewModel(this, "Munkegårdsskolen", "25%", 14),
-                new FavoritDetailedListviewModel(this, "Gentofte Skole", "66%", 4),
-                new FavoritDetailedListviewModel(this, "Amager Fælled Skole", "80%", 42),
-        };
-        for (FavoritDetailedListviewModel favoritDetailedListviewModels : favoritDetailedListviewModel) { favoritDetailedListviewAdapter.addSchool(favoritDetailedListviewModels); }
+        // TODO: Strings.xml
+        Toast.makeText(getContext(), "Loading classroom averages from cloud", Toast.LENGTH_SHORT).show();
+        new Thread(() -> {
+            ATTCommunicator.getInstance().waitForLoad();
+            ArrayList<ATTDevice> devices = ATTCommunicator.getInstance().getDevices();
 
-        ListView schoolModelListView = view.findViewById(R.id.listView);
-        schoolModelListView.setAdapter(favoritDetailedListviewAdapter);
+            List<FavoriteDetailedListViewModel> classroomViewModels = new ArrayList<>();
+            for (ClassroomModel classroomModel : classrooms) {
+                Optional<ATTDevice> classroomDeviceOptional = devices.stream().filter(c -> c.deviceId.equals(classroomModel.deviceId)).findAny();
+                if (classroomDeviceOptional.isPresent()) {
+                    ATTDevice classroomDevice = classroomDeviceOptional.get();
+                    Calendar cal = Calendar.getInstance();
+                    cal.add(Calendar.MONTH, -1);
+                    ATTDeviceInfo info = ATTCommunicator.getInstance().loadMeasurementsForDevice(classroomDevice, cal.getTime());
+                    FavoriteDetailedListViewModel viewModel = new FavoriteDetailedListViewModel(self, classroomModel.name, info.getAverageQuality(), school.Id);
+                    viewModel.setDeviceInfo(info);
+                    classroomViewModels.add(viewModel);
+                }
+            }
+
+            classroomViewModels.sort((s,o) ->  Double.compare(s.getAirQuality(), o.getAirQuality()));
+
+            activity.runOnUiThread(() -> {
+                for (FavoriteDetailedListViewModel classroomViewModel : classroomViewModels) {
+                    favoriteDetailedListviewAdapter.addClassroom(classroomViewModel);
+                }
+
+                ListView schoolModelListView = view.findViewById(R.id.listView);
+                schoolModelListView.setAdapter(favoriteDetailedListviewAdapter);
+            });
+        }).start();
+
 
         return view;
     }

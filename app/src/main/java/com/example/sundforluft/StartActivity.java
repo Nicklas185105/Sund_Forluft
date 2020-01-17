@@ -31,6 +31,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
         ATTOAuthToken.getInstance(); // retrieve token async.
         ATTCommunicator.getInstance();
+        /*
         new Thread(() -> {
             ATTCommunicator communicator = ATTCommunicator.getInstance();
             communicator.waitForLoad();
@@ -38,6 +39,7 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             cal.add(Calendar.MONTH, -1);
             communicator.loadMeasurementsForDevice(communicator.getDevices().get(0), cal.getTime());
         }).start();
+        */
 
 
         Intent intent = getIntent();

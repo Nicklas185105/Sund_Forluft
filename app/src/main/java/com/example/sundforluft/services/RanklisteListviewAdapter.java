@@ -65,7 +65,7 @@ public class RanklisteListviewAdapter extends BaseAdapter {
         button.setText(schoolModelText);
 
         // Get quality from model
-        /*switch (model.getAirQuality()) {
+        /*switch (model.getAirQualityType()) {
             case 1:
                 Drawable redCircle = ResourcesCompat.getDrawable(fragment.getResources(), R.drawable.ic_listview_circle_red, null);
                 convertView.findViewById(R.id.cicle).setBackground(redCircle);

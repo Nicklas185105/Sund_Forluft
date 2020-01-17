@@ -10,12 +10,14 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.ClassroomModel;
 import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.DAO.ATTDevice;
 import com.example.sundforluft.fragments.CloudDetailedFragment;
+import com.example.sundforluft.fragments.favorite.FavoriteFragment;
 import com.example.sundforluft.services.Globals;
 import com.example.sundforluft.teacher.AddCloudActivity;
 import com.example.sundforluft.teacher.TeacherMainActivity;
@@ -139,9 +141,17 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             } else {
-                Intent i = new Intent(QRScanner.this, CloudDetailedFragment.class);
-                i.putExtra("deviceId", deviceId);
-                startActivity(i);
+                Fragment fragment = new CloudDetailedFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("deviceId", deviceId);
+                fragment.setArguments(bundle);
+
+                findViewById(R.id.zxscan).setAlpha(0);
+
+
+                getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                        .replace(R.id.scannerFragment, fragment).commit();
+
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         }

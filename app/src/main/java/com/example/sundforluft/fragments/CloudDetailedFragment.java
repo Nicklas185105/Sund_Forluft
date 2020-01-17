@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.sundforluft.R;
 import com.example.sundforluft.cloud.ATTCommunicator;
+import com.example.sundforluft.cloud.DAO.ATTDevice;
 import com.example.sundforluft.cloud.DAO.ATTDeviceInfo;
 import com.example.sundforluft.cloud.DAO.ATTDeviceInfoMeasurement;
 import com.github.mikephil.charting.charts.LineChart;
@@ -56,7 +57,8 @@ public class CloudDetailedFragment extends Fragment {
         chart.setNoDataText("Data is being loaded from cloud.. Please wait");
         chart.setPinchZoom(true);
 
-        final String deviceId = "NpWCNaQC5ULxNkTaJ7FnRYKK"; //getActivity().getIntent().getStringExtra("deviceId");
+        Bundle bundle = this.getArguments();
+        final String deviceId = bundle.getString("deviceId");
 
         Activity self = getActivity();
 
@@ -67,7 +69,8 @@ public class CloudDetailedFragment extends Fragment {
             communicator.waitForLoad();
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.MONTH, -1);
-            ATTDeviceInfo deviceInfo = communicator.loadMeasurementsForDevice(communicator.getDeviceById(deviceId), cal.getTime());
+            ATTDevice device = communicator.getDeviceById(deviceId);
+            ATTDeviceInfo deviceInfo = communicator.loadMeasurementsForDevice(device, cal.getTime());
 
             ATTDeviceInfoMeasurement[] measurements = deviceInfo.getMeasurements();
             Arrays.sort(measurements);

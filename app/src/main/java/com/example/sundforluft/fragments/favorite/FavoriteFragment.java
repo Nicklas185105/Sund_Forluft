@@ -16,6 +16,7 @@ import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
+import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.models.FavoritListviewModel;
 import com.example.sundforluft.services.CacheSchoolMananger;
 import com.example.sundforluft.services.FavoritListviewAdapter;
@@ -24,22 +25,24 @@ import java.util.ArrayList;
 
 public class FavoriteFragment extends Fragment {
 
-    FavoritListviewAdapter favoritListviewAdapter;
+    FavoritListviewAdapter favoriteListviewAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
 
-        favoritListviewAdapter = new FavoritListviewAdapter(this);
-        favoritListviewAdapter.setClickListener(new FavoritListviewAdapter.ClickListener() {
+
+        favoriteListviewAdapter = new FavoritListviewAdapter(this);
+        favoriteListviewAdapter.setClickListener(new FavoritListviewAdapter.ClickListener() {
             @Override
             public void onClick(FavoritListviewModel model, FavoritListviewAdapter.ClickListenerType type) {
                 FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction();
                 switch (type) {
                     case School:
                         Bundle bundle = new Bundle();
-                        bundle.putString("name", favoritListviewAdapter.getName(model));
+                        bundle.putString("name", favoriteListviewAdapter.getName(model));
+
                         FavoriteDetailedFragment detailedFragment = new FavoriteDetailedFragment();
                         detailedFragment.setArguments(bundle);
                         mFragmentTransaction
@@ -50,7 +53,7 @@ public class FavoriteFragment extends Fragment {
 
                         break;
                     case Close:
-                        favoritListviewAdapter.deleteSchoolByModel(model);
+                        favoriteListviewAdapter.deleteSchoolByModel(model);
                         CacheSchoolMananger.getInstance().removeFavoriteSchool(
                             DataAccessLayer.getInstance().getSchoolByName(model.getName()).Id
                         );
@@ -68,10 +71,10 @@ public class FavoriteFragment extends Fragment {
         viewModelList.toArray(favoritListviewModels);
 
 
-        for (FavoritListviewModel favoritListviewModel : favoritListviewModels) { favoritListviewAdapter.addSchool(favoritListviewModel); }
+        for (FavoritListviewModel favoritListviewModel : favoritListviewModels) { favoriteListviewAdapter.addSchool(favoritListviewModel); }
 
         ListView schoolModelListView = view.findViewById(R.id.listView);
-        schoolModelListView.setAdapter(favoritListviewAdapter);
+        schoolModelListView.setAdapter(favoriteListviewAdapter);
 
         // Set title of toolbar
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.menuFavorit);

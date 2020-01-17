@@ -101,7 +101,7 @@ public class DataAccessLayer {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("classrooms/"+model.id+"/"+model.deviceId);
         ref.removeValue();
-        boolean idsjd = classrooms.remove(model);
+        classrooms.remove(model);
     }
 
 
@@ -193,6 +193,8 @@ public class DataAccessLayer {
             }
         });
     }
+
+
 
     public boolean isLoaded() {
         return loaded;

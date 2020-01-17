@@ -114,8 +114,9 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
                         builder.setNegativeButton("Nej", (dialog, which) -> {
                             Intent intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
                             startActivity(intent);
-                            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                         }).create().show();
+                        return;
                     }
                     AlertDialog.Builder builder = new AlertDialog.Builder(this);
                     builder.setMessage("DeviceId: "+model.deviceId+"\nNavn: "+model.name+"\nEr du sikker på at du vil fjerne dette device?");
@@ -128,7 +129,7 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
                     builder.setNegativeButton("Nej", (dialog, which) -> {
                         Intent intent = new Intent(getApplicationContext(), TeacherMainActivity.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     }).create().show();
                 } else {
                     // Go to AddCloud view.

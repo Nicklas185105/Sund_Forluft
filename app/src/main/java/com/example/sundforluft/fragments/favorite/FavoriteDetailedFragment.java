@@ -1,6 +1,7 @@
 package com.example.sundforluft.fragments.favorite;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 
@@ -31,81 +33,92 @@ import com.example.sundforluft.services.DataBroker.DataBroker;
 import com.example.sundforluft.services.DataBroker.AirQualityDataModel;
 
 import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.model.GradientColor;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 public class FavoriteDetailedFragment extends Fragment implements OnChartValueSelectedListener {
 
-    private PieChart chart;
+    private BarChart chart;
+    private Context context;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorite_detailed, container, false);
 
+        context = getContext();
+
         chart = view.findViewById(R.id.chart1);
         //chart.setUsePercentValues(true);
+        chart.setDrawBarShadow(false);
+        chart.setDrawValueAboveBar(true);
         chart.getDescription().setEnabled(false);
-        chart.setExtraOffsets(5, 10, 5,5);
+        chart.setMaxVisibleValueCount(60);
+        chart.setPinchZoom(false);
+        chart.setDrawGridBackground(false);
+        chart.setScaleEnabled(false);
 
-        chart.setDragDecelerationFrictionCoef(0.95f);
-
-        //chart.setCenterTextTypeface(tfLight);
-        //chart.setCenterText();
-
-        chart.setDrawHoleEnabled(true);
-        chart.setHoleColor(Color.WHITE);
-
-        chart.setTransparentCircleColor(Color.WHITE);
-        chart.setTransparentCircleAlpha(110);
-
-        chart.setHoleRadius(58f);
-        chart.setTransparentCircleRadius(61f);
-
-        chart.setDrawCenterText(true);
-
-        chart.setRotationAngle(0);
-        chart.setRotationEnabled(true);
-        chart.setHighlightPerTapEnabled(true);
-
-        chart.setOnChartValueSelectedListener(this);
-
-        chart.animateY(1400, Easing.EaseInOutQuad);
-
-        chart.setEntryLabelColor(Color.WHITE);
-        //chart.setEntryLabelTypeface();
-        chart.setEntryLabelTextSize(12f);
-
-        DataBroker dataBroker = new CsvDataBroker( getResources() );
-
-        List<AirQualityDataModel> modelsForSchoolA = new ArrayList<>();
-        List<AirQualityDataModel> modelsForSchoolB = new ArrayList<>();
-
-        if (dataBroker.load(LocalDateTime.parse("2019-08-19T11:37:28.264000"), LocalDateTime.parse("2019-08-20T11:30:07.899000"))) {
-            modelsForSchoolA = dataBroker.getData();
-        }
-
-        if (dataBroker.load(LocalDateTime.parse("2019-08-20T13:01:11.318000"), LocalDateTime.parse("2019-08-20T13:32:35.421000"))) {
-             modelsForSchoolB = dataBroker.getData();
-        }
+        ClassroomAxisFormatter xAxisFormatter = new ClassroomAxisFormatter();
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f); // only intervals of 1 day
+        xAxis.setLabelCount(7);
+        xAxis.setValueFormatter(xAxisFormatter);
 
 
-        setData(1, getAverage(modelsForSchoolA));
-        setData(2, getAverage(modelsForSchoolB));
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setLabelCount(8, false);
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        leftAxis.setSpaceTop(15f);
+        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+        leftAxis.setEnabled(false);
+
+        YAxis rightAxis = chart.getAxisRight();
+        rightAxis.setDrawGridLines(false);
+        rightAxis.setLabelCount(8, false);
+        rightAxis.setSpaceTop(15f);
+        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+
+        Legend l = chart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+        l.setDrawInside(false);
+        l.setForm(Legend.LegendForm.SQUARE);
+        l.setFormSize(9f);
+        l.setTextSize(11f);
+        l.setXEntrySpace(4f);
+        l.setEnabled(false);
+
 
         String schoolName = this.getArguments().getString("name");
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(schoolName);
@@ -140,6 +153,17 @@ public class FavoriteDetailedFragment extends Fragment implements OnChartValueSe
             classroomViewModels.sort((s,o) ->  Double.compare(s.getAirQuality(), o.getAirQuality()));
 
             activity.runOnUiThread(() -> {
+                ArrayList<BarEntry> values = new ArrayList<>();
+                for (int i = 0; i < 5 && i < classroomViewModels.size(); i++) {
+                    float val = (float)classroomViewModels.get(i).getAirQuality();
+                    values.add(new BarEntry(i, val));
+                }
+                xAxisFormatter.setVM( classroomViewModels );
+                setData(values);
+                chart.notifyDataSetChanged();
+                chart.invalidate();
+
+
                 for (FavoriteDetailedListViewModel classroomViewModel : classroomViewModels) {
                     favoriteDetailedListviewAdapter.addClassroom(classroomViewModel);
                 }
@@ -165,67 +189,50 @@ public class FavoriteDetailedFragment extends Fragment implements OnChartValueSe
         return (float)(total / count);
     }
 
-    private void setData(int count, float range){
-        ArrayList<PieEntry> entries = new ArrayList<>();
+    private void setData(ArrayList<BarEntry> values){
+        BarDataSet set1;
 
-        // NOTE: The order of the entries when being added to the entries array determines their position around the center of
-        // the chart.
+        if (chart.getData() != null &&
+                chart.getData().getDataSetCount() > 0) {
+            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+            set1.setValues(values);
+            chart.getData().notifyDataChanged();
+            chart.notifyDataSetChanged();
 
-        final String[] parties = new String[] {
-                "Skole A", "Skole B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
-                "Party I", "Party J", "Party K", "Party L", "Party M", "Party N", "Party O", "Party P",
-                "Party Q", "Party R", "Party S", "Party T", "Party U", "Party V", "Party W", "Party X",
-                "Party Y", "Party Z"
-        };
+        } else {
+            set1 = new BarDataSet(values, "The year 2017");
+            set1.setDrawIcons(false);
 
-        for (int i = 0; i < count ; i++) {
-            entries.add(new PieEntry((float) ((Math.random() * range) + range / 5),
-                    parties[i % parties.length]));
+            int startColor1 = ContextCompat.getColor(context, android.R.color.holo_orange_light);
+            int startColor2 = ContextCompat.getColor(context, android.R.color.holo_blue_light);
+            int startColor3 = ContextCompat.getColor(context, android.R.color.holo_orange_light);
+            int startColor4 = ContextCompat.getColor(context, android.R.color.holo_green_light);
+            int startColor5 = ContextCompat.getColor(context, android.R.color.holo_red_light);
+            int endColor1 = ContextCompat.getColor(context, android.R.color.holo_blue_dark);
+            int endColor2 = ContextCompat.getColor(context, android.R.color.holo_purple);
+            int endColor3 = ContextCompat.getColor(context, android.R.color.holo_green_dark);
+            int endColor4 = ContextCompat.getColor(context, android.R.color.holo_red_dark);
+            int endColor5 = ContextCompat.getColor(context, android.R.color.holo_orange_dark);
+
+            List<GradientColor> gradientColors = new ArrayList<>();
+            gradientColors.add(new GradientColor(startColor1, endColor1));
+            gradientColors.add(new GradientColor(startColor2, endColor2));
+            gradientColors.add(new GradientColor(startColor3, endColor3));
+            gradientColors.add(new GradientColor(startColor4, endColor4));
+            gradientColors.add(new GradientColor(startColor5, endColor5));
+
+            set1.setGradientColors(gradientColors);
+
+            ArrayList<IBarDataSet> dataSets = new ArrayList<>();
+            dataSets.add(set1);
+
+            BarData data = new BarData(dataSets);
+            data.setHighlightEnabled(false);
+            data.setValueTextSize(10f);
+            data.setBarWidth(0.9f);
+
+            chart.setData(data);
         }
-
-        PieDataSet dataSet = new PieDataSet(entries, "Election Results");
-
-        dataSet.setDrawIcons(false);
-
-        dataSet.setSliceSpace(3f);
-        dataSet.setIconsOffset(new MPPointF(0, 40));
-        dataSet.setSelectionShift(5f);
-
-        // add a lot of colors
-
-        ArrayList<Integer> colors = new ArrayList<>();
-
-        for (int c : ColorTemplate.VORDIPLOM_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.JOYFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.COLORFUL_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.LIBERTY_COLORS)
-            colors.add(c);
-
-        for (int c : ColorTemplate.PASTEL_COLORS)
-            colors.add(c);
-
-        colors.add(ColorTemplate.getHoloBlue());
-
-        dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
-
-        PieData data = new PieData(dataSet);
-        data.setValueFormatter(new PercentFormatter(chart));
-        data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
-        //data.setValueTypeface(tfLight);
-        chart.setData(data);
-
-        // undo all highlights
-        chart.highlightValues(null);
-
-        chart.invalidate();
     }
 
     @Override
@@ -240,5 +247,20 @@ public class FavoriteDetailedFragment extends Fragment implements OnChartValueSe
     @Override
     public void onNothingSelected() {
         Log.i("PieChart", "nothing selected");
+    }
+
+    private class ClassroomAxisFormatter extends ValueFormatter {
+        private List<FavoriteDetailedListViewModel> viewModels;
+        public void setVM(List<FavoriteDetailedListViewModel> viewModels) { this.viewModels = viewModels; }
+
+        @Override
+        public String getAxisLabel(float value, AxisBase axis) {
+            int index = (int)value;
+
+            if (viewModels != null && viewModels.size() > index) {
+                return viewModels.get(index).getName();
+            }
+            return "";
+        }
     }
 }

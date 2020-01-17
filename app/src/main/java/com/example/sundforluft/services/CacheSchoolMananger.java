@@ -7,12 +7,16 @@ import com.example.sundforluft.DAO.SchoolModel;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Map;
 
 public class CacheSchoolMananger {
     private static CacheSchoolMananger instance;
 
-
-    private CacheSchoolMananger() {}
+    private CacheSchoolMananger() {
+        SharedPreferences.Editor editor = Globals.favoriteSchoolPreferences.edit();
+        editor.remove("schools");
+        editor.apply();
+    }
 
     public static CacheSchoolMananger getInstance() {
         if (instance == null) {
@@ -23,20 +27,21 @@ public class CacheSchoolMananger {
     }
 
     public SchoolModel[] getFavoriteSchools() {
-        HashSet<String> favoriteSchools = (HashSet<String>)Globals.favoriteSchoolPreferences.getStringSet("schools", new HashSet<>());
-
-        int[] favSchoolIds = favoriteSchools.stream()
-                .mapToInt(entry -> Integer.parseInt(entry))
-                .toArray();
+        //SharedPreferences.Editor editor = Globals.favoriteSchoolPreferences.edit();
+        //editor.remove("schools");
+        //editor.apply();
 
         ArrayList<SchoolModel> models = new ArrayList<>();
-        for (int i = 0; i < favSchoolIds.length; i++) {
-            if (favSchoolIds[i] != 0) {
-                SchoolModel model = DataAccessLayer.getInstance().getSchoolById(favSchoolIds[i]);
+        for (Map.Entry<String,?> entry : Globals.favoriteSchoolPreferences.getAll().entrySet()) {
+            Integer id = Integer.parseInt(entry.getKey());
+
+            if (id != 0) {
+                SchoolModel model = DataAccessLayer.getInstance().getSchoolById(id);
                 if (model != null) {
                     models.add(model);
                 } else {
-                    CacheSchoolMananger.getInstance().removeFavoriteSchool(favSchoolIds[i]);
+                    /*TODO: Add toast that this school was removed*/
+                    CacheSchoolMananger.getInstance().removeFavoriteSchool(id);
                 }
             }
         }
@@ -47,22 +52,14 @@ public class CacheSchoolMananger {
     }
 
     public void addFavoriteSchool(int schoolId) {
-        HashSet<String> favoriteSchools = (HashSet<String>)Globals.favoriteSchoolPreferences.getStringSet("schools", new HashSet<>());
         SharedPreferences.Editor editor = Globals.favoriteSchoolPreferences.edit();
-        favoriteSchools.add("" + schoolId);
-        editor.putStringSet("schools", favoriteSchools);
+        editor.putInt("" + schoolId, schoolId);
         editor.apply();
     }
-    public void removeFavoriteSchool(int schoolId) {
-        HashSet<String> favoriteSchools = (HashSet<String>)Globals.favoriteSchoolPreferences.getStringSet("schools", new HashSet<>());
-        SharedPreferences.Editor editor = Globals.favoriteSchoolPreferences.edit();
 
-        if (favoriteSchools.size()==1) {
-            editor.remove("schools");
-        } else {
-            favoriteSchools.remove("" + schoolId);
-            editor.putStringSet("schools", favoriteSchools);
-            editor.apply();
-        }
+    public void removeFavoriteSchool(int schoolId) {
+        SharedPreferences.Editor editor = Globals.favoriteSchoolPreferences.edit();
+        editor.remove("" + schoolId);
+        editor.apply();
     }
 }

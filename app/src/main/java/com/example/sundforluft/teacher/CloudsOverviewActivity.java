@@ -24,7 +24,7 @@ public class CloudsOverviewActivity extends AppCompatActivity {
         listView = findViewById(R.id.teacherCloudOverviewListView);
         DataAccessLayer dataAccessLayer = DataAccessLayer.getInstance();
         ArrayList<ClassroomModel> models = dataAccessLayer.getClassroomsBySchoolId(Globals.school.Id);
-        TeacherCloudsOverviewAdapter adapter = new TeacherCloudsOverviewAdapter(this, models);
+        TeacherCloudsOverviewAdapter adapter = new TeacherCloudsOverviewAdapter(CloudsOverviewActivity.this, models);
         listView.setAdapter(adapter);
     }
 }

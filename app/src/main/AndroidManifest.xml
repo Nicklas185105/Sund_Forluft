@@ -84,6 +84,11 @@
             android:name=".teacher.AddCloudActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".teacher.CloudsOverviewActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"
+            />
     </application>
 
 </manifest>

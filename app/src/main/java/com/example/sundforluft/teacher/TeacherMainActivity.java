@@ -73,7 +73,9 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             case R.id.allClouds:
-                i = new Intent(this, CloudsOverviewActivity.class);
+                Class cla = CloudsOverviewActivity.class;
+
+                i = new Intent(getApplicationContext(), CloudsOverviewActivity.class);
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;

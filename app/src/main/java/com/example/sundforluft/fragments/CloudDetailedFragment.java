@@ -127,6 +127,8 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
                     count++;
                 }
 
+                chart.notifyDataSetChanged();
+                chart.setVisibleXRangeMaximum(6);
                 dateFormatter.setDates(times);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -168,8 +170,6 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
 
         data.addEntry(new Entry(xValue, yValue), index);
         data.notifyDataChanged();
-        chart.notifyDataSetChanged();
-        chart.setVisibleXRangeMaximum(6);
     }
 
     private LineDataSet createSet(String name, int index) {

@@ -74,20 +74,55 @@ public class ATTCommunicator {
         return devices;
     }
 
+    // Public Enums
+    public enum MeasurementInterval {
+        MonthPerDay,
+        WeekPerHour,
+        DayPerTenMin,
+        HourPerMin
+    }
+
+    private String getResoultion(MeasurementInterval interval) {
+        switch (interval) {
+            case MonthPerDay: return "day";
+            case WeekPerHour: return "hour";
+            case DayPerTenMin:
+            case HourPerMin:
+                return "minute";
+            default: return "";
+        }
+    }
+
     // Public functions
     // This method must be called from a thread!
-    public ATTDeviceInfo loadMeasurementsForDevice(ATTDevice device, Date start) {
+    public ATTDeviceInfo loadMeasurementsForDevice(ATTDevice device, Date start, MeasurementInterval interval) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(start);
-        cal.add(Calendar.MONTH, 1);
-        return loadMeasurementsForDevice(device, start, cal.getTime());
+
+        switch (interval) {
+            case MonthPerDay:
+                cal.add(Calendar.MONTH, 1);
+                break;
+            case WeekPerHour:
+                cal.add(Calendar.DATE, 7);
+                break;
+            case DayPerTenMin:
+                cal.add(Calendar.DATE, 1);
+                break;
+            case HourPerMin:
+                cal.add(Calendar.HOUR, 1);
+                break;
+        }
+
+
+        return loadMeasurementsForDevice(device, start, cal.getTime(), interval);
     }
-    public ATTDeviceInfo loadMeasurementsForDevice(ATTDevice device, Date start, Date end) {
+    private ATTDeviceInfo loadMeasurementsForDevice(ATTDevice device, Date start, Date end, MeasurementInterval interval) {
         try {
             String from = start.toInstant().toString().replace("Z", "+00:00");
             String to = end.toInstant().toString().replace("Z", "+00:00");
 
-            String query = String.format("from=%s&to=%s&resolution=day", URLEncoder.encode(from, "UTF-8"), URLEncoder.encode(to, "UTF-8"));
+            String query = String.format("from=%s&to=%s&resolution=%s", URLEncoder.encode(from, "UTF-8"), URLEncoder.encode(to, "UTF-8"), getResoultion(interval));
             String uri = String.format("https://api.allthingstalk.io/asset/%s/activity?%s", device.CO2AssetId, query);
 
             HttpURLConnection connection = (HttpURLConnection) new URL(uri).openConnection();

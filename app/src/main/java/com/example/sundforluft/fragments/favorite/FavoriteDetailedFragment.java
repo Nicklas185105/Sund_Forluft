@@ -143,7 +143,7 @@ public class FavoriteDetailedFragment extends Fragment implements OnChartValueSe
                     ATTDevice classroomDevice = classroomDeviceOptional.get();
                     Calendar cal = Calendar.getInstance();
                     cal.add(Calendar.MONTH, -1);
-                    ATTDeviceInfo info = ATTCommunicator.getInstance().loadMeasurementsForDevice(classroomDevice, cal.getTime());
+                    ATTDeviceInfo info = ATTCommunicator.getInstance().loadMeasurementsForDevice(classroomDevice, cal.getTime(), ATTCommunicator.MeasurementInterval.MonthPerDay);
                     FavoriteDetailedListViewModel viewModel = new FavoriteDetailedListViewModel(self, classroomModel.name, info.getAverageQuality(), school.Id);
                     viewModel.setDeviceInfo(info);
                     classroomViewModels.add(viewModel);

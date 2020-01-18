@@ -6,12 +6,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.DAO.ATTDevice;
@@ -35,10 +39,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class CloudDetailedFragment extends Fragment {
+public class CloudDetailedFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
     LineChart chart;
     LineData data;
+    String deviceId;
+
+    private Spinner spinner;
+
+    // TODO: Strings.xml
+    private static final String[] paths = {
+            "1 Måned [per dag]",
+            "1 Uge [per time]"
+    };
 
     ArrayList<Long> times;
     DateFormatter dateFormatter;
@@ -58,9 +71,35 @@ public class CloudDetailedFragment extends Fragment {
         chart.setPinchZoom(true);
 
         Bundle bundle = this.getArguments();
-        final String deviceId = bundle.getString("deviceId");
+        deviceId = bundle.getString("deviceId");
+
+        spinner = view.findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item, paths);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
+        loadDeviceData(deviceId, ATTCommunicator.MeasurementInterval.MonthPerDay);
+
+        // add some transparency to the color with "& 0x90FFFFFF"
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setValueFormatter(dateFormatter);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+        chart.getAxisRight().setEnabled(false);
+        return view;
+    }
+
+    private void loadDeviceData(String deviceId, ATTCommunicator.MeasurementInterval interval) {
+        if (chart.getData() != null) {
+            chart.getData().clearValues();
+            chart.getData().notifyDataChanged();
+            chart.notifyDataSetChanged();
+        }
 
         Activity self = getActivity();
+        dateFormatter.setMeasurementInterval(interval);
 
         // TODO: Strings.xml
         Toast.makeText(getContext(), "Loading data from cloud", Toast.LENGTH_SHORT).show();
@@ -70,7 +109,7 @@ public class CloudDetailedFragment extends Fragment {
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.MONTH, -1);
             ATTDevice device = communicator.getDeviceById(deviceId);
-            ATTDeviceInfo deviceInfo = communicator.loadMeasurementsForDevice(device, cal.getTime());
+            ATTDeviceInfo deviceInfo = communicator.loadMeasurementsForDevice(device, cal.getTime(), interval);
 
             ATTDeviceInfoMeasurement[] measurements = deviceInfo.getMeasurements();
             Arrays.sort(measurements);
@@ -104,14 +143,6 @@ public class CloudDetailedFragment extends Fragment {
                 }
             });
         }).start();
-
-        // add some transparency to the color with "& 0x90FFFFFF"
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setValueFormatter(dateFormatter);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
-        chart.getAxisRight().setEnabled(false);
-        return view;
     }
 
     private void addEntry(float xValue, float yValue, int index) {
@@ -157,20 +188,70 @@ public class CloudDetailedFragment extends Fragment {
         return set;
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+        switch (position) {
+            case 0:
+                loadDeviceData(deviceId, ATTCommunicator.MeasurementInterval.MonthPerDay);
+                break;
+            case 1:
+                loadDeviceData(deviceId, ATTCommunicator.MeasurementInterval.WeekPerHour);
+                break;
+            case 2:
+                // Whatever you want to happen when the thrid item gets selected
+                break;
+
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        // TODO Auto-generated method stub
+    }
+
     private class DateFormatter extends ValueFormatter {
         private ArrayList<Long> dates;
-        public void setDates(ArrayList<Long> dates) { this.dates = dates; }
+        private ATTCommunicator.MeasurementInterval measurementInterval = ATTCommunicator.MeasurementInterval.MonthPerDay;
 
         @Override
         public String getAxisLabel(float value, AxisBase axis) {
             int index = (int)value;
 
             if (dates != null && dates.size() > index) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM", Locale.GERMAN);
-                String date = simpleDateFormat.format(new Date(dates.get(index)));
-                return date;
+                SimpleDateFormat simpleDateFormat;
+                String formatted = "";
+                switch (measurementInterval) {
+                    case WeekPerHour:
+                        simpleDateFormat = new SimpleDateFormat("hh:mm EEE", Locale.ENGLISH);
+                        formatted = String.format("%s", simpleDateFormat.format(new Date(dates.get(index))));
+                        formatted = formatted
+                                .replace("Mon", "Man")
+                                .replace("Tue", "Tir")
+                                .replace("Wed", "Ons")
+                                .replace("Thu", "Tor")
+                                .replace("Fri", "Fre")
+                                .replace("Sat", "Lør")
+                                .replace("Sun", "Søn");
+
+                        break;
+
+                    case MonthPerDay:
+                    default:
+                        simpleDateFormat = new SimpleDateFormat("dd/MM", Locale.GERMAN);
+                        formatted = simpleDateFormat.format(new Date(dates.get(index)));
+                        break;
+                }
+
+                return formatted;
             }
             return "";
+        }
+
+        public void setMeasurementInterval(ATTCommunicator.MeasurementInterval measurementInterval) {
+            this.measurementInterval = measurementInterval;
+        }
+        public void setDates(ArrayList<Long> dates) {
+            this.dates = dates;
         }
     }
 }

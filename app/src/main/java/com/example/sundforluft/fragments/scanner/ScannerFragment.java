@@ -4,7 +4,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
@@ -90,6 +92,14 @@ public class ScannerFragment extends Fragment implements ZXingScannerView.Result
         String deviceId = rawResult.getText();
         ZXingScannerView.ResultHandler resultSelf = this;
 
+        Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            //deprecated in API 26
+            v.vibrate(500);
+        }
         if (lastScannedQR.equals(deviceId)) {
             scannerView.resumeCameraPreview(resultSelf);
             return;

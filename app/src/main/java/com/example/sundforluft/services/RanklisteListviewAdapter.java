@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.R;
 import com.example.sundforluft.models.RanklisteListviewModel;
 

@@ -25,7 +25,7 @@ public class HelpFavoritFragment extends Fragment implements View.OnClickListene
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_help_favorite, container, false);
+        View view = inflater.inflate(R.layout.fragment_help_help, container, false);
 
         back = view.findViewById(R.id.back);
         forward = view.findViewById(R.id.forward);
@@ -36,7 +36,7 @@ public class HelpFavoritFragment extends Fragment implements View.OnClickListene
         forward.setOnClickListener(this);
 
         imageView.setImageResource(R.drawable.ic_help_1_place);
-        help_container.setImageResource(R.drawable.help_favorit_search);
+        help_container.setImageResource(R.drawable.favorit_help_1);
         n = 1;
 
         MainActivity.toggle.setDrawerIndicatorEnabled(false);
@@ -60,19 +60,24 @@ public class HelpFavoritFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-        if (v == back && n != 1){
-            n--;
-        } else if (v == forward && n != 7){
-            n++;
-        } else {
-            if(n <= 1)n = 7;
-            if(n >= 7)n = 1;
+        if (v == back){
+            if (n <= 3 && n != 1) {
+                n--;
+            } else {
+                n = 3;
+            }
+        } else if (v == forward){
+            if(n >= 1 && n != 3){
+                n++;
+            }else {
+                n = 1;
+            }
         }
 
         switch (n){
             case 1:
                 imageView.setImageResource(R.drawable.ic_help_1_place);
-                help_container.setImageResource(R.drawable.help_favorit_search);
+                help_container.setImageResource(R.drawable.favorit_help_1);
                 break;
             case 2:
                 imageView.setImageResource(R.drawable.ic_help_2_place);
@@ -81,18 +86,6 @@ public class HelpFavoritFragment extends Fragment implements View.OnClickListene
             case 3:
                 imageView.setImageResource(R.drawable.ic_help_3_place);
                 help_container.setImageResource(R.drawable.help_favorit_remove);
-                break;
-            case 4:
-                imageView.setImageResource(R.drawable.ic_help_4_place);
-                break;
-            case 5:
-                imageView.setImageResource(R.drawable.ic_help_5_place);
-                break;
-            case 6:
-                imageView.setImageResource(R.drawable.ic_help_6_place);
-                break;
-            case 7:
-                imageView.setImageResource(R.drawable.ic_help_7_place);
                 break;
         }
     }

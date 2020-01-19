@@ -7,13 +7,13 @@ import com.example.sundforluft.R;
 public class RanklisteListviewModel {
 
     private String name;
-    private int currentAir;
+    private double getAverageQuality;
     private final Fragment fragment;
 
-    public RanklisteListviewModel(Fragment fragment, String name, int currentAir) {
+    public RanklisteListviewModel(Fragment fragment, String name, double getAverageQuality) {
         this.fragment = fragment;
         this.name = name;
-        this.currentAir = currentAir;
+        this.getAverageQuality = getAverageQuality;
     }
 
     public String getName() {
@@ -24,12 +24,12 @@ public class RanklisteListviewModel {
         this.name = name;
     }
 
-    public int getCurrentAir() {
-        return currentAir;
+    public double getCurrentAir() {
+        return getAverageQuality;
     }
 
     public void setCurrentAir(int currentAir) {
-        this.currentAir = currentAir;
+        this.getAverageQuality = currentAir;
     }
 
     public String getAirQualityString() {
@@ -46,9 +46,9 @@ public class RanklisteListviewModel {
         final int MEDIUM_AIR_QUALITY = 20;
         final int GOOD_AIR_QUALITY = 30;
 
-        if (currentAir < BAD_AIR_QUALITY) { return 1; }
-        if (currentAir < MEDIUM_AIR_QUALITY) { return 2; }
-        if (currentAir < GOOD_AIR_QUALITY) { return 3; }
+        if (getAverageQuality < BAD_AIR_QUALITY) { return 1; }
+        if (getAverageQuality < MEDIUM_AIR_QUALITY) { return 2; }
+        if (getAverageQuality < GOOD_AIR_QUALITY) { return 3; }
         return 4;
     }
 }

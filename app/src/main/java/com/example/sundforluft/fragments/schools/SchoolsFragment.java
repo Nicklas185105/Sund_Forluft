@@ -14,14 +14,12 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.R;
 import com.example.sundforluft.fragments.favorite.FavoriteFragment;
-import com.example.sundforluft.fragments.ranklist.RanklistNorthJutlandFragment;
 import com.example.sundforluft.services.CacheSchoolMananger;
 
 import java.util.ArrayList;

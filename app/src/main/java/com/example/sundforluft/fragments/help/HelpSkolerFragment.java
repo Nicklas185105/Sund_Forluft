@@ -25,7 +25,7 @@ public class HelpSkolerFragment extends Fragment implements View.OnClickListener
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_help_favorite, container, false);
+        View view = inflater.inflate(R.layout.fragment_help_help, container, false);
 
         back = view.findViewById(R.id.back);
         forward = view.findViewById(R.id.forward);
@@ -35,7 +35,7 @@ public class HelpSkolerFragment extends Fragment implements View.OnClickListener
         forward.setOnClickListener(this);
 
         imageView.setImageResource(R.drawable.ic_help_1_place);
-        help_container.setImageResource(R.drawable.help_favorit_search);
+        help_container.setImageResource(R.drawable.schools_help_1);
         n = 1;
 
         MainActivity.toggle.setDrawerIndicatorEnabled(false);
@@ -71,27 +71,15 @@ public class HelpSkolerFragment extends Fragment implements View.OnClickListener
         switch (n){
             case 1:
                 imageView.setImageResource(R.drawable.ic_help_1_place);
-                help_container.setImageResource(R.drawable.help_favorit_search);
+                help_container.setImageResource(R.drawable.schools_help_1);
                 break;
             case 2:
                 imageView.setImageResource(R.drawable.ic_help_2_place);
-                help_container.setImageResource(R.drawable.help_favorit_favorit);
+                help_container.setImageResource(R.drawable.schools_help_2);
                 break;
             case 3:
                 imageView.setImageResource(R.drawable.ic_help_3_place);
-                help_container.setImageResource(R.drawable.help_favorit_remove);
-                break;
-            case 4:
-                imageView.setImageResource(R.drawable.ic_help_4_place);
-                break;
-            case 5:
-                imageView.setImageResource(R.drawable.ic_help_5_place);
-                break;
-            case 6:
-                imageView.setImageResource(R.drawable.ic_help_6_place);
-                break;
-            case 7:
-                imageView.setImageResource(R.drawable.ic_help_7_place);
+                help_container.setImageResource(R.drawable.schools_help_3);
                 break;
         }
     }

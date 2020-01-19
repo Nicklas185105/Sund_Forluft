@@ -26,7 +26,7 @@
 
 
     <!-- Rankliste Fragment -->
-    <string name="topSkoler">Top skoler i (region)</string>
+    <string name="topSkoler">Top skoler</string>
     <!-- Rankliste Fragments -->
     <string name="copenhagen">Top skoler i København</string>
     <string name="zealand">Top skoler i Sjælland</string>

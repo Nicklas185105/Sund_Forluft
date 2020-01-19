@@ -24,7 +24,7 @@ public class HelpRanklisteFragment extends Fragment implements View.OnClickListe
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_help_favorite, container, false);
+        View view = inflater.inflate(R.layout.fragment_help_help, container, false);
 
         back = view.findViewById(R.id.back);
         forward = view.findViewById(R.id.forward);
@@ -34,7 +34,7 @@ public class HelpRanklisteFragment extends Fragment implements View.OnClickListe
         forward.setOnClickListener(this);
 
         imageView.setImageResource(R.drawable.ic_help_1_place);
-        help_container.setImageResource(R.drawable.help_favorit_search);
+        help_container.setImageResource(R.drawable.favorit_help_1);
         n = 1;
 
 

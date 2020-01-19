@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 
 public class HelpFavoritFragment extends Fragment implements View.OnClickListener {
@@ -38,6 +39,22 @@ public class HelpFavoritFragment extends Fragment implements View.OnClickListene
         help_container.setImageResource(R.drawable.help_favorit_search);
         n = 1;
 
+        MainActivity.toggle.setDrawerIndicatorEnabled(false);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        MainActivity.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    /*if (v.getId() == R.id.rankliste)
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.fragment_container, new RanklistFragment()).commit();
+                    else{
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                .replace(R.id.fragment_container, new HelpFragment()).commit();
+                    }*/
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
+
         return view;
     }
 
@@ -51,6 +68,7 @@ public class HelpFavoritFragment extends Fragment implements View.OnClickListene
             if(n <= 1)n = 7;
             if(n >= 7)n = 1;
         }
+
         switch (n){
             case 1:
                 imageView.setImageResource(R.drawable.ic_help_1_place);

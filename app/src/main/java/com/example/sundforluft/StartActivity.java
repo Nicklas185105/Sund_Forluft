@@ -97,4 +97,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(getApplicationContext(), R.string.gettingSchools, Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }

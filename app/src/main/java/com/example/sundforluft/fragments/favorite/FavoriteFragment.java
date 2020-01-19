@@ -8,6 +8,7 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 
 import androidx.fragment.app.FragmentTransaction;
@@ -46,8 +47,9 @@ public class FavoriteFragment extends Fragment {
                         FavoriteDetailedFragment detailedFragment = new FavoriteDetailedFragment();
                         detailedFragment.setArguments(bundle);
                         mFragmentTransaction
-                                .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                                .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
                                 .replace(R.id.fragment_container, detailedFragment)
+                                .addToBackStack(null)
                                 .commit();
                         mFragmentTransaction.addToBackStack(null);
 
@@ -78,6 +80,16 @@ public class FavoriteFragment extends Fragment {
 
         // Set title of toolbar
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.menuFavorit);
+
+        MainActivity.toggle.setDrawerIndicatorEnabled(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        MainActivity.toggle.syncState();
+        MainActivity.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.drawer.openDrawer(GravityCompat.START);
+            }
+        });
 
         return view;
     }

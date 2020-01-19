@@ -91,8 +91,9 @@ public class FavoriteDetailedListviewAdapter extends BaseAdapter {
                 CloudDetailedFragment cloudDetailedFragment = new CloudDetailedFragment();
                 cloudDetailedFragment.setArguments(bundle);
                 mFragmentTransaction
-                        .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                        .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
                         .replace(R.id.fragment_container, cloudDetailedFragment)
+                        .addToBackStack(null)
                         .commit();
                 mFragmentTransaction.addToBackStack(null);
             }

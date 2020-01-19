@@ -19,9 +19,7 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
 
     Toolbar toolbar;
     TextView text;
-    Button addCloud;
-    Button allClouds;
-    Button removeCloud;
+    Button addCloud, allClouds, removeCloud, logout;
 
 
     @Override
@@ -51,10 +49,12 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
         addCloud = findViewById(R.id.addCloud);
         allClouds = findViewById(R.id.allClouds);
         removeCloud = findViewById(R.id.removeCloud);
+        logout = findViewById(R.id.logout);
 
         addCloud.setOnClickListener(this);
         allClouds.setOnClickListener(this);
         removeCloud.setOnClickListener(this);
+        logout.setOnClickListener(this);
     }
 
     @Override

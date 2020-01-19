@@ -177,9 +177,10 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent = new Intent(QRScanner.this, StartActivity.class);
+        /*Intent intent = new Intent(QRScanner.this, StartActivity.class);
         intent.putExtra("animation", false);
-        startActivity(intent);
+        startActivity(intent);*/
+        finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

@@ -12,6 +12,7 @@ import com.example.sundforluft.DAO.ClassroomModel;
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.R;
 import com.example.sundforluft.services.AdminCloudsOverviewAdapter;
+import com.example.sundforluft.services.RanklisteListviewAdapter;
 
 import java.util.ArrayList;
 
@@ -39,6 +40,7 @@ public class AllSchoolsActivity extends AppCompatActivity {
         SchoolModel[] schoolModels;
 
         for (SchoolModel schoolModel : schoolModels = dataAccessLayer.getSchools()){
+
             classroomModels.addAll(dataAccessLayer.getClassroomsBySchoolId(schoolModel.Id));
         }
         AdminCloudsOverviewAdapter adapter = new AdminCloudsOverviewAdapter(this, classroomModels, schoolModels);

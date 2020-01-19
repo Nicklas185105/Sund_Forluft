@@ -3,7 +3,10 @@ package com.example.sundforluft;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -91,7 +94,14 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
     public void handleResult(Result rawResult){
         String deviceId = rawResult.getText();
         ZXingScannerView.ResultHandler resultSelf = this;
-
+        Vibrator v = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+        } else {
+            //deprecated in API 26
+            v.vibrate(500);
+        }
         if (lastScannedQR.equals(deviceId)) {
             scannerView.resumeCameraPreview(resultSelf);
             return;

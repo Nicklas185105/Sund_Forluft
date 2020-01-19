@@ -6,57 +6,32 @@
     android:orientation="vertical"
     android:background="@color/colorWhite">
 
-    <View
-        android:id="@+id/rankliste_map"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_ranklist_map"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="33dp"
+        android:text="@string/topSkoler"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:textColor="@color/colorBlack54Op"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="36dp"
+        android:divider="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <Button
-        android:id="@+id/northjutland"
-        android:layout_width="210dp"
-        android:layout_height="235dp"
-        android:layout_marginStart="30dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/midjutland"
-        android:layout_width="255dp"
-        android:layout_height="200dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintTop_toBottomOf="@id/northjutland"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <Button
-        android:id="@+id/southdenmark"
-        android:layout_width="250dp"
-        android:layout_height="280dp"
-        android:layout_marginBottom="20dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintTop_toBottomOf="@+id/midjutland"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <Button
-        android:id="@+id/zealand"
-        android:layout_width="150dp"
-        android:layout_height="250dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintStart_toEndOf="@+id/southdenmark"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <Button
-        android:id="@+id/copenhagen"
-        android:layout_width="100dp"
-        android:layout_height="250dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintBottom_toTopOf="@+id/zealand"
-        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

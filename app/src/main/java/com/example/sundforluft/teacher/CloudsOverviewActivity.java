@@ -1,9 +1,11 @@
 package com.example.sundforluft.teacher;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.ClassroomModel;
@@ -14,6 +16,8 @@ import com.example.sundforluft.services.Globals;
 import java.util.ArrayList;
 
 public class CloudsOverviewActivity extends AppCompatActivity {
+
+    Toolbar toolbar;
     ListView listView;
 
     @Override
@@ -21,11 +25,30 @@ public class CloudsOverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_clouds_overview);
 
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        //TODO: indsæt tekst i strings.xml
+        getSupportActionBar().setTitle("Oversigt Over Skoler");
+
+        // Arrow Click
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         listView = findViewById(R.id.teacherCloudOverviewListView);
         DataAccessLayer dataAccessLayer = DataAccessLayer.getInstance();
         ArrayList<ClassroomModel> models = dataAccessLayer.getClassroomsBySchoolId(Globals.school.Id);
         TeacherCloudsOverviewAdapter adapter = new TeacherCloudsOverviewAdapter(CloudsOverviewActivity.this, models);
         listView.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

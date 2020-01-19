@@ -67,8 +67,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.icon) {
             getSupportFragmentManager().popBackStack();
-            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                    .replace(R.id.fragment_container, new ScannerFragment()).commit();
+            getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
+                    .replace(R.id.fragment_container, new ScannerFragment()).addToBackStack(null).commit();
             navigationView.setCheckedItem(R.id.nav_scanner);
             getSupportActionBar().setTitle(R.string.menuScanner);
             return true;

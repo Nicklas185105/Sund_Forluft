@@ -8,9 +8,11 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 
 public class HelpFragment extends Fragment implements View.OnClickListener {
@@ -32,12 +34,22 @@ public class HelpFragment extends Fragment implements View.OnClickListener {
         rankliste.setOnClickListener(this);
         scanner.setOnClickListener(this);
 
+        MainActivity.toggle.setDrawerIndicatorEnabled(true);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        MainActivity.toggle.syncState();
+        MainActivity.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainActivity.drawer.openDrawer(GravityCompat.START);
+            }
+        });
+
         return view;
     }
 
     @Override
     public void onClick(View v) {
-        FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left);
+        FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
         switch (v.getId()){
             case R.id.favorit:
                 mFragmentTransaction.replace(R.id.fragment_container, new HelpFavoritFragment()).commit();

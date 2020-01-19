@@ -64,7 +64,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
 
-public class FavoriteDetailedFragment extends Fragment implements OnChartValueSelectedListener {
+public class FavoriteDetailedFragment extends Fragment {
 
     private BarChart chart;
     private Context context;
@@ -173,6 +173,20 @@ public class FavoriteDetailedFragment extends Fragment implements OnChartValueSe
             });
         }).start();
 
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        MainActivity.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    /*if (v.getId() == R.id.rankliste)
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.fragment_container, new RanklistFragment()).commit();
+                    else{
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                .replace(R.id.fragment_container, new HelpFragment()).commit();
+                    }*/
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
 
         return view;
     }
@@ -233,20 +247,6 @@ public class FavoriteDetailedFragment extends Fragment implements OnChartValueSe
 
             chart.setData(data);
         }
-    }
-
-    @Override
-    public void onValueSelected(Entry e, Highlight h) {
-        if (e == null)
-            return;
-        Log.i("VAL SELECTED",
-                "Value: " + e.getY() + ", index: " + h.getX()
-                        + ", DataSet index: " + h.getDataSetIndex());
-    }
-
-    @Override
-    public void onNothingSelected() {
-        Log.i("PieChart", "nothing selected");
     }
 
     private class ClassroomAxisFormatter extends ValueFormatter {

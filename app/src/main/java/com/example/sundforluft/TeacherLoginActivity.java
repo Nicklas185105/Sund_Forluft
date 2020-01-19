@@ -134,9 +134,10 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        Intent intent = new Intent(TeacherLoginActivity.this, StartActivity.class);
+        /*Intent intent = new Intent(TeacherLoginActivity.this, StartActivity.class);
         intent.putExtra("animation", false);
-        startActivity(intent);
+        startActivity(intent);*/
+        finish();
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 }

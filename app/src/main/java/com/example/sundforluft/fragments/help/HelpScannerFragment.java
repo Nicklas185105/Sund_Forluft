@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 
 public class HelpScannerFragment extends Fragment {
@@ -33,6 +34,22 @@ public class HelpScannerFragment extends Fragment {
 
         back.setVisibility(view.GONE);
         forward.setVisibility(view.GONE);
+
+        MainActivity.toggle.setDrawerIndicatorEnabled(false);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        MainActivity.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    /*if (v.getId() == R.id.rankliste)
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.fragment_container, new RanklistFragment()).commit();
+                    else{
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                .replace(R.id.fragment_container, new HelpFragment()).commit();
+                    }*/
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
 
         return view;
     }

@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 
 public class HelpRanklisteFragment extends Fragment implements View.OnClickListener {
@@ -37,6 +38,21 @@ public class HelpRanklisteFragment extends Fragment implements View.OnClickListe
         help_container.setImageResource(R.drawable.favorit_help_1);
         n = 1;
 
+        MainActivity.toggle.setDrawerIndicatorEnabled(false);
+        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        MainActivity.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    /*if (v.getId() == R.id.rankliste)
+                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.fragment_container, new RanklistFragment()).commit();
+                    else{
+                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
+                                .replace(R.id.fragment_container, new HelpFragment()).commit();
+                    }*/
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
 
         return view;
     }

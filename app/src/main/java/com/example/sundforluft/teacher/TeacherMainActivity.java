@@ -17,29 +17,14 @@ import com.example.sundforluft.services.Globals;
 
 public class TeacherMainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Toolbar toolbar;
     TextView text;
-    Button addCloud;
-    Button allClouds;
-    Button removeCloud;
+    Button addCloud, allClouds, removeCloud, logout;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_main);
-
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        try {
-            getSupportActionBar().setTitle(R.string.welcome);
-
-            // Arrow Click
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        } catch (NullPointerException e){
-            e.printStackTrace();
-        }
 
         text = findViewById(R.id.welcome);
         Intent intent = getIntent();
@@ -51,10 +36,12 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
         addCloud = findViewById(R.id.addCloud);
         allClouds = findViewById(R.id.allClouds);
         removeCloud = findViewById(R.id.removeCloud);
+        logout = findViewById(R.id.logout);
 
         addCloud.setOnClickListener(this);
         allClouds.setOnClickListener(this);
         removeCloud.setOnClickListener(this);
+        logout.setOnClickListener(this);
     }
 
     @Override

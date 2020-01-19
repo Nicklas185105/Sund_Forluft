@@ -44,13 +44,18 @@ public class HelpSkolerFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
 
-        if (v == back && n != 1) {
-            n--;
-        } else if (v == forward && n != 7) {
-            n++;
-        } else {
-            if (n <= 1) n = 7;
-            if (n >= 7) n = 1;
+        if (v == back){
+            if (n <= 3 && n != 1) {
+                n--;
+            } else {
+                n = 3;
+            }
+        } else if (v == forward){
+            if(n >= 1 && n != 3){
+                n++;
+            }else {
+                n = 1;
+            }
         }
         switch (n){
             case 1:

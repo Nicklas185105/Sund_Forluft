@@ -6,8 +6,8 @@
     <string name="continueasguest">Fortsæt som gæst</string>
 
     <!-- Navigation Drawer -->
-    <string name="menuFavorit">Favorit</string>
-    <string name="menuSchool">Skoler</string>
+    <string name="menuFavorit">Favoriter</string>
+    <string name="menuSchool">Tilføj Favorit</string>
     <string name="menuRanklist">Rangliste</string>
     <string name="menuHelp">Hjælp</string>
     <string name="menuScanner">QR Scanner</string>

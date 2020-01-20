@@ -34,9 +34,6 @@ public class SplashScreen extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-
-
-
             loadCriticalInternetData();
             self.runOnUiThread(() -> {
                 Intent homeIntet = new Intent(SplashScreen.this, StartActivity.class);

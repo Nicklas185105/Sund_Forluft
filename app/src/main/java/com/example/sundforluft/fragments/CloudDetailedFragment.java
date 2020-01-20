@@ -75,8 +75,8 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
 
         spinner = view.findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_spinner_item, paths);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                R.layout.spinner_layout, paths);
+        adapter.setDropDownViewResource(R.layout.spinner_layout_2);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
@@ -219,7 +219,7 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
 
             if (dates != null && dates.size() > index) {
                 SimpleDateFormat simpleDateFormat;
-                String formatted = "";
+                String formatted;
                 switch (measurementInterval) {
                     case WeekPerHour:
                         simpleDateFormat = new SimpleDateFormat("hh:mm EEE", Locale.ENGLISH);

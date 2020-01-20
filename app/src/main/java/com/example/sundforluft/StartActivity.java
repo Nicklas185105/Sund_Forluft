@@ -1,6 +1,9 @@
 package com.example.sundforluft;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -15,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.ATTOAuthToken;
+import com.example.sundforluft.services.SchoolAverageLoader;
 
 import java.util.Calendar;
 
@@ -29,17 +33,12 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        ATTOAuthToken.getInstance(); // retrieve token async.
-        ATTCommunicator.getInstance();
-        /*
-        new Thread(() -> {
-            ATTCommunicator communicator = ATTCommunicator.getInstance();
-            communicator.waitForLoad();
-            Calendar cal = Calendar.getInstance();
-            cal.add(Calendar.MONTH, -1);
-            communicator.loadMeasurementsForDevice(communicator.getDevices().get(0), cal.getTime());
-        }).start();
-        */
+        if (isNetworkAvailable()) {
+            loadCriticalInternetData();
+        } else {
+            // TODO: Strings.xml
+            Toast.makeText(getApplicationContext(), "You must have internet to use this application!", Toast.LENGTH_LONG).show();
+        }
 
 
         Intent intent = getIntent();
@@ -81,9 +80,14 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v){
         if (DataAccessLayer.getInstance().isLoaded()) {
             if (v == elev) {
-                Intent i = new Intent(this, MainActivity.class);
-                startActivity(i);
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                if (SchoolAverageLoader.getInstance().isLoaded()) {
+                    Intent i = new Intent(this, MainActivity.class);
+                    startActivity(i);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                } else {
+                    // TODO: Strings.xml
+                    Toast.makeText(getApplicationContext(), "Henter CO2 gennemsnit for skoler. Vent venligst.", Toast.LENGTH_SHORT).show();
+                }
             } else if (v == laerer) {
                 Intent i = new Intent(this, TeacherLoginActivity.class);
                 startActivity(i);
@@ -94,12 +98,40 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         } else {
-            Toast.makeText(getApplicationContext(), R.string.gettingSchools, Toast.LENGTH_SHORT).show();
+            if (isNetworkAvailable()) {
+                loadCriticalInternetData();
+                Toast.makeText(getApplicationContext(), R.string.gettingSchools, Toast.LENGTH_SHORT).show();
+            } else {
+                // TODO: Strings.xml
+                Toast.makeText(getApplicationContext(), "You must have internet to use this application!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     @Override
     public void onBackPressed() {
 
+    }
+
+    private void loadCriticalInternetData() {
+        ATTOAuthToken.getInstance(); // retrieve token async.
+        ATTCommunicator.getInstance();
+        SchoolAverageLoader schoolAverages = SchoolAverageLoader.getInstance();
+        StartActivity self = this;
+        if (!schoolAverages.isLoaded()) {
+            new Thread(() -> {
+                DataAccessLayer.getInstance().waitForLoad();
+                self.runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Loading school Co2 averages", Toast.LENGTH_SHORT).show());
+                schoolAverages.setSchools(DataAccessLayer.getInstance().getSchools());
+                new Thread(schoolAverages::loadSchoolAverages).start();
+            }).start();
+        }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }

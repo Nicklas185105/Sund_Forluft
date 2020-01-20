@@ -33,21 +33,21 @@ public class FavoritListviewModel {
 
     public String getAirQualityString() {
         switch (getAirQuality()) {
-            case 1: return fragment.getString(R.string.bad_air_quality);
-            case 2: return fragment.getString(R.string.medium_air_quality);
-            case 3: return fragment.getString(R.string.good_air_quality);
-            default: return fragment.getString(R.string.best_air_quality);
+            case 1: return String.format(fragment.getString(R.string.bad_air_quality), getCurrentAir());
+            case 2: return String.format(fragment.getString(R.string.medium_air_quality), getCurrentAir());
+            case 3: return String.format(fragment.getString(R.string.good_air_quality), getCurrentAir());
+            default: return String.format(fragment.getString(R.string.best_air_quality), getCurrentAir());
         }
     }
 
     public int getAirQuality() {
-        final int BAD_AIR_QUALITY = 10;
-        final int MEDIUM_AIR_QUALITY = 20;
-        final int GOOD_AIR_QUALITY = 30;
+        final int BAD_AIR_QUALITY = 800;
+        final int MEDIUM_AIR_QUALITY = 600;
+        final int GOOD_AIR_QUALITY = 450;
 
-        if (currentAir < BAD_AIR_QUALITY) { return 1; }
-        if (currentAir < MEDIUM_AIR_QUALITY) { return 2; }
-        if (currentAir < GOOD_AIR_QUALITY) { return 3; }
+        if (currentAir >= BAD_AIR_QUALITY) { return 1; }
+        if (currentAir >= MEDIUM_AIR_QUALITY) { return 2; }
+        if (currentAir >= GOOD_AIR_QUALITY) { return 3; }
         return 4;
     }
 

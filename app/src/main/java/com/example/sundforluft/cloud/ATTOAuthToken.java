@@ -46,7 +46,7 @@ public class ATTOAuthToken {
     // Renews the token using OAuth2
     // Powershell Request:
     // Invoke-WebRequest -Uri "https://api.allthingstalk.io/login" -Method "POST" -Headers @{"method"="POST"; } -ContentType "application/x-www-form-urlencoded" -Body "grant_type=password&username=[username]&password=[password]&client_id=web"
-    private boolean renewToken() {
+    public boolean renewToken() {
         String contentType = "application/x-www-form-urlencoded", method = "POST", URI = "https://api.allthingstalk.io/login";
 
         try {

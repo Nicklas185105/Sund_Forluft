@@ -21,6 +21,7 @@ import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.models.FavoritListviewModel;
 import com.example.sundforluft.services.CacheSchoolMananger;
 import com.example.sundforluft.services.FavoritListviewAdapter;
+import com.example.sundforluft.services.SchoolAverageLoader;
 
 import java.util.ArrayList;
 
@@ -66,8 +67,10 @@ public class FavoriteFragment extends Fragment {
 
         ArrayList<FavoritListviewModel> viewModelList = new ArrayList<>();
         SchoolModel[] favoriteSchools = CacheSchoolMananger.getInstance().getFavoriteSchools();
+        SchoolAverageLoader averageLoader = SchoolAverageLoader.getInstance();
+
         for (SchoolModel favoriteSchool : favoriteSchools) {
-            viewModelList.add(new FavoritListviewModel(this, favoriteSchool.Name, 41));
+            viewModelList.add(new FavoritListviewModel(this, favoriteSchool.Name, (int)averageLoader.getCachedAverageBySchoolId(favoriteSchool.Id)));
         }
         FavoritListviewModel[] favoritListviewModels = new FavoritListviewModel[favoriteSchools.length];
         viewModelList.toArray(favoritListviewModels);

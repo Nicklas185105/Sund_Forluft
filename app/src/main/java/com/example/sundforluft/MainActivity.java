@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -13,12 +14,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.fragments.favorite.FavoriteFragment;
 import com.example.sundforluft.fragments.help.HelpFragment;
 import com.example.sundforluft.fragments.schools.SchoolsFragment;
 import com.example.sundforluft.fragments.ranklist.RanklistFragment;
 import com.example.sundforluft.fragments.scanner.ScannerFragment;
 import com.example.sundforluft.services.Globals;
+import com.example.sundforluft.services.SchoolAverageLoader;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

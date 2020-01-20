@@ -73,4 +73,8 @@
     <string name="classroomHint">Klasseværelse</string>
     <string name="oversigt_over_skoler">Oversigt Over Skoler</string>
     <string name="co2_limit">Co2 Grænser</string>
+    <string name="_450ppm"><![CDATA[<450ppm]]></string>
+    <string name="_600ppm"><![CDATA[<600ppm]]></string>
+    <string name="_800ppm"><![CDATA[<800ppm]]></string>
+    <string name="_1000ppm"><![CDATA[>1000ppm]]></string>
 </resources>

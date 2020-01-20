@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
@@ -26,6 +27,7 @@ import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.DAO.ATTDevice;
 import com.example.sundforluft.cloud.DAO.ATTDeviceInfo;
 import com.example.sundforluft.cloud.DAO.ATTDeviceInfoMeasurement;
+import com.example.sundforluft.fragments.favorite.FavoriteDetailedFragment;
 import com.example.sundforluft.models.FavoriteDetailedListViewModel;
 import com.example.sundforluft.services.AdminCloudsOverviewAdapter;
 import com.example.sundforluft.services.FavoriteDetailedListviewAdapter;
@@ -53,6 +55,20 @@ public class RanklistFragment extends Fragment{
 
         if (getActivity() != null) {
             listView = Objects.requireNonNull(view.findViewById(R.id.listView));
+            listView.setOnItemClickListener((parent, view1, position, id) -> {
+                Bundle bundle = new Bundle();
+                bundle.putString("name", (parent.getAdapter().getItem(position).toString().split(" \\(")[0]));
+
+                FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction();
+                FavoriteDetailedFragment detailedFragment = new FavoriteDetailedFragment();
+                detailedFragment.setArguments(bundle);
+                mFragmentTransaction
+                        .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.fragment_container, detailedFragment)
+                        .addToBackStack(null)
+                        .commit();
+                mFragmentTransaction.addToBackStack(null);
+            });
 
             SchoolAverageLoader schoolAverages = SchoolAverageLoader.getInstance();
             SchoolModel[] schools = DataAccessLayer.getInstance().getSchools();

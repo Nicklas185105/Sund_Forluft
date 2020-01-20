@@ -99,7 +99,6 @@ public class FavoriteDetailedFragment extends Fragment {
         l.setXEntrySpace(4f);
         l.setEnabled(false);
 
-
         String schoolName = this.getArguments().getString("name");
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(schoolName);
 
@@ -185,24 +184,10 @@ public class FavoriteDetailedFragment extends Fragment {
             set1 = new BarDataSet(values, "The year 2017");
             set1.setDrawIcons(false);
 
-            int startColor1 = ContextCompat.getColor(context, android.R.color.holo_orange_light);
-            int startColor2 = ContextCompat.getColor(context, android.R.color.holo_blue_light);
-            int startColor3 = ContextCompat.getColor(context, android.R.color.holo_orange_light);
-            int startColor4 = ContextCompat.getColor(context, android.R.color.holo_green_light);
-            int startColor5 = ContextCompat.getColor(context, android.R.color.holo_red_light);
-            int endColor1 = ContextCompat.getColor(context, android.R.color.holo_blue_dark);
-            int endColor2 = ContextCompat.getColor(context, android.R.color.holo_purple);
-            int endColor3 = ContextCompat.getColor(context, android.R.color.holo_green_dark);
-            int endColor4 = ContextCompat.getColor(context, android.R.color.holo_red_dark);
-            int endColor5 = ContextCompat.getColor(context, android.R.color.holo_orange_dark);
-
             List<GradientColor> gradientColors = new ArrayList<>();
-            gradientColors.add(new GradientColor(startColor1, endColor1));
-            gradientColors.add(new GradientColor(startColor2, endColor2));
-            gradientColors.add(new GradientColor(startColor3, endColor3));
-            gradientColors.add(new GradientColor(startColor4, endColor4));
-            gradientColors.add(new GradientColor(startColor5, endColor5));
-
+            for (BarEntry entry : values) {
+                gradientColors.add(getColorForBar(entry));
+            }
             set1.setGradientColors(gradientColors);
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<>();
@@ -215,6 +200,42 @@ public class FavoriteDetailedFragment extends Fragment {
 
             chart.setData(data);
         }
+    }
+
+    private GradientColor getColorForBar(BarEntry entry) {
+        if (entry == null) {//empty
+            return new GradientColor(
+                    ContextCompat.getColor(context, android.R.color.holo_green_light),
+                    ContextCompat.getColor(context, android.R.color.holo_green_light));
+        }
+
+
+        if (entry.getY() <= 450) {
+            // Fremragende
+            return new GradientColor(
+                    ContextCompat.getColor(context, android.R.color.holo_green_light),
+                    ContextCompat.getColor(context, android.R.color.holo_green_dark));
+        }
+
+        if (entry.getY() < 600) {
+            // God
+            return new GradientColor(
+                    ContextCompat.getColor(context, android.R.color.holo_green_dark),
+                    ContextCompat.getColor(context, android.R.color.holo_orange_light));
+
+        }
+
+        if (entry.getY() < 800) {
+            // Medium
+            return new GradientColor(
+                    ContextCompat.getColor(context, android.R.color.holo_orange_dark),
+                    ContextCompat.getColor(context, android.R.color.holo_red_light));
+        }
+
+        // Dårlig
+        return new GradientColor(
+                ContextCompat.getColor(context, android.R.color.holo_red_light),
+                ContextCompat.getColor(context, android.R.color.holo_red_dark));
     }
 
     private class ClassroomAxisFormatter extends ValueFormatter {

@@ -2,9 +2,7 @@ package com.example.sundforluft.fragments.favorite;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +25,9 @@ import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.DAO.ATTDevice;
 import com.example.sundforluft.cloud.DAO.ATTDeviceInfo;
 import com.example.sundforluft.models.FavoriteDetailedListViewModel;
-import com.example.sundforluft.services.DataBroker.CsvDataBroker;
 import com.example.sundforluft.services.FavoriteDetailedListviewAdapter;
-import com.example.sundforluft.services.DataBroker.DataBroker;
-import com.example.sundforluft.services.DataBroker.AirQualityDataModel;
 
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -42,26 +35,13 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.model.GradientColor;
-import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.MPPointF;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 
 public class FavoriteDetailedFragment extends Fragment {
@@ -189,18 +169,6 @@ public class FavoriteDetailedFragment extends Fragment {
         });
 
         return view;
-    }
-
-    private float getAverage(List<AirQualityDataModel> models) {
-        double total = 0;
-        int count = 0;
-
-        for (AirQualityDataModel model : models) {
-            total += model.CO2;
-            count++;
-        }
-
-        return (float)(total / count);
     }
 
     private void setData(ArrayList<BarEntry> values){

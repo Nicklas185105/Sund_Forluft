@@ -52,8 +52,8 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
 
     // TODO: Strings.xml
     private static final String[] paths = {
-            "1 Måned [per dag]",
-            "1 Uge [per time]"
+        "1 Måned [per dag]",
+        "1 Uge [per time]"
     };
 
     ArrayList<Long> times;
@@ -75,7 +75,7 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         chart.setDrawGridBackground(false);
         chart.getDescription().setEnabled(false);
         // TODO: Strings.xml
-        chart.setNoDataText("Data is being loaded from cloud.. Please wait");
+        chart.setNoDataText(getResources().getString(R.string.wait_data_loaded_from_cloud));
         chart.setPinchZoom(true);
 
         Bundle bundle = this.getArguments();
@@ -110,7 +110,7 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         dateFormatter.setMeasurementInterval(interval);
 
         // TODO: Strings.xml
-        Toast.makeText(getContext(), "Loading data from cloud", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getResources().getString(R.string.wait_data_loaded_from_cloud), Toast.LENGTH_SHORT).show();
         new Thread(() -> {
             ATTCommunicator communicator = ATTCommunicator.getInstance();
             communicator.waitForLoad();

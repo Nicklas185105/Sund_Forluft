@@ -113,7 +113,7 @@ public class ScannerFragment extends Fragment implements ZXingScannerView.Result
             scannerView.resumeCameraPreview(resultSelf);
 
             //TODO: Strings.xml
-            Toast.makeText(getContext(), "Invalid QR code.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getResources().getText(R.string.invalid_qr_code), Toast.LENGTH_SHORT).show();
 
         } else {
 

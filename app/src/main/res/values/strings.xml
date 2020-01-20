@@ -6,8 +6,8 @@
     <string name="continueasguest">Fortsæt som gæst</string>
 
     <!-- Navigation Drawer -->
-    <string name="menuFavorit">Favorit</string>
-    <string name="menuSchool">Skoler</string>
+    <string name="menuFavorit">Favoriter</string>
+    <string name="menuSchool">Tilføj Favorit</string>
     <string name="menuRanklist">Rangliste</string>
     <string name="menuHelp">Hjælp</string>
     <string name="menuScanner">QR Scanner</string>
@@ -77,4 +77,8 @@
     <string name="_600ppm"><![CDATA[<600ppm]]></string>
     <string name="_800ppm"><![CDATA[<800ppm]]></string>
     <string name="_1000ppm"><![CDATA[>1000ppm]]></string>
+    <string name="cloudDetailedInfo">I denne periode var den største værdi %.2f ppm.\nGennemsnittet var %.2f ppm.\nDen laveste Co2 værdi for perioden var %.2f ppm.</string>
+    <string name="wait_data_loaded_from_cloud">Data bliver hentet fra skyen. Vent venligst.</string>
+    <string name="classroom_avg_load">Loading classroom averages from cloud</string>
+    <string name="invalid_qr_code">Invalid QR code.</string>
 </resources>

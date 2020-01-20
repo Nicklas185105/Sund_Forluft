@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -45,16 +46,22 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
     LineData data;
     String deviceId;
 
+    TextView textView;
+
     private Spinner spinner;
 
     // TODO: Strings.xml
     private static final String[] paths = {
-            "1 Måned [per dag]",
-            "1 Uge [per time]"
+        "1 Måned [per dag]",
+        "1 Uge [per time]"
     };
 
     ArrayList<Long> times;
     DateFormatter dateFormatter;
+
+    double lowestValue = Double.MAX_VALUE;
+    double highestValue = 0;
+    double averageValue = 0;
 
     @Nullable
     @Override
@@ -62,12 +69,13 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         View view = inflater.inflate(R.layout.fragment_cloud_detailed, container, false);
         dateFormatter = new DateFormatter();
 
+        textView = view.findViewById(R.id.detailed_info_text);
         chart = view.findViewById(R.id.chart);
 
         chart.setDrawGridBackground(false);
         chart.getDescription().setEnabled(false);
         // TODO: Strings.xml
-        chart.setNoDataText("Data is being loaded from cloud.. Please wait");
+        chart.setNoDataText(getResources().getString(R.string.wait_data_loaded_from_cloud));
         chart.setPinchZoom(true);
 
         Bundle bundle = this.getArguments();
@@ -102,7 +110,7 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         dateFormatter.setMeasurementInterval(interval);
 
         // TODO: Strings.xml
-        Toast.makeText(getContext(), "Loading data from cloud", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getResources().getString(R.string.wait_data_loaded_from_cloud), Toast.LENGTH_SHORT).show();
         new Thread(() -> {
             ATTCommunicator communicator = ATTCommunicator.getInstance();
             communicator.waitForLoad();
@@ -116,16 +124,29 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
 
             times = new ArrayList<>();
 
+            lowestValue = Double.MAX_VALUE;
+            highestValue = 0;
+            averageValue = 0;
+
+            double avg_sum = 0;
+
             try {
                 int count = 0;
                 for (ATTDeviceInfoMeasurement measurement : deviceInfo.getMeasurements()) {
                     times.add(measurement.time.getTime());
+
+                    if (measurement.minimum < lowestValue) { lowestValue = measurement.minimum; }
+                    if (measurement.maximum >= highestValue) { highestValue = measurement.maximum; }
+
+                    avg_sum += measurement.average;
 
                     addEntry(count, (float) measurement.maximum, 0);
                     addEntry(count, (float) measurement.average, 1);
                     addEntry(count, (float) measurement.minimum, 2);
                     count++;
                 }
+
+                averageValue = avg_sum / count;
 
                 chart.notifyDataSetChanged();
                 chart.setVisibleXRangeMaximum(6);
@@ -139,6 +160,11 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
             self.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+
+
+                    String formatStr = getResources().getString(R.string.cloudDetailedInfo);
+                    textView.setText( String.format(formatStr, highestValue, averageValue, lowestValue) );
+
                     chart.animateX(1500);
                     chart.setVisibleXRangeMaximum(7);
                     chart.moveViewToX(data.getEntryCount());

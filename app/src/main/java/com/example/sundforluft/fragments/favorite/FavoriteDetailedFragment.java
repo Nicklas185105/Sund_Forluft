@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -109,8 +110,7 @@ public class FavoriteDetailedFragment extends Fragment {
         final Activity activity = getActivity();
         final Fragment self = this;
 
-        // TODO: Strings.xml
-        Toast.makeText(getContext(), "Loading classroom averages from cloud", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), getResources().getText(R.string.classroom_avg_load), Toast.LENGTH_SHORT).show();
         new Thread(() -> {
             ATTCommunicator.getInstance().waitForLoad();
             ArrayList<ATTDevice> devices = ATTCommunicator.getInstance().getDevices();

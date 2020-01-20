@@ -77,4 +77,5 @@
     <string name="_600ppm"><![CDATA[<600ppm]]></string>
     <string name="_800ppm"><![CDATA[<800ppm]]></string>
     <string name="_1000ppm"><![CDATA[>1000ppm]]></string>
+    <string name="cloudDetailedInfo">I denne periode var den største værdi %.2f ppm.\nGennemsnittet var %.2f ppm.\nDen laveste Co2 værdi for perioden var %.2f ppm.</string>
 </resources>

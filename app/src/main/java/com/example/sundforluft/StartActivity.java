@@ -33,14 +33,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        if (isNetworkAvailable()) {
-            loadCriticalInternetData();
-        } else {
-            // TODO: Strings.xml
-            Toast.makeText(getApplicationContext(), "You must have internet to use this application!", Toast.LENGTH_LONG).show();
-        }
-
-
         Intent intent = getIntent();
         boolean animation = intent.getBooleanExtra("animation", true);
 
@@ -84,9 +76,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     Intent i = new Intent(this, MainActivity.class);
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                } else {
-                    // TODO: Strings.xml
-                    Toast.makeText(getApplicationContext(), "Henter CO2 gennemsnit for skoler. Vent venligst.", Toast.LENGTH_SHORT).show();
                 }
             } else if (v == laerer) {
                 Intent i = new Intent(this, TeacherLoginActivity.class);
@@ -97,14 +86,6 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
-        } else {
-            if (isNetworkAvailable()) {
-                loadCriticalInternetData();
-                Toast.makeText(getApplicationContext(), R.string.gettingSchools, Toast.LENGTH_SHORT).show();
-            } else {
-                // TODO: Strings.xml
-                Toast.makeText(getApplicationContext(), "You must have internet to use this application!", Toast.LENGTH_SHORT).show();
-            }
         }
     }
 
@@ -113,25 +94,4 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private void loadCriticalInternetData() {
-        ATTOAuthToken.getInstance(); // retrieve token async.
-        ATTCommunicator.getInstance();
-        SchoolAverageLoader schoolAverages = SchoolAverageLoader.getInstance();
-        StartActivity self = this;
-        if (!schoolAverages.isLoaded()) {
-            new Thread(() -> {
-                DataAccessLayer.getInstance().waitForLoad();
-                self.runOnUiThread(() -> Toast.makeText(getApplicationContext(), "Loading school Co2 averages", Toast.LENGTH_SHORT).show());
-                schoolAverages.setSchools(DataAccessLayer.getInstance().getSchools());
-                new Thread(schoolAverages::loadSchoolAverages).start();
-            }).start();
-        }
-    }
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
 }

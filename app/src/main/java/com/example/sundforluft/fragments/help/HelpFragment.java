@@ -44,6 +44,10 @@ public class HelpFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+        // Set title of toolbar
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.menuHelp);
+        ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_help);
+
         return view;
     }
 

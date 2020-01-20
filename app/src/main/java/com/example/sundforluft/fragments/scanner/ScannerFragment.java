@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.DAO.ATTDevice;
@@ -78,6 +79,11 @@ public class ScannerFragment extends Fragment implements ZXingScannerView.Result
 
                     }
                 }).check();
+
+        // Set title of toolbar
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.menuScanner);
+        ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_scanner);
+
         return view;
     }
 

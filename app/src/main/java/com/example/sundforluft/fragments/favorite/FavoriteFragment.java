@@ -83,6 +83,7 @@ public class FavoriteFragment extends Fragment {
 
         // Set title of toolbar
         ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.menuFavorit);
+        ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_favorit);
 
         MainActivity.toggle.setDrawerIndicatorEnabled(true);
         ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);

@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static Toolbar toolbar;
     public static ActionBarDrawerToggle toggle;
     public static DrawerLayout drawer;
-    NavigationView navigationView;
+    public NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

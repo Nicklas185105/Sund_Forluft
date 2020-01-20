@@ -89,6 +89,10 @@ public class RanklistFragment extends Fragment{
             listView.setAdapter(adapter);
         }
 
+        // Set title of toolbar
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.menuRanklist);
+        ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_ranklist);
+
         return view;
     }
 }

@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.SchoolModel;
+import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 import com.example.sundforluft.fragments.favorite.FavoriteFragment;
 import com.example.sundforluft.services.CacheSchoolMananger;
@@ -81,6 +82,10 @@ public class SchoolsFragment extends Fragment {
 
             }
         });
+
+        // Set title of toolbar
+        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.menuSchool);
+        ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_map);
 
         return rootView;
 

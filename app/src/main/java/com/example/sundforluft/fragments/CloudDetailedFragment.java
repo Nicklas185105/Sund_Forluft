@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.DAO.ATTDevice;
@@ -32,23 +31,21 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class CloudDetailedFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
-    LineChart chart;
-    LineData data;
-    String deviceId;
+    private LineChart chart;
+    private LineData data;
+    private String deviceId;
 
-    TextView textView;
-
-    private Spinner spinner;
+    private TextView textView;
 
     // TODO: Strings.xml
     private static final String[] paths = {
@@ -56,12 +53,12 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         "1 Uge [per time]"
     };
 
-    ArrayList<Long> times;
-    DateFormatter dateFormatter;
+    private ArrayList<Long> times;
+    private DateFormatter dateFormatter;
 
-    double lowestValue = Double.MAX_VALUE;
-    double highestValue = 0;
-    double averageValue = 0;
+    private double lowestValue = Double.MAX_VALUE;
+    private double highestValue = 0;
+    private double averageValue = 0;
 
     @Nullable
     @Override
@@ -79,10 +76,10 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         chart.setPinchZoom(true);
 
         Bundle bundle = this.getArguments();
-        deviceId = bundle.getString("deviceId");
+        deviceId = Objects.requireNonNull(bundle).getString("deviceId");
 
-        spinner = view.findViewById(R.id.spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+        Spinner spinner = view.findViewById(R.id.spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
                 R.layout.spinner_layout, paths);
         adapter.setDropDownViewResource(R.layout.spinner_layout_2);
         spinner.setAdapter(adapter);
@@ -157,18 +154,15 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
             //TODO: Tilpas legend https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/LineChartActivity2.java
             //chart.getLegend().setEnabled(false);
 
-            self.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
+            Objects.requireNonNull(self).runOnUiThread(() -> {
 
 
-                    String formatStr = getResources().getString(R.string.cloudDetailedInfo);
-                    textView.setText( String.format(formatStr, highestValue, averageValue, lowestValue) );
+                String formatStr = getResources().getString(R.string.cloudDetailedInfo);
+                textView.setText( String.format(formatStr, highestValue, averageValue, lowestValue) );
 
-                    chart.animateX(1500);
-                    chart.setVisibleXRangeMaximum(7);
-                    chart.moveViewToX(data.getEntryCount());
-                }
+                chart.animateX(1500);
+                chart.setVisibleXRangeMaximum(7);
+                chart.moveViewToX(data.getEntryCount());
             });
         }).start();
     }
@@ -273,10 +267,10 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
             return "";
         }
 
-        public void setMeasurementInterval(ATTCommunicator.MeasurementInterval measurementInterval) {
+        void setMeasurementInterval(ATTCommunicator.MeasurementInterval measurementInterval) {
             this.measurementInterval = measurementInterval;
         }
-        public void setDates(ArrayList<Long> dates) {
+        void setDates(ArrayList<Long> dates) {
             this.dates = dates;
         }
     }

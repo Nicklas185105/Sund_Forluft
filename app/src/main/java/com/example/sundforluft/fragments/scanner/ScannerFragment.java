@@ -1,25 +1,19 @@
 package com.example.sundforluft.fragments.scanner;
 
 import android.Manifest;
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
-import android.view.SurfaceHolder;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.sundforluft.MainActivity;
@@ -27,10 +21,6 @@ import com.example.sundforluft.R;
 import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.DAO.ATTDevice;
 import com.example.sundforluft.fragments.CloudDetailedFragment;
-import com.google.android.gms.vision.CameraSource;
-import com.google.android.gms.vision.Detector;
-import com.google.android.gms.vision.barcode.Barcode;
-import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.google.zxing.Result;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -40,11 +30,12 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 
 
+import java.util.Objects;
+
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class ScannerFragment extends Fragment implements ZXingScannerView.ResultHandler {
     private ZXingScannerView scannerView;
-    private TextView txtResult;
 
     private String lastScannedQR  = "";
 
@@ -55,7 +46,6 @@ public class ScannerFragment extends Fragment implements ZXingScannerView.Result
 
 
         scannerView = view.findViewById(R.id.zxscan);
-        txtResult = view.findViewById(R.id.txt_result);
 
         ScannerFragment self = this;
 
@@ -81,7 +71,7 @@ public class ScannerFragment extends Fragment implements ZXingScannerView.Result
                 }).check();
 
         // Set title of toolbar
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.menuScanner);
+        Objects.requireNonNull(((MainActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle(R.string.menuScanner);
         ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_scanner);
 
         return view;
@@ -92,19 +82,20 @@ public class ScannerFragment extends Fragment implements ZXingScannerView.Result
         scannerView.stopCamera();
         super.onDestroy();
     }
+    @SuppressLint("ObsoleteSdkInt")
     @Override
     public void handleResult(Result rawResult){
         // QR scan result.
         String deviceId = rawResult.getText();
         ZXingScannerView.ResultHandler resultSelf = this;
 
-        Vibrator v = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        Vibrator v = (Vibrator) Objects.requireNonNull(getActivity()).getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+            Objects.requireNonNull(v).vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
             //deprecated in API 26
-            v.vibrate(500);
+            Objects.requireNonNull(v).vibrate(500);
         }
         if (lastScannedQR.equals(deviceId)) {
             scannerView.resumeCameraPreview(resultSelf);

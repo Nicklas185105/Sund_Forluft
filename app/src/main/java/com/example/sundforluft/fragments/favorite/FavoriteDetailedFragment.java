@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,6 +42,7 @@ import com.github.mikephil.charting.model.GradientColor;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class FavoriteDetailedFragment extends Fragment {
@@ -100,8 +100,8 @@ public class FavoriteDetailedFragment extends Fragment {
         l.setXEntrySpace(4f);
         l.setEnabled(false);
 
-        String schoolName = this.getArguments().getString("name");
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle(schoolName);
+        String schoolName = Objects.requireNonNull(this.getArguments()).getString("name");
+        Objects.requireNonNull(((MainActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle(schoolName);
 
         FavoriteDetailedListviewAdapter favoriteDetailedListviewAdapter = new FavoriteDetailedListviewAdapter(this);
         SchoolModel school = DataAccessLayer.getInstance().getSchoolByName(schoolName);
@@ -152,20 +152,9 @@ public class FavoriteDetailedFragment extends Fragment {
             });
         }).start();
 
-        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        MainActivity.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    /*if (v.getId() == R.id.rankliste)
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                            .replace(R.id.fragment_container, new RanklistFragment()).commit();
-                    else{
-                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                                .replace(R.id.fragment_container, new HelpFragment()).commit();
-                    }*/
-                getActivity().getSupportFragmentManager().popBackStack();
-            }
-        });
+        MainActivity.toggle.setDrawerIndicatorEnabled(false);
+        Objects.requireNonNull(((MainActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        MainActivity.toolbar.setNavigationOnClickListener(v -> getActivity().getSupportFragmentManager().popBackStack());
 
         return view;
     }
@@ -240,7 +229,7 @@ public class FavoriteDetailedFragment extends Fragment {
 
     private class ClassroomAxisFormatter extends ValueFormatter {
         private List<FavoriteDetailedListViewModel> viewModels;
-        public void setVM(List<FavoriteDetailedListViewModel> viewModels) { this.viewModels = viewModels; }
+        void setVM(List<FavoriteDetailedListViewModel> viewModels) { this.viewModels = viewModels; }
 
         @Override
         public String getAxisLabel(float value, AxisBase axis) {

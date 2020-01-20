@@ -17,17 +17,17 @@ import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
-import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.models.FavoritListviewModel;
 import com.example.sundforluft.services.CacheSchoolMananger;
 import com.example.sundforluft.services.FavoritListviewAdapter;
 import com.example.sundforluft.services.SchoolAverageLoader;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FavoriteFragment extends Fragment {
 
-    FavoritListviewAdapter favoriteListviewAdapter;
+    private FavoritListviewAdapter favoriteListviewAdapter;
 
     @Nullable
     @Override
@@ -36,32 +36,29 @@ public class FavoriteFragment extends Fragment {
 
 
         favoriteListviewAdapter = new FavoritListviewAdapter(this);
-        favoriteListviewAdapter.setClickListener(new FavoritListviewAdapter.ClickListener() {
-            @Override
-            public void onClick(FavoritListviewModel model, FavoritListviewAdapter.ClickListenerType type) {
-                FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction();
-                switch (type) {
-                    case School:
-                        Bundle bundle = new Bundle();
-                        bundle.putString("name", favoriteListviewAdapter.getName(model));
+        favoriteListviewAdapter.setClickListener((model, type) -> {
+            FragmentTransaction mFragmentTransaction = Objects.requireNonNull(getFragmentManager()).beginTransaction();
+            switch (type) {
+                case School:
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", favoriteListviewAdapter.getName(model));
 
-                        FavoriteDetailedFragment detailedFragment = new FavoriteDetailedFragment();
-                        detailedFragment.setArguments(bundle);
-                        mFragmentTransaction
-                                .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
-                                .replace(R.id.fragment_container, detailedFragment)
-                                .addToBackStack(null)
-                                .commit();
-                        mFragmentTransaction.addToBackStack(null);
+                    FavoriteDetailedFragment detailedFragment = new FavoriteDetailedFragment();
+                    detailedFragment.setArguments(bundle);
+                    mFragmentTransaction
+                            .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
+                            .replace(R.id.fragment_container, detailedFragment)
+                            .addToBackStack(null)
+                            .commit();
+                    mFragmentTransaction.addToBackStack(null);
 
-                        break;
-                    case Close:
-                        favoriteListviewAdapter.deleteSchoolByModel(model);
-                        CacheSchoolMananger.getInstance().removeFavoriteSchool(
-                            DataAccessLayer.getInstance().getSchoolByName(model.getName()).Id
-                        );
-                        break;
-                }
+                    break;
+                case Close:
+                    favoriteListviewAdapter.deleteSchoolByModel(model);
+                    CacheSchoolMananger.getInstance().removeFavoriteSchool(
+                        DataAccessLayer.getInstance().getSchoolByName(model.getName()).Id
+                    );
+                    break;
             }
         });
 
@@ -82,18 +79,13 @@ public class FavoriteFragment extends Fragment {
         schoolModelListView.setAdapter(favoriteListviewAdapter);
 
         // Set title of toolbar
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.menuFavorit);
+        Objects.requireNonNull(((MainActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle(R.string.menuFavorit);
         ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_favorit);
 
         MainActivity.toggle.setDrawerIndicatorEnabled(true);
-        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(((MainActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
         MainActivity.toggle.syncState();
-        MainActivity.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.drawer.openDrawer(GravityCompat.START);
-            }
-        });
+        MainActivity.toolbar.setNavigationOnClickListener(v -> MainActivity.drawer.openDrawer(GravityCompat.START));
 
         return view;
     }

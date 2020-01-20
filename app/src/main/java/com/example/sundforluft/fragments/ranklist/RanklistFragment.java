@@ -1,52 +1,31 @@
 package com.example.sundforluft.fragments.ranklist;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.sundforluft.DAL.DataAccessLayer;
-import com.example.sundforluft.DAO.ClassroomModel;
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.DAO.SchoolModelAverage;
 import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
-import com.example.sundforluft.cloud.ATTCommunicator;
-import com.example.sundforluft.cloud.DAO.ATTDevice;
-import com.example.sundforluft.cloud.DAO.ATTDeviceInfo;
-import com.example.sundforluft.cloud.DAO.ATTDeviceInfoMeasurement;
 import com.example.sundforluft.fragments.favorite.FavoriteDetailedFragment;
-import com.example.sundforluft.models.FavoriteDetailedListViewModel;
-import com.example.sundforluft.services.AdminCloudsOverviewAdapter;
-import com.example.sundforluft.services.FavoriteDetailedListviewAdapter;
-import com.example.sundforluft.services.RanklisteListviewAdapter;
 import com.example.sundforluft.services.SchoolAverageLoader;
-import com.github.mikephil.charting.data.BarEntry;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Optional;
 
 public class RanklistFragment extends Fragment{
-    ListView listView;
 
     @Nullable
     @Override
@@ -54,11 +33,12 @@ public class RanklistFragment extends Fragment{
         View view = inflater.inflate(R.layout.fragment_ranklist, container, false);
 
         if (getActivity() != null) {
-            listView = Objects.requireNonNull(view.findViewById(R.id.listView));
+            ListView listView = Objects.requireNonNull(view.findViewById(R.id.listView));
             listView.setOnItemClickListener((parent, view1, position, id) -> {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", (parent.getAdapter().getItem(position).toString().split(" \\(")[0]));
 
+                assert getFragmentManager() != null;
                 FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction();
                 FavoriteDetailedFragment detailedFragment = new FavoriteDetailedFragment();
                 detailedFragment.setArguments(bundle);
@@ -90,8 +70,13 @@ public class RanklistFragment extends Fragment{
         }
 
         // Set title of toolbar
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.menuRanklist);
+        Objects.requireNonNull(((MainActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle(R.string.menuRanklist);
         ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_ranklist);
+
+        MainActivity.toggle.setDrawerIndicatorEnabled(true);
+        Objects.requireNonNull(((MainActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
+        MainActivity.toggle.syncState();
+        MainActivity.toolbar.setNavigationOnClickListener(v -> MainActivity.drawer.openDrawer(GravityCompat.START));
 
         return view;
     }

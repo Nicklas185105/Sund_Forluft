@@ -15,19 +15,19 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 
-public class HelpFragment extends Fragment implements View.OnClickListener {
+import java.util.Objects;
 
-    Button favorit, skoler, rankliste, scanner;
+public class HelpFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_help, container, false);
 
-        favorit = view.findViewById(R.id.favorit);
-        skoler = view.findViewById(R.id.skoler);
-        rankliste = view.findViewById(R.id.rankliste);
-        scanner = view.findViewById(R.id.scanner);
+        Button favorit = view.findViewById(R.id.favorit);
+        Button skoler = view.findViewById(R.id.skoler);
+        Button rankliste = view.findViewById(R.id.rankliste);
+        Button scanner = view.findViewById(R.id.scanner);
 
         favorit.setOnClickListener(this);
         skoler.setOnClickListener(this);
@@ -35,17 +35,12 @@ public class HelpFragment extends Fragment implements View.OnClickListener {
         scanner.setOnClickListener(this);
 
         MainActivity.toggle.setDrawerIndicatorEnabled(true);
-        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        Objects.requireNonNull(((MainActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setDisplayHomeAsUpEnabled(false);
         MainActivity.toggle.syncState();
-        MainActivity.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.drawer.openDrawer(GravityCompat.START);
-            }
-        });
+        MainActivity.toolbar.setNavigationOnClickListener(v -> MainActivity.drawer.openDrawer(GravityCompat.START));
 
         // Set title of toolbar
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.menuHelp);
+        Objects.requireNonNull(((MainActivity) getActivity()).getSupportActionBar()).setTitle(R.string.menuHelp);
         ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_help);
 
         return view;
@@ -53,7 +48,7 @@ public class HelpFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
+        FragmentTransaction mFragmentTransaction = Objects.requireNonNull(getFragmentManager()).beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right);
         switch (v.getId()){
             case R.id.favorit:
                 mFragmentTransaction.replace(R.id.fragment_container, new HelpFavoritFragment()).commit();

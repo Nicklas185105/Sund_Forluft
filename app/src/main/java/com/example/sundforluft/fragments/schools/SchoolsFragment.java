@@ -6,7 +6,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -24,10 +23,10 @@ import com.example.sundforluft.fragments.favorite.FavoriteFragment;
 import com.example.sundforluft.services.CacheSchoolMananger;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class SchoolsFragment extends Fragment {
-    EditText filter;
-    private ArrayAdapter adapter;
+    private ArrayAdapter<String> adapter;
 
     @Nullable
     @Override
@@ -35,7 +34,7 @@ public class SchoolsFragment extends Fragment {
         View rootView =  inflater.inflate(R.layout.fragment_map, container, false);
 
         SchoolsFragment self = this;
-        filter = rootView.findViewById(R.id.editText);
+        EditText filter = rootView.findViewById(R.id.editText);
 
         ListView listView = rootView.findViewById(R.id.listView);
         ArrayList<String> schools = new ArrayList<>();
@@ -45,7 +44,7 @@ public class SchoolsFragment extends Fragment {
             }
         }
 
-        adapter = new ArrayAdapter(getContext(), R.layout.custom_listview, schools);
+        adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.custom_listview, schools);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -66,25 +65,22 @@ public class SchoolsFragment extends Fragment {
             }
         });
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //here you can use the position to determine what checkbox to check
-                //this assumes that you have an array of your checkboxes as well. called checkbox
-                String name = (String)adapter.getItem(position);
-                CacheSchoolMananger.getInstance().addFavoriteSchool(
-                    DataAccessLayer.getInstance().getSchoolByName(name).Id
-                );
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            //here you can use the position to determine what checkbox to check
+            //this assumes that you have an array of your checkboxes as well. called checkbox
+            String name = adapter.getItem(position);
+            CacheSchoolMananger.getInstance().addFavoriteSchool(
+                DataAccessLayer.getInstance().getSchoolByName(name).Id
+            );
 
-                FragmentTransaction mFragmentTransaction = getFragmentManager().beginTransaction();
-                mFragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
-                        .replace(R.id.fragment_container, new FavoriteFragment()).commit();
+            FragmentTransaction mFragmentTransaction = Objects.requireNonNull(getFragmentManager()).beginTransaction();
+            mFragmentTransaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left)
+                    .replace(R.id.fragment_container, new FavoriteFragment()).commit();
 
-            }
         });
 
         // Set title of toolbar
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle(R.string.menuSchool);
+        Objects.requireNonNull(((MainActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle(R.string.menuSchool);
         ((MainActivity) getActivity()).navigationView.setCheckedItem(R.id.nav_map);
 
         return rootView;

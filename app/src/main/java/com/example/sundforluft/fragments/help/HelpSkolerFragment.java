@@ -14,13 +14,15 @@ import androidx.fragment.app.Fragment;
 import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 
+import java.util.Objects;
+
 public class HelpSkolerFragment extends Fragment implements View.OnClickListener {
 
-    Button back, forward;
+    private Button back, forward;
 
-    ImageView imageView,  help_container;
+    private ImageView imageView,  help_container;
 
-    int n;
+    private int n;
 
     @Nullable
     @Override
@@ -39,20 +41,8 @@ public class HelpSkolerFragment extends Fragment implements View.OnClickListener
         n = 1;
 
         MainActivity.toggle.setDrawerIndicatorEnabled(false);
-        ((MainActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        MainActivity.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                    /*if (v.getId() == R.id.rankliste)
-                    getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                            .replace(R.id.fragment_container, new RanklistFragment()).commit();
-                    else{
-                        getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right)
-                                .replace(R.id.fragment_container, new HelpFragment()).commit();
-                    }*/
-                getActivity().getSupportFragmentManager().popBackStack();
-            }
-        });
+        Objects.requireNonNull(((MainActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        MainActivity.toolbar.setNavigationOnClickListener(v -> getActivity().getSupportFragmentManager().popBackStack());
 
         return view;
     }

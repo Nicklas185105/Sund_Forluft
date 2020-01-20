@@ -219,7 +219,7 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
 
             if (dates != null && dates.size() > index) {
                 SimpleDateFormat simpleDateFormat;
-                String formatted = "";
+                String formatted;
                 switch (measurementInterval) {
                     case WeekPerHour:
                         simpleDateFormat = new SimpleDateFormat("hh:mm EEE", Locale.ENGLISH);

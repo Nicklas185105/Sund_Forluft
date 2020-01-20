@@ -104,7 +104,6 @@ public class DataAccessLayer {
         classrooms.remove(model);
     }
 
-
     public void reloadFromInternet() {
         loaded = false;
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -194,8 +193,6 @@ public class DataAccessLayer {
         });
     }
 
-
-
     public boolean isLoaded() {
         return loaded;
     }
@@ -260,5 +257,8 @@ public class DataAccessLayer {
         return array;
     }
 
+    public void waitForLoad() {
+        while (!isLoaded()) { /*wait for loaded == true*/ }
+    }
 
 }

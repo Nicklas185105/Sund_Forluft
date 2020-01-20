@@ -3,6 +3,9 @@ package com.example.sundforluft.cloud;
 import android.net.Network;
 import android.os.NetworkOnMainThreadException;
 
+import com.example.sundforluft.DAL.DataAccessLayer;
+import com.example.sundforluft.DAO.ClassroomModel;
+import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.cloud.DAO.ATTDevice;
 import com.example.sundforluft.cloud.DAO.ATTDeviceInfo;
 import com.example.sundforluft.cloud.DAO.ATTDeviceInfoMeasurement;
@@ -94,7 +97,7 @@ public class ATTCommunicator {
     }
 
     // Public functions
-    // This method must be called from a thread!
+    // Below methods MUST be called by a thread!
     public ATTDeviceInfo loadMeasurementsForDevice(ATTDevice device, Date start, MeasurementInterval interval) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(start);
@@ -177,6 +180,26 @@ public class ATTCommunicator {
         return null;
     }
 
+    public double getSchoolAverage(int schoolId) {
+        waitForLoad();
+        ArrayList<ClassroomModel> classrooms = DataAccessLayer.getInstance().getClassroomsBySchoolId(schoolId);
+
+        double sum = 0;
+        int count = 0;
+
+        for (ClassroomModel classroom : classrooms) {
+            ATTDevice device = getDeviceById(classroom.deviceId);
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.MONTH, -1);
+            ATTDeviceInfo info = loadMeasurementsForDevice(device, cal.getTime(), MeasurementInterval.MonthPerDay);
+
+            sum += info.getAverageQuality();
+            count++;
+        }
+
+        return sum / count;
+    }
+
     // Internal methods used on load.
     private void loadDevices() {
         synchronized (instance.mutex) { // Lock mutex for operation!
@@ -245,13 +268,12 @@ public class ATTCommunicator {
         return devices;
     }
 
-
     public boolean isLoading() {
         return loading;
     }
     public void waitForLoad() {
         try {
-            while (loading) {
+            while (isLoading()) {
                 Thread.sleep(15);
             }
         } catch (InterruptedException ie) {

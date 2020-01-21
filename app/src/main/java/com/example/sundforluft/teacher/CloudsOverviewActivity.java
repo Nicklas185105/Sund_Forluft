@@ -28,13 +28,13 @@ public class CloudsOverviewActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //TODO: indsæt tekst i strings.xml
-        getSupportActionBar().setTitle("Oversigt Over Skoler");
+        getSupportActionBar().setTitle(R.string.oversigt_over_skyer);
 
         // Arrow Click
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        listView = findViewById(R.id.teacherCloudOverviewListView);
+        listView = findViewById(R.id.listView);
         DataAccessLayer dataAccessLayer = DataAccessLayer.getInstance();
         ArrayList<ClassroomModel> models = dataAccessLayer.getClassroomsBySchoolId(Globals.school.Id);
         TeacherCloudsOverviewAdapter adapter = new TeacherCloudsOverviewAdapter(CloudsOverviewActivity.this, models);

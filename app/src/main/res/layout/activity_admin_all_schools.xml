@@ -11,11 +11,12 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorWhite"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:titleTextColor="@color/textColor"
+        android:theme="@style/AppTheme.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+        app:popupTheme="@style/AppTheme.ActionBar" />
 
     <TextView
         android:id="@+id/text"

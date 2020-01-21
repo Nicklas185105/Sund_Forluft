@@ -77,6 +77,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                     startActivity(i);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
+                else{
+                    DataAccessLayer.getInstance().reloadFromInternet();
+                }
             } else if (v == laerer) {
                 Intent i = new Intent(this, TeacherLoginActivity.class);
                 startActivity(i);
@@ -86,6 +89,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(i);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
+        }
+        else{
+            DataAccessLayer.getInstance().reloadFromInternet();
         }
     }
 

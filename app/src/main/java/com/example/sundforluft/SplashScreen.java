@@ -9,12 +9,18 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.ATTOAuthToken;
 import com.example.sundforluft.services.SchoolAverageLoader;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Objects;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -34,16 +40,19 @@ public class SplashScreen extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+
             loadCriticalInternetData();
             self.runOnUiThread(() -> {
-                Intent homeIntet = new Intent(SplashScreen.this, StartActivity.class);
-                startActivity(homeIntet);
+                Intent homeIntent = new Intent(SplashScreen.this, StartActivity.class);
+                startActivity(homeIntent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 finish();
             });
         }).start();
 
 
     }
+
     private void loadCriticalInternetData() {
         ATTOAuthToken.getInstance(); // retrieve token async.
         ATTCommunicator.getInstance();
@@ -58,10 +67,18 @@ public class SplashScreen extends AppCompatActivity {
         }
     }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    public static boolean isNetworkAvailable () {
+        boolean success = false;
+        try {
+            URL url = new URL("https://google.com");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(10000);
+            connection.connect();
+            success = connection.getResponseCode() == 200;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return success;
     }
+
 }

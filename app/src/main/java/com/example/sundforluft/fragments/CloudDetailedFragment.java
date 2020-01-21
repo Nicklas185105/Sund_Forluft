@@ -117,6 +117,10 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
             ATTDeviceInfo deviceInfo = communicator.loadMeasurementsForDevice(device, cal.getTime(), interval);
 
             ATTDeviceInfoMeasurement[] measurements = deviceInfo.getMeasurements();
+            if (measurements.length == 0) {
+                return;
+            }
+
             Arrays.sort(measurements);
 
             times = new ArrayList<>();

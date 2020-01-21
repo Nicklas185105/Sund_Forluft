@@ -5,7 +5,7 @@ apply plugin: 'com.google.firebase.crashlytics'
 android {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\Frimann\\Desktop\\A4SundForluft.jks')
+            storeFile file('A4SundForluft.jks')
             storePassword '123456'
             keyAlias = 'A4SundForluftKey'
             keyPassword '123456'

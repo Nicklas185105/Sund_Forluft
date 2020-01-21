@@ -21,7 +21,7 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tilføj Skole"
+        android:text="@string/add_school"
         android:textSize="30sp"
         android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
@@ -41,7 +41,8 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text" />
+        app:layout_constraintTop_toBottomOf="@+id/text"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/passwordEditText"
@@ -56,7 +57,8 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameEditText"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/schoolEditText"
@@ -67,11 +69,12 @@
         android:layout_marginEnd="50dp"
         android:background="@drawable/bg_favorit_search"
         android:ems="8"
-        android:hint="Skole"
+        android:hint="@string/skole"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/button"
@@ -80,7 +83,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"
         android:layout_marginBottom="50dp"
-        android:text="Tilføj Skole"
+        android:text="@string/add_school"
         android:textColor="@color/colorWhite"
         android:textSize="20sp"
         android:background="@drawable/bg_start_continue"

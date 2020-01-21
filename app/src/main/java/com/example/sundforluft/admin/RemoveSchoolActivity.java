@@ -63,8 +63,8 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
             }
         }
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter = new ArrayAdapter<>(this, R.layout.spinner_layout, items);
+        adapter.setDropDownViewResource(R.layout.spinner_layout_2);
         dropdown.setAdapter(adapter);
     }
 

@@ -86,4 +86,6 @@
     <string name="forbinder">Forbinder</string>
     <string name="add_school">Tilføj Skole</string>
     <string name="skole">Skole</string>
+    <string name="velkommen_admin">Velkommen Admin</string>
+    <string name="logout">Log Ud</string>
 </resources>

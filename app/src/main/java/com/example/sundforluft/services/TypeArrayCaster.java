@@ -1,16 +1,17 @@
 package com.example.sundforluft.services;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class TypeArrayCaster {
-    @SuppressWarnings (value="unchecked")
-    public static <T> List<T> cast(Object[] inputArray) {
-        ArrayList<T> arr = new ArrayList<>();
-        for (Object input : inputArray) {
-            arr.add((T) input);
+@SuppressWarnings (value="unchecked")
+public class TypeArrayCaster<T> {
+    private ArrayList<T> output;
+
+    public TypeArrayCaster(Object[] array) {
+        output = new ArrayList<T>();
+        for (Object object : array) {
+            output.add((T) object);
         }
-        return arr;
     }
 
+    public ArrayList<T> getOutput(){return output;}
 }

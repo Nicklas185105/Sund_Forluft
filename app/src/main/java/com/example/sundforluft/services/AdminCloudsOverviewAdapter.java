@@ -13,27 +13,28 @@ import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AdminCloudsOverviewAdapter extends BaseAdapter {
 
-    private ArrayList<ClassroomModel> classrooms;
-    private SchoolModel[] schools;
-    private Context context;
+    ArrayList<ClassroomModel> classrooms;
+    ArrayList<SchoolModel> schools;
+    Context context;
 
     public AdminCloudsOverviewAdapter(Context context, ArrayList<ClassroomModel> classroomModels, SchoolModel[] schoolModels) {
         this.context = context;
         this.classrooms = classroomModels;
-        this.schools = schoolModels;
+        this.schools = new TypeArrayCaster<SchoolModel> (Arrays.stream(schoolModels).filter(c -> c.Id !=0).toArray()).getOutput();
     }
 
     @Override
     public int getCount() {
-        return classrooms.size();
+        return schools.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return classrooms.get(position);
+        return schools.size();
     }
 
     @Override
@@ -49,12 +50,23 @@ public class AdminCloudsOverviewAdapter extends BaseAdapter {
 
         TextView tvleft = view.findViewById(R.id.adminCloudOverviewTextLeft);
         TextView tvmid = view.findViewById(R.id.adminCloudOverviewTextMid);
-        //TextView tvright = view.findViewById(R.id.adminCloudOverviewTextRight);
 
-        ClassroomModel model = classrooms.get(position);
-        tvleft.setText(schools[model.id].Name);
-        tvmid.setText(model.name);
-        //tvright.setText(model.name);
+        StringBuilder builder = new StringBuilder();
+        tvleft.setText(schools.get(position).Name);
+
+        ArrayList<ClassroomModel> classroomModels  = new TypeArrayCaster<ClassroomModel>(
+                classrooms.stream().filter(e -> e.id == schools.get(position).Id)
+                        .toArray()).getOutput();
+
+        for (ClassroomModel classroomModel : classroomModels){
+            if (builder.length() == 0){
+                builder.append(classroomModel.name);
+            } else {
+                builder.append(String.format(", %s", classroomModel.name));
+            }
+        }
+
+        tvmid.setText(builder.toString());
 
         return view;
     }

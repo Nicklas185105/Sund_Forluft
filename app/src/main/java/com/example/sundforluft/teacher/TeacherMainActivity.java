@@ -13,7 +13,11 @@ import androidx.appcompat.widget.Toolbar;
 import com.example.sundforluft.QRScanner;
 import com.example.sundforluft.R;
 import com.example.sundforluft.StartActivity;
+import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.services.Globals;
+import com.example.sundforluft.services.SchoolAverageLoader;
+
+import java.util.Locale;
 
 public class TeacherMainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -27,11 +31,10 @@ public class TeacherMainActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_teacher_main);
 
         text = findViewById(R.id.welcome);
-        Intent intent = getIntent();
+        text.setText(Globals.school.Name);
 
-        text.setText(R.string.welcome2);
-        String welcome = text.getText() + " " + intent.getStringExtra("name");
-        text.setText(welcome);
+        TextView average = findViewById(R.id.average);
+        average.setText(String.format(Locale.ENGLISH,  getResources().getString(R.string.airquality_avg), SchoolAverageLoader.getInstance().getCachedAverageBySchoolId(Globals.school.Id)));
 
         addCloud = findViewById(R.id.addCloud);
         allClouds = findViewById(R.id.allClouds);

@@ -79,6 +79,8 @@
     <string name="wait_data_loaded_from_cloud">Data bliver hentet fra skyen. Vent venligst.</string>
     <string name="classroom_avg_load">Loading classroom averages from cloud</string>
     <string name="invalid_qr_code">Invalid QR code.</string>
+    <string name="airquality_avg">Luftkvalitet (Gennemsnit): %.2f ppm</string>
+    <string name="developer_str">Udviklere af SundForluft App:\n\nRasmus Søborg (s185119)\nHans Krogh Thomsen (s185110)\nNicklas Beyer Lydersen (S185???)\nBenjamin Fester Henningsen (S12????)\nMathias Skøn Frimann (S17???)</string>
     <string name="forbinder">Forbinder</string>
     <string name="add_school">Tilføj Skole</string>
     <string name="skole">Skole</string>

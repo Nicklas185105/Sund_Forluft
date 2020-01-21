@@ -26,7 +26,8 @@
         android:background="@drawable/sky"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/login"
@@ -52,7 +53,8 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+        app:layout_constraintTop_toBottomOf="@+id/login"
+        tools:ignore="Autofill" />
 
     <EditText
         android:id="@+id/passwordEditText"
@@ -67,7 +69,8 @@
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameEditText"
+        tools:ignore="Autofill" />
 
 
     <Button
@@ -91,7 +94,7 @@
         android:id="@+id/teacherLoginButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Lærer Login"
+        android:text="@string/teacherLogin"
         android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/adminLoginButton"
@@ -101,7 +104,7 @@
         android:id="@+id/adminLoginButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Admin Login"
+        android:text="@string/admin_login"
         android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/teacherLoginButton"
         app:layout_constraintEnd_toEndOf="parent"

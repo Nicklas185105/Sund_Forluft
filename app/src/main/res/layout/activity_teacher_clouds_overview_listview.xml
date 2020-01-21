@@ -1,23 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="left">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_gravity="start">
 
     <TextView
         android:id="@+id/teacherCloudOverviewTextLeft"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:textSize="20dp"
-        android:text="PLACEHOLDERLEFT"/>
+        android:layout_marginHorizontal="5dp"
+        android:gravity="center"
+        android:textSize="17sp"
+        android:paddingLeft="6dip"
+        android:paddingRight="6dip"
+        android:text="@string/skole"/>
+
     <TextView
         android:id="@+id/teacherCloudOverviewTextRight"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="15dp"
-        android:textSize="30dp"
-        android:text="PLACEHOLDERRIGHT"
-        />
+        android:layout_marginHorizontal="5dp"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:paddingLeft="6dip"
+        android:paddingRight="6dip"
+        android:text="@string/classroomHint"/>
 
 </LinearLayout>

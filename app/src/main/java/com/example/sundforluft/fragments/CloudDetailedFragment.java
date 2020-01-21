@@ -66,7 +66,7 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         View view = inflater.inflate(R.layout.fragment_cloud_detailed, container, false);
         dateFormatter = new DateFormatter();
 
-        textView = view.findViewById(R.id.detailed_info_text);
+        textView = view.findViewById(R.id.textViewInfo);
         chart = view.findViewById(R.id.chart);
 
         chart.setDrawGridBackground(false);
@@ -154,6 +154,9 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
             //TODO: Tilpas legend https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/LineChartActivity2.java
             //chart.getLegend().setEnabled(false);
 
+            // Please do not move these lines around, they have to be above the ui thread
+            chart.setVisibleXRangeMaximum(7);
+            chart.moveViewToX(data.getEntryCount());
             Objects.requireNonNull(self).runOnUiThread(() -> {
 
 
@@ -161,9 +164,9 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
                 textView.setText( String.format(formatStr, highestValue, averageValue, lowestValue) );
 
                 chart.animateX(1500);
-                chart.setVisibleXRangeMaximum(7);
-                chart.moveViewToX(data.getEntryCount());
+
             });
+
         }).start();
     }
 

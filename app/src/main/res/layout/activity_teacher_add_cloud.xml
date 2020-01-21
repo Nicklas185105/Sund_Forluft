@@ -1,62 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_centerInParent="true">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/classroom"
-            android:textSize="35dp"
-            />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorWhite"
+        android:elevation="4dp"
+        app:titleTextColor="@color/textColor"
+        android:theme="@style/AppTheme.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/AppTheme.ActionBar" />
 
-        <EditText
-            android:id="@+id/addCloudEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/bg_favorit_search"
-            android:ems="8"
-            android:hint="@string/classroomHint"
-            android:inputType="textPersonName"
-            android:gravity="center"/>
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/textColor"
+        android:text="@string/classroom"
+        android:textSize="30sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        />
 
-        <Button
-            android:id="@+id/addCloudSubmitButton"
-            android:layout_margin="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/submit"/>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layout_result"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:padding="8dp"
-        android:background="@color/colorPrimaryDark"
+    <EditText
+        android:id="@+id/addCloudEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
-        <TextView
-            android:id="@+id/txt_result"
-            android:text=". . ."
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="50dp"
+        android:background="@drawable/bg_favorit_search"
+        android:ems="8"
+        android:elevation="5dp"
+        android:hint="@string/classroomHint"
+        android:inputType="textPersonName"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        tools:ignore="Autofill" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/addCloudSubmitButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/submit"
+        android:background="@drawable/bg_start_continue"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="150dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

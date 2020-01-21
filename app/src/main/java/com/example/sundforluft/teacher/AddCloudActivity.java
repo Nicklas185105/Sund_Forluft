@@ -3,11 +3,13 @@ package com.example.sundforluft.teacher;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.ClassroomModel;
@@ -16,6 +18,7 @@ import com.example.sundforluft.services.Globals;
 
 public class AddCloudActivity extends AppCompatActivity {
 
+    Toolbar toolbar;
     EditText editText;
     Button submitButton;
 
@@ -27,6 +30,14 @@ public class AddCloudActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_add_cloud);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.addCloud);
+
+        // Arrow Click
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         editText = findViewById(R.id.addCloudEditText);
         submitButton = findViewById(R.id.addCloudSubmitButton);
@@ -89,6 +100,16 @@ public class AddCloudActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle arrow click here
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

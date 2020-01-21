@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +19,6 @@ import com.example.sundforluft.DAO.ClassroomModel;
 import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.DAO.ATTDevice;
 import com.example.sundforluft.fragments.CloudDetailedFragment;
-import com.example.sundforluft.fragments.favorite.FavoriteFragment;
 import com.example.sundforluft.services.Globals;
 import com.example.sundforluft.teacher.AddCloudActivity;
 import com.example.sundforluft.teacher.TeacherMainActivity;
@@ -36,7 +34,6 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class QRScanner extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private ZXingScannerView scannerView;
-    private TextView txtResult;
     Toolbar toolbar;
     DataAccessLayer dataAccessLayer;
 
@@ -48,7 +45,6 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
         setContentView(R.layout.activity_guest);
 
         scannerView = findViewById(R.id.zxscan);
-        txtResult = findViewById(R.id.txt_result);
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -32,7 +32,7 @@
         android:id="@+id/addCloud"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tilføj Sky"
+        android:text="@string/addCloud"
         android:layout_marginTop="120dp"
         android:layout_marginStart="80dp"
         android:layout_marginEnd="80dp"

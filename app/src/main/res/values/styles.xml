@@ -28,5 +28,9 @@
         <item name="colorControlHighlight">@color/colorLightBlue</item>
         -->
     </style>
+    
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionMenuTextColor">@color/textColor</item>
+    </style>
 
 </resources>

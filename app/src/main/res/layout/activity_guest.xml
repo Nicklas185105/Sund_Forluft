@@ -31,6 +31,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="0dp" />
 
 </RelativeLayout>

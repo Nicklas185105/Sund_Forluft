@@ -19,6 +19,7 @@ import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.ATTOAuthToken;
 import com.example.sundforluft.services.SchoolAverageLoader;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.util.Calendar;
 
@@ -32,6 +33,9 @@ public class StartActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        boolean isNotDebug = !BuildConfig.DEBUG;
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(isNotDebug);
 
         Intent intent = getIntent();
         boolean animation = intent.getBooleanExtra("animation", true);

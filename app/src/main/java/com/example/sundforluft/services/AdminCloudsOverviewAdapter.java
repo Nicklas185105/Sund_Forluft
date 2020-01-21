@@ -1,5 +1,6 @@
 package com.example.sundforluft.services;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +16,9 @@ import java.util.ArrayList;
 
 public class AdminCloudsOverviewAdapter extends BaseAdapter {
 
-    ArrayList<ClassroomModel> classrooms;
-    SchoolModel[] schools;
-    Context context;
+    private ArrayList<ClassroomModel> classrooms;
+    private SchoolModel[] schools;
+    private Context context;
 
     public AdminCloudsOverviewAdapter(Context context, ArrayList<ClassroomModel> classroomModels, SchoolModel[] schoolModels) {
         this.context = context;
@@ -40,6 +41,7 @@ public class AdminCloudsOverviewAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint("ViewHolder")
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -47,12 +49,12 @@ public class AdminCloudsOverviewAdapter extends BaseAdapter {
 
         TextView tvleft = view.findViewById(R.id.adminCloudOverviewTextLeft);
         TextView tvmid = view.findViewById(R.id.adminCloudOverviewTextMid);
-        TextView tvright = view.findViewById(R.id.adminCloudOverviewTextRight);
+        //TextView tvright = view.findViewById(R.id.adminCloudOverviewTextRight);
 
         ClassroomModel model = classrooms.get(position);
-        tvleft.setText(model.deviceId);
-        tvmid.setText(schools[model.id].Name);
-        tvright.setText(model.name);
+        tvleft.setText(schools[model.id].Name);
+        tvmid.setText(model.name);
+        //tvright.setText(model.name);
 
         return view;
     }

@@ -89,4 +89,7 @@
     <string name="addCloud">Tilføj Sky</string>
     <string name="oversigt_over_skyer">Oversigt Over Skyer</string>
     <string name="admin_login">Admin Login</string>
+    <string name="velkommen">Velkommen</string>
+    <string name="SchoolAveragePlaceholder">Skolen Average Luft Kvalitet</string>
+    <string name="removeCloud">Fjern Sky</string>
 </resources>

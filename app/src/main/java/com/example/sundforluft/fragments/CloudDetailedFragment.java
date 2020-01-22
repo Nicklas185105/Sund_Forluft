@@ -71,6 +71,10 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         textView = view.findViewById(R.id.textViewInfo);
         chart = view.findViewById(R.id.chart);
 
+        TextView textView = view.findViewById(R.id.textViewData);
+        textView.setText(
+                getResources().getString(R.string.ppmDetails).replaceAll("\\%\\.2f ppm", "Tryk på tidspunkt i graf.")
+        );
 
         chart.setDrawGridBackground(false);
         chart.getDescription().setEnabled(false);
@@ -104,7 +108,7 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
 
                 TextView textView = view.findViewById(R.id.textViewData);
                 textView.setText(
-                        String.format(Locale.ENGLISH, "Maksimum: %.2f ppm\nGennemsnit: %.2f ppm\nMinimum: %.2f ppm", co2_max, co2_avg, co2_min)
+                        String.format(Locale.ENGLISH, getResources().getString(R.string.ppmDetails), co2_max, co2_avg, co2_min)
                 );
             }
 

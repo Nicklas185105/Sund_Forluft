@@ -92,4 +92,5 @@
     <string name="SchoolAveragePlaceholder">Skolen Average Luft Kvalitet</string>
     <string name="removeCloud">Fjern Sky</string>
     <string name="addCloud">Tilføj Sky</string>
+    <string name="ppmDetails">Maksimum: %.2f ppm\nGennemsnit: %.2f ppm\nMinimum: %.2f ppm</string>
 </resources>

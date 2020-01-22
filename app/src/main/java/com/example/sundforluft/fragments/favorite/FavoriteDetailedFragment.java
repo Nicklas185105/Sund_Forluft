@@ -2,6 +2,7 @@ package com.example.sundforluft.fragments.favorite;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,7 @@ public class FavoriteDetailedFragment extends Fragment {
 
         chart = view.findViewById(R.id.chart1);
         //chart.setUsePercentValues(true);
+
         chart.setDrawBarShadow(false);
         chart.setDrawValueAboveBar(true);
         chart.getDescription().setEnabled(false);
@@ -98,7 +100,9 @@ public class FavoriteDetailedFragment extends Fragment {
         l.setFormSize(9f);
         l.setTextSize(11f);
         l.setXEntrySpace(4f);
-        l.setEnabled(false);
+        l.setForm(Legend.LegendForm.EMPTY);
+        l.setTextColor(getResources().getColor(R.color.textColor));
+        l.setEnabled(true);
 
         String schoolName = Objects.requireNonNull(this.getArguments()).getString("name");
         Objects.requireNonNull(((MainActivity) Objects.requireNonNull(getActivity())).getSupportActionBar()).setTitle(schoolName);
@@ -175,7 +179,7 @@ public class FavoriteDetailedFragment extends Fragment {
             chart.notifyDataSetChanged();
 
         } else {
-            set1 = new BarDataSet(values, "The year 2017");
+            set1 = new BarDataSet(values, "Co2 (PPM)");
             set1.setDrawIcons(false);
 
             List<GradientColor> gradientColors = new ArrayList<>();

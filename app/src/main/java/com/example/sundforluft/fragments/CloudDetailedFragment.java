@@ -69,6 +69,7 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         textView = view.findViewById(R.id.textViewInfo);
         chart = view.findViewById(R.id.chart);
 
+
         chart.setDrawGridBackground(false);
         chart.getDescription().setEnabled(false);
         // TODO: Strings.xml
@@ -89,6 +90,8 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(dateFormatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+
 
         chart.getAxisRight().setEnabled(false);
         return view;

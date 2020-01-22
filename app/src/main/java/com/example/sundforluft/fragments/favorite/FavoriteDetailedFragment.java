@@ -81,27 +81,23 @@ public class FavoriteDetailedFragment extends Fragment {
         xAxis.setGranularity(1f); // only intervals of 1 day
         xAxis.setLabelCount(7);
         xAxis.setValueFormatter(xAxisFormatter);
+        xAxis.setTextColor(R.color.textColor);
 
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setLabelCount(8, false);
         leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
         leftAxis.setSpaceTop(15f);
-        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-        leftAxis.setEnabled(false);
+        leftAxis.setTextColor(R.color.textColor);
+        leftAxis.setAxisMinimum(380);
 
-        YAxis rightAxis = chart.getAxisRight();
-        rightAxis.setDrawGridLines(false);
-        rightAxis.setLabelCount(8, false);
-        rightAxis.setSpaceTop(15f);
-        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+        chart.getAxisRight().setEnabled(false);
 
         Legend l = chart.getLegend();
         l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
         l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         l.setDrawInside(false);
-        l.setForm(Legend.LegendForm.SQUARE);
         l.setFormSize(9f);
         l.setTextSize(11f);
         l.setXEntrySpace(4f);
@@ -166,6 +162,9 @@ public class FavoriteDetailedFragment extends Fragment {
             });
         }).start();
 
+
+        //chart.setMinimumHeight(380);
+
         MainActivity.toggle.setDrawerIndicatorEnabled(false);
         Objects.requireNonNull(((MainActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         MainActivity.toolbar.setNavigationOnClickListener(v -> getActivity().getSupportFragmentManager().popBackStack());
@@ -200,6 +199,7 @@ public class FavoriteDetailedFragment extends Fragment {
             data.setHighlightEnabled(false);
             data.setValueTextSize(10f);
             data.setBarWidth(0.9f);
+            data.setValueTextColor(R.color.textColor);
 
             chart.setData(data);
         }

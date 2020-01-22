@@ -23,6 +23,7 @@ import com.example.sundforluft.cloud.DAO.ATTDeviceInfo;
 import com.example.sundforluft.cloud.DAO.ATTDeviceInfoMeasurement;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -96,6 +97,16 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(dateFormatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setGranularity(1f); // only intervals of 1 day
+        xAxis.setLabelCount(7);
+        xAxis.setTextColor(R.color.textColor);
+
+        YAxis leftAxis = chart.getAxisLeft();
+        leftAxis.setLabelCount(8, false);
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        leftAxis.setSpaceTop(15f);
+        leftAxis.setTextColor(R.color.textColor);
+        //leftAxis.setAxisMinimum(380);
 
 
         chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener()
@@ -180,7 +191,17 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
                 e.printStackTrace();
             }
             //TODO: Tilpas legend https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/LineChartActivity2.java
-            //chart.getLegend().setEnabled(false);
+            Legend l = chart.getLegend();
+            l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+            l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+            l.setOrientation(Legend.LegendOrientation.HORIZONTAL);
+            l.setDrawInside(false);
+            l.setForm(Legend.LegendForm.SQUARE);
+            l.setFormSize(9f);
+            l.setTextSize(11f);
+            l.setXEntrySpace(4f);
+            l.setTextColor(getResources().getColor(R.color.textColor));
+            l.setEnabled(true);
 
             // Please do not move these lines around, they have to be above the ui thread
 
@@ -220,6 +241,7 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         }
 
         data.addEntry(new Entry(xValue, yValue), index);
+        data.setValueTextColor(R.color.textColor);
         data.notifyDataChanged();
     }
 

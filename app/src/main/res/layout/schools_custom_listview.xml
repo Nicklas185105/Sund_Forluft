@@ -30,9 +30,10 @@
 
     <TextView
         android:id="@+id/text1"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:layout_width="match_parent"
         android:textSize="20sp"
+        android:textColor="@color/colorWhite"
         android:gravity="center"
         android:elevation="5dp"
         android:paddingStart="65dip"

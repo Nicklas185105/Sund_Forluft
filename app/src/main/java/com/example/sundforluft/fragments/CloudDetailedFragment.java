@@ -29,7 +29,9 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -91,6 +93,24 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         xAxis.setValueFormatter(dateFormatter);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
+
+        chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener()
+        {
+            @Override
+            public void onValueSelected(Entry e, Highlight h) {
+                float co2_max = chart.getData().getDataSetByIndex(0).getEntryForIndex((int)e.getX()).getY();
+                float co2_avg = chart.getData().getDataSetByIndex(1).getEntryForIndex((int)e.getX()).getY();
+                float co2_min = chart.getData().getDataSetByIndex(2).getEntryForIndex((int)e.getX()).getY();
+
+                TextView textView = view.findViewById(R.id.textViewData);
+                textView.setText(
+                        String.format(Locale.ENGLISH, "Maksimum: %.2f ppm\nGennemsnit: %.2f ppm\nMinimum: %.2f ppm", co2_max, co2_avg, co2_min)
+                );
+            }
+
+            @Override
+            public void onNothingSelected()  { }
+        });
 
 
         chart.getAxisRight().setEnabled(false);

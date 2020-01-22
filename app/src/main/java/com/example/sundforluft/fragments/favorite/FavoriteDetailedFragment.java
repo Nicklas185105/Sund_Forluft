@@ -36,8 +36,11 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.model.GradientColor;
 
 import java.util.ArrayList;
@@ -68,6 +71,8 @@ public class FavoriteDetailedFragment extends Fragment {
         chart.setPinchZoom(false);
         chart.setDrawGridBackground(false);
         chart.setScaleEnabled(false);
+
+        //chart.setOnChartValueSelectedListener(this);
 
         ClassroomAxisFormatter xAxisFormatter = new ClassroomAxisFormatter();
         XAxis xAxis = chart.getXAxis();

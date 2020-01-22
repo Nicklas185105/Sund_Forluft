@@ -159,8 +159,13 @@ public class ATTCommunicator {
         } catch (NetworkOnMainThreadException nmt) {
             throw nmt;
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("ATTCommunicator could not be initialized.");
+            // Try to redo action after 1s.
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+            return loadMeasurementsForDevice(device, start, end, interval);
         }
     }
 

@@ -163,7 +163,11 @@ public class FavoriteDetailedFragment extends Fragment {
 
         MainActivity.toggle.setDrawerIndicatorEnabled(false);
         Objects.requireNonNull(((MainActivity) getActivity()).getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        MainActivity.toolbar.setNavigationOnClickListener(v -> getActivity().getSupportFragmentManager().popBackStack());
+        MainActivity.toolbar.setNavigationOnClickListener(v -> {
+            if (getActivity() != null) {
+                getActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
 
         return view;
     }

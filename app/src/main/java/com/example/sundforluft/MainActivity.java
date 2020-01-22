@@ -2,14 +2,12 @@ package com.example.sundforluft;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,27 +16,30 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.fragments.favorite.FavoriteFragment;
 import com.example.sundforluft.fragments.help.HelpFragment;
 import com.example.sundforluft.fragments.schools.SchoolsFragment;
 import com.example.sundforluft.fragments.ranklist.RanklistFragment;
 import com.example.sundforluft.fragments.scanner.ScannerFragment;
 import com.example.sundforluft.services.Globals;
-import com.example.sundforluft.services.SchoolAverageLoader;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static Toolbar toolbar;
+    public Toolbar toolbar;
     public static ActionBarDrawerToggle toggle;
     public static DrawerLayout drawer;
     public NavigationView navigationView;
+    public Activity context = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        context = this;
 
         Globals.favoriteSchoolPreferences = getSharedPreferences("favorite_schools", MODE_PRIVATE);
 
@@ -51,7 +52,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close){
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                hideKeyboard(context);
+                super.onDrawerOpened(drawerView);
+            }
+        };
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -59,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new FavoriteFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_favorit);
-            getSupportActionBar().setTitle(R.string.menuFavorit);
+            Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.menuFavorit);
         }
     }
 
@@ -77,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
                     .replace(R.id.fragment_container, new ScannerFragment()).addToBackStack(null).commit();
             navigationView.setCheckedItem(R.id.nav_scanner);
-            getSupportActionBar().setTitle(R.string.menuScanner);
+            Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.menuScanner);
             hideKeyboard(this);
             return true;
         } else {
@@ -92,28 +99,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_favorit:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
                     .replace(R.id.fragment_container, new FavoriteFragment()).addToBackStack(null).commit();
-                getSupportActionBar().setTitle(R.string.menuFavorit);
+                Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.menuFavorit);
 
                 break;
             case R.id.nav_map:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
                         .replace(R.id.fragment_container, new SchoolsFragment()).addToBackStack(null).commit();
-                getSupportActionBar().setTitle(R.string.menuSchool);
+                Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.menuSchool);
                 break;
             case R.id.nav_ranklist:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
                         .replace(R.id.fragment_container, new RanklistFragment()).addToBackStack(null).commit();
-                getSupportActionBar().setTitle(R.string.menuRanklist);
+                Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.menuRanklist);
                 break;
             case R.id.nav_help:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
                         .replace(R.id.fragment_container, new HelpFragment()).addToBackStack(null).commit();
-                getSupportActionBar().setTitle(R.string.menuHelp);
+                Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.menuHelp);
                 break;
             case R.id.nav_scanner:
                 getSupportFragmentManager().beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
                         .replace(R.id.fragment_container, new ScannerFragment()).addToBackStack(null).commit();
-                getSupportActionBar().setTitle(R.string.menuScanner);
+                Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.menuScanner);
                 break;
             case R.id.nav_back:
                 Intent intent = new Intent(MainActivity.this, StartActivity.class);
@@ -152,6 +159,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (view == null) {
             view = new View(activity);
         }
-        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        Objects.requireNonNull(imm).hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

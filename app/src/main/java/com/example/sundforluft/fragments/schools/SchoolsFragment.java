@@ -7,11 +7,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,7 +45,7 @@ public class SchoolsFragment extends Fragment {
             }
         }
 
-        adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.custom_listview, schools);
+        adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_list_item_1, schools);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

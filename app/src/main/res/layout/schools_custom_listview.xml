@@ -22,10 +22,11 @@
     <ImageView
         android:layout_width="25dp"
         android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_alignEnd="@+id/button"
         android:background="@drawable/ic_add_school"
         android:elevation="10dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="15dp"
         tools:ignore="ContentDescription" />
 
     <TextView

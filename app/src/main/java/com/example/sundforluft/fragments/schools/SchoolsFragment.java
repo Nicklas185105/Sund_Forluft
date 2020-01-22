@@ -7,7 +7,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -33,7 +32,7 @@ public class SchoolsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView =  inflater.inflate(R.layout.fragment_map, container, false);
+        View rootView =  inflater.inflate(R.layout.fragment_schools, container, false);
 
         SchoolsFragment self = this;
         EditText filter = rootView.findViewById(R.id.editText);

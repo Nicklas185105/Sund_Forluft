@@ -9,7 +9,6 @@ public class Globals {
     public static boolean isAdmin = false;
 
     public static boolean hasTeacherRights() { return isTeacher || isAdmin; }
-    public static boolean hasAdminRights() { return isAdmin; }
 
     public static SchoolModel school = null;
     public static SharedPreferences favoriteSchoolPreferences = null;

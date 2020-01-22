@@ -4,48 +4,31 @@
     <string name="navigation_drawer_open">Open Navigation Drawer</string>
     <string name="navigation_drawer_close">Close Navigation Drawer</string>
     <string name="continueasguest">Fortsæt som gæst</string>
-
-    <!-- Navigation Drawer -->
     <string name="menuFavorit">Favoriter</string>
     <string name="menuSchool">Tilføj Favorit</string>
     <string name="menuRanklist">Rangliste</string>
     <string name="menuHelp">Hjælp</string>
     <string name="menuScanner">QR Scanner</string>
     <string name="menuBack">Tilbage</string>
-
-    <!-- Favorit Fragmnet -->
     <string name="favorit">Favorit Skoler</string>
     <string name="favoritButtonText">Gentofte Skole\nLuftkvalitet: God</string>
     <string name="searchHint">Søg</string>
-    <!-- used by models/FavoritListviewModel.java -->
     <string name="bad_air_quality">Dårlig (%d ppm)</string>
     <string name="medium_air_quality">Medium (%d ppm)</string>
     <string name="good_air_quality">God (%d ppm)</string>
     <string name="best_air_quality">Fremragende (%d ppm)</string>
-    <!-- Detailed View -->
-
-
-    <!-- Rankliste Fragment -->
     <string name="topSkoler">Top skoler</string>
-    <!-- Rankliste Fragments -->
     <string name="copenhagen">Top skoler i København</string>
     <string name="zealand">Top skoler i Sjælland</string>
     <string name="southdenmark">Top skoler i Syddanmark</string>
     <string name="midjutland">Top skoler i Midtjylland</string>
     <string name="northjutland">Top skoler i Nordjylland</string>
     <string name="schoolName">Skole Navn</string>
-    <!-- Detailed Fragment -->
     <string name="placeholder">Placeholder Class</string>
     <string name="airQuality">50%</string>
-    <!-- Help Fagment -->
     <string name="helpTitel">Hjælp</string>
-    <!-- Scanner Fragment -->
     <string name="acceptPermission">You need to accept permission</string>
-
-    <!-- Guest Login -->
     <string name="tekst">. . .</string>
-
-    <!-- Teacher/Admin Login -->
     <string name="login">Login</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -60,12 +43,9 @@
     <string name="guest">Guest - QR Scanner</string>
     <string name="qrNotFound">Din QR kode er ikke gyldig</string>
     <string name="teacherLogin">Lærer Login</string>
-
     <string name="gettingSchools">Henter skoler. Vent venligst.</string>
     <string name="fill">Venligst udfyld felterne</string>
-
     <string name="toastWrongUserPass">Forkert brugernavn/kodeord</string>
-
     <string name="classroom">Indtast navnet på klasseværelse</string>
     <string name="submit">Tilføj</string>
     <string name="classroomHint">Klasseværelse</string>
@@ -93,4 +73,6 @@
     <string name="removeCloud">Fjern Sky</string>
     <string name="addCloud">Tilføj Sky</string>
     <string name="ppmDetails">Maksimum: %.2f ppm\nGennemsnit: %.2f ppm\nMinimum: %.2f ppm</string>
+    <string name="one_month">1 Måned [per dag]</string>
+    <string name="one_week">1 Uge [per time]</string>
 </resources>

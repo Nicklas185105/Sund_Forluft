@@ -1,6 +1,7 @@
 package com.example.sundforluft.services;
 
 
+import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,12 +76,11 @@ public class FavoriteListviewAdapter extends BaseAdapter implements View.OnClick
         items.add(favoritListviewModel);
     }
 
-    public void deleteSchool(int position) {
-        //TODO: Delete from favorites (locally saved)
+    private void deleteSchool(int position) {
         items.remove(position);
     }
 
-    public int getPosition(FavoritListviewModel inputModel) {
+    private int getPosition(FavoritListviewModel inputModel) {
         for (int i = 0; i < items.size(); i++) {
             if (inputModel.getName().equals(items.get(i).getName())) { return i; }
         }
@@ -102,6 +102,7 @@ public class FavoriteListviewAdapter extends BaseAdapter implements View.OnClick
         return position;
     }
 
+    @SuppressLint({"ViewHolder", "InflateParams"})
     @Override
     public View getView(int position, View convertView, final ViewGroup parent) {
         // Create new object for activity listener

@@ -14,6 +14,7 @@ import com.example.sundforluft.R;
 import com.example.sundforluft.services.AdminCloudsOverviewAdapter;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class AllSchoolsActivity extends AppCompatActivity {
 
@@ -27,7 +28,7 @@ public class AllSchoolsActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.allSchools);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.allSchools);
 
         // Arrow Click
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

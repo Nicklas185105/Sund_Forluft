@@ -19,11 +19,9 @@ public class AdminCloudsOverviewAdapter extends BaseAdapter {
 
     private ArrayList<ClassroomModel> classrooms;
     private ArrayList<SchoolModel> schools;
-    private Context context;
     private LayoutInflater inflater;
 
     public AdminCloudsOverviewAdapter(Context context, ArrayList<ClassroomModel> classroomModels, SchoolModel[] schoolModels) {
-        this.context = context;
         this.classrooms = classroomModels;
         this.schools = new TypeArrayCaster<SchoolModel> (Arrays.stream(schoolModels).filter(c -> c.Id !=0).toArray()).getOutput();
         this.inflater = LayoutInflater.from(context);

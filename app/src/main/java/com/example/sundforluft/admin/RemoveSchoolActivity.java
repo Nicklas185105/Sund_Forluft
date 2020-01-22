@@ -17,6 +17,7 @@ import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.R;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class RemoveSchoolActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     Toolbar toolbar;
@@ -36,7 +37,7 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.removeSchool);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.removeSchool);
 
         // Arrow Click
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -73,7 +74,7 @@ public class RemoveSchoolActivity extends AppCompatActivity implements View.OnCl
         String schoolName = (String)dropdown.getSelectedItem();
         SchoolModel foundModel = DataAccessLayer.getInstance().getSchoolByName(schoolName);
         DataAccessLayer.getInstance().removeSchool(foundModel);
-        while (!DataAccessLayer.getInstance().isLoaded()){}
+        DataAccessLayer.getInstance().waitForLoad();
         Toast.makeText(getApplicationContext(),
                 R.string.schoolRemoved + "" + dropdown.getSelectedItem() + R.string.schoolAddedRemoved,
                 Toast.LENGTH_SHORT).show();

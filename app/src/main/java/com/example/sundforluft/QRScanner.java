@@ -1,6 +1,7 @@
 package com.example.sundforluft;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -86,11 +87,12 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
         scannerView.stopCamera();
         super.onDestroy();
     }
+    @SuppressLint("ObsoleteSdkInt")
     @Override
     public void handleResult(Result rawResult){
         String deviceId = rawResult.getText();
         ZXingScannerView.ResultHandler resultSelf = this;
-        Vibrator v = (Vibrator) getSystemService(this.VIBRATOR_SERVICE);
+        Vibrator v = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
@@ -109,7 +111,6 @@ public class QRScanner extends AppCompatActivity implements ZXingScannerView.Res
 
         if (foundDevice == null) {
             scannerView.resumeCameraPreview(resultSelf);
-            // TODO: Invalid QR code toast!.
         } else {
             if (Globals.hasTeacherRights()) {
                 boolean isRemove = getIntent().getBooleanExtra("isRemove", false);

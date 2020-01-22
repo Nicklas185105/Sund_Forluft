@@ -1,5 +1,7 @@
 package com.example.sundforluft.services;
 
+import android.annotation.SuppressLint;
+
 import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.cloud.ATTCommunicator;
@@ -23,6 +25,7 @@ public class SchoolAverageLoader {
         return instance;
     }
 
+    @SuppressLint("UseSparseArrays")
     public void loadSchoolAverages() {
         loaded = false;
 
@@ -52,7 +55,13 @@ public class SchoolAverageLoader {
     }
 
     public void waitForLoad() {
-        while (!isLoaded()) { /*wait for the load to occur*/ }
+        while (!isLoaded()) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void setSchools(SchoolModel[] schools) {

@@ -1,5 +1,6 @@
 package com.example.sundforluft.services;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,13 +39,6 @@ public class FavoriteDetailedListviewAdapter extends BaseAdapter {
         items.add(favoriteDetailedListviewModel);
     }
 
-    public int getPosition(FavoriteDetailedListViewModel inputModel) {
-        for (int i = 0; i < items.size(); i++) {
-            if (inputModel.getName().equals(items.get(i).getName())) { return i; }
-        }
-        return -1;
-    }
-
     @Override
     public int getCount() {
         return items.size();
@@ -60,6 +54,7 @@ public class FavoriteDetailedListviewAdapter extends BaseAdapter {
         return position;
     }
 
+    @SuppressLint({"ViewHolder", "InflateParams"})
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Create new object for activity listener

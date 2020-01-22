@@ -2,7 +2,6 @@ package com.example.sundforluft.fragments.favorite;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,11 +35,8 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.github.mikephil.charting.model.GradientColor;
 
 import java.util.ArrayList;
@@ -132,8 +128,8 @@ public class FavoriteDetailedFragment extends Fragment {
                     ATTDeviceInfo info = communicator.loadMeasurementsForDevice(classroomDevice, cal.getTime(), ATTCommunicator.MeasurementInterval.MonthPerDay);
 
                     if (info != null) {
-                        FavoriteDetailedListViewModel viewModel = new FavoriteDetailedListViewModel(self, classroomModel.name, info.getAverageQuality(), school.Id);
-                        viewModel.setDeviceInfo(info);
+                        FavoriteDetailedListViewModel viewModel = new FavoriteDetailedListViewModel(classroomModel.name, info.getAverageQuality(), school.Id);
+                        viewModel.setDeviceInfo();
                         classroomViewModels.add(viewModel);
                     }
                 }

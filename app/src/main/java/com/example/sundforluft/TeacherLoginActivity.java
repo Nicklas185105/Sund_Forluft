@@ -1,5 +1,6 @@
 package com.example.sundforluft;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -21,6 +22,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 public class TeacherLoginActivity extends AppCompatActivity implements View.OnClickListener {
     Button button, teacher, admin;
@@ -52,6 +55,7 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onClick(View v) {
         if (v == button){
@@ -88,7 +92,7 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
         DatabaseReference myRef = database.getReference("users/" + username);
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
                 String password = dataSnapshot.child("password").getValue(String.class);
                 if (password.equals(compare)) {
                     // Obtain school
@@ -116,7 +120,7 @@ public class TeacherLoginActivity extends AppCompatActivity implements View.OnCl
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {  }
+            public void onCancelled(@NotNull DatabaseError error) {  }
         });
     }
 

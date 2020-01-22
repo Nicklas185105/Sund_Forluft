@@ -23,12 +23,8 @@ public class FavoritListviewModel {
         this.name = name;
     }
 
-    public int getCurrentAir() {
+    private int getCurrentAir() {
         return currentAir;
-    }
-
-    public void setCurrentAir(int currentAir) {
-        this.currentAir = currentAir;
     }
 
     public String getAirQualityString() {

@@ -11,7 +11,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DataAccessLayer {
     private static DataAccessLayer instance = null;
@@ -34,7 +37,7 @@ public class DataAccessLayer {
         return instance;
     }
 
-    public int getMaxId() {
+    private int getMaxId() {
         int id = 1;
         for (SchoolModel school : schools) {
             if (school.Id >= id) {
@@ -111,14 +114,14 @@ public class DataAccessLayer {
         DatabaseReference schoolRef = database.getReference("schools");
         schoolRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
                 instance.schools = new ArrayList<>();
                 instance.users = new ArrayList<>();
 
                 // Retrieve Schools
                 for (DataSnapshot child : dataSnapshot.getChildren())
                 {
-                    int schoolId = Integer.parseInt( child.getKey() );
+                    int schoolId = Integer.parseInt(Objects.requireNonNull(child.getKey()));
                     String schoolName = child.getValue(String.class);
 
                     instance.schools.add(new SchoolModel(schoolId, schoolName));
@@ -137,7 +140,7 @@ public class DataAccessLayer {
 
                             username = child.getKey();
                             for (DataSnapshot member : child.getChildren()) {
-                                switch (member.getKey()) {
+                                switch (Objects.requireNonNull(member.getKey())) {
                                     case "password":
                                         passwordHashed = member.getValue(String.class);
                                         break;
@@ -162,7 +165,7 @@ public class DataAccessLayer {
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {  }
+            public void onCancelled(@NotNull DatabaseError error) {  }
         });
         DatabaseReference classroomRef = database.getReference("classrooms");
         classroomRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -218,7 +221,7 @@ public class DataAccessLayer {
     }
 
     public ArrayList<ClassroomModel> getClassroomsBySchoolId(int schoolId){
-        ArrayList<ClassroomModel> classroomModels = new ArrayList();
+        ArrayList<ClassroomModel> classroomModels = new ArrayList<>();
         classrooms.forEach(c -> { if (c.id == schoolId) classroomModels.add(c); });
         return classroomModels;
     }
@@ -241,7 +244,7 @@ public class DataAccessLayer {
         return null;
     }
 
-    public UserModel getUserBySchool(SchoolModel model) {
+    private UserModel getUserBySchool(SchoolModel model) {
         for (UserModel user : users) {
             if (model.Id == user.getSchoolId()) {
                 return user;
@@ -258,7 +261,13 @@ public class DataAccessLayer {
     }
 
     public void waitForLoad() {
-        while (!isLoaded()) { /*wait for loaded == true*/ }
+        while (!isLoaded()) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

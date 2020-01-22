@@ -8,12 +8,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.example.sundforluft.QRScanner;
 import com.example.sundforluft.R;
 import com.example.sundforluft.StartActivity;
-import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.services.Globals;
 import com.example.sundforluft.services.SchoolAverageLoader;
 

@@ -1,14 +1,10 @@
 package com.example.sundforluft.services;
 
 import android.annotation.SuppressLint;
-import android.content.pm.ApplicationInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,7 +15,7 @@ import com.example.sundforluft.R;
 
 import java.util.ArrayList;
 
-public class SchoolsFragmentListviewAdapter extends ArrayAdapter {
+public class SchoolsFragmentListviewAdapter extends ArrayAdapter<String> {
 
     private LayoutInflater inflater;
 
@@ -30,12 +26,13 @@ public class SchoolsFragmentListviewAdapter extends ArrayAdapter {
 
 
 
+    @SuppressLint({"ViewHolder", "InflateParams"})
     @NonNull
     @Override
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
         view = inflater.inflate(R.layout.schools_custom_listview, null);
         TextView text = view.findViewById(R.id.text1);
-        text.setText((String) getItem(position));
+        text.setText( getItem(position));
 
         return view;
     }

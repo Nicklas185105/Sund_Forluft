@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -66,7 +65,7 @@ public class RanklistFragment extends Fragment{
             String[] avgList = Arrays.stream(averages)
                     .filter(e -> e.Id != 0)
                     .map(e -> e.Name + String.format(Locale.ENGLISH, " (%.2f)", e.getAverage())).toArray(String[]::new);
-            ArrayAdapter<String> adapter = new RanklistFragmentListviewAdapter(this, avgList);
+            RanklistFragmentListviewAdapter adapter = new RanklistFragmentListviewAdapter(this, avgList);
             listView.setAdapter(adapter);
         }
 

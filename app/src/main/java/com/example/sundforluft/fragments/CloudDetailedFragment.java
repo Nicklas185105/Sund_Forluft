@@ -50,12 +50,6 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
 
     private TextView textView;
 
-    // TODO: Strings.xml
-    private static final String[] paths = {
-        "1 Måned [per dag]",
-        "1 Uge [per time]"
-    };
-
     private ArrayList<Long> times;
     private DateFormatter dateFormatter;
 
@@ -69,17 +63,19 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         View view = inflater.inflate(R.layout.fragment_cloud_detailed, container, false);
         dateFormatter = new DateFormatter();
 
+        String[] paths = new String[]{getResources().getString(R.string.one_month),
+                getResources().getString(R.string.one_week)};
+
         textView = view.findViewById(R.id.textViewInfo);
         chart = view.findViewById(R.id.chart);
 
         TextView textView = view.findViewById(R.id.textViewData);
         textView.setText(
-                getResources().getString(R.string.ppmDetails).replaceAll("\\%\\.2f ppm", "Tryk på tidspunkt i graf.")
+                getResources().getString(R.string.ppmDetails).replaceAll("%\\.2f ppm", "Tryk på tidspunkt i graf.")
         );
 
         chart.setDrawGridBackground(false);
         chart.getDescription().setEnabled(false);
-        // TODO: Strings.xml
         chart.setNoDataText(getResources().getString(R.string.wait_data_loaded_from_cloud));
         chart.setPinchZoom(true);
 
@@ -142,7 +138,6 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         Activity self = getActivity();
         dateFormatter.setMeasurementInterval(interval);
 
-        // TODO: Strings.xml
         Toast.makeText(getContext(), getResources().getString(R.string.wait_data_loaded_from_cloud), Toast.LENGTH_SHORT).show();
         new Thread(() -> {
             ATTCommunicator communicator = ATTCommunicator.getInstance();
@@ -190,7 +185,7 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            //TODO: Tilpas legend https://github.com/PhilJay/MPAndroidChart/blob/master/MPChartExample/src/main/java/com/xxmassdeveloper/mpchartexample/LineChartActivity2.java
+
             Legend l = chart.getLegend();
             l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
             l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
@@ -278,9 +273,7 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        // TODO Auto-generated method stub
-    }
+    public void onNothingSelected(AdapterView<?> parent) {}
 
     private class DateFormatter extends ValueFormatter {
         private ArrayList<Long> dates;

@@ -27,7 +27,6 @@ public class CloudsOverviewActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //TODO: indsæt tekst i strings.xml
         getSupportActionBar().setTitle(R.string.oversigt_over_skyer);
 
         // Arrow Click

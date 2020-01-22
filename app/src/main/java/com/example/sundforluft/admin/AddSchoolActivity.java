@@ -13,6 +13,8 @@ import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.UserModel;
 import com.example.sundforluft.R;
 
+import java.util.Objects;
+
 import carbon.view.View;
 
 public class AddSchoolActivity extends AppCompatActivity implements View.OnClickListener{
@@ -28,7 +30,7 @@ public class AddSchoolActivity extends AppCompatActivity implements View.OnClick
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(R.string.addSchool);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.addSchool);
 
         // Arrow Click
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -50,7 +52,8 @@ public class AddSchoolActivity extends AppCompatActivity implements View.OnClick
                         school.getText().toString(),
                         new UserModel(username.getText().toString(), password.getText().toString())
                 );
-                while (!DataAccessLayer.getInstance().isLoaded()){}
+                DataAccessLayer.getInstance().waitForLoad();
+
                 Toast.makeText(getApplicationContext(),
                         R.string.schoolAdded + school.getText().toString() + R.string.schoolAddedRemoved,
                         Toast.LENGTH_SHORT).show();

@@ -6,7 +6,6 @@ import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.SchoolModel;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Map;
 
 public class CacheSchoolMananger {
@@ -33,14 +32,13 @@ public class CacheSchoolMananger {
 
         ArrayList<SchoolModel> models = new ArrayList<>();
         for (Map.Entry<String,?> entry : Globals.favoriteSchoolPreferences.getAll().entrySet()) {
-            Integer id = Integer.parseInt(entry.getKey());
+            int id = Integer.parseInt(entry.getKey());
 
             if (id != 0) {
                 SchoolModel model = DataAccessLayer.getInstance().getSchoolById(id);
                 if (model != null) {
                     models.add(model);
                 } else {
-                    /*TODO: Add toast that this school was removed*/
                     CacheSchoolMananger.getInstance().removeFavoriteSchool(id);
                 }
             }

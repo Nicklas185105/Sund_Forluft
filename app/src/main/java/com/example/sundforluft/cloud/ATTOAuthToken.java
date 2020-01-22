@@ -1,7 +1,5 @@
 package com.example.sundforluft.cloud;
 
-import android.app.Application;
-
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
@@ -10,6 +8,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class ATTOAuthToken {
     // Singleton Implementation
@@ -39,14 +38,14 @@ public class ATTOAuthToken {
     }
 
     // Retrieves the current token
-    public String getCurrentToken() {
+    String getCurrentToken() {
         return accessToken;
     }
 
     // Renews the token using OAuth2
     // Powershell Request:
     // Invoke-WebRequest -Uri "https://api.allthingstalk.io/login" -Method "POST" -Headers @{"method"="POST"; } -ContentType "application/x-www-form-urlencoded" -Body "grant_type=password&username=[username]&password=[password]&client_id=web"
-    public boolean renewToken() {
+    private boolean renewToken() {
         String contentType = "application/x-www-form-urlencoded", method = "POST", URI = "https://api.allthingstalk.io/login";
 
         try {
@@ -56,7 +55,7 @@ public class ATTOAuthToken {
             connection.setRequestMethod(method);
             connection.setRequestProperty("Content-Type", contentType);
             OutputStream os = connection.getOutputStream();
-            OutputStreamWriter osw = new OutputStreamWriter(os, "UTF-8");
+            OutputStreamWriter osw = new OutputStreamWriter(os, StandardCharsets.UTF_8);
             osw.write("grant_type=password&username=TeknologiskInstitut&password=TeknologiskInstitutSF&client_id=web");
             osw.flush();
             osw.close();
@@ -84,7 +83,7 @@ public class ATTOAuthToken {
         }
     }
 
-    public boolean isLoading() {
+    boolean isLoading() {
         return loading;
     }
 }

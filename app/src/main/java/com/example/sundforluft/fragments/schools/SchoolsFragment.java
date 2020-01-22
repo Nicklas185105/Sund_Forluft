@@ -34,7 +34,6 @@ public class SchoolsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_schools, container, false);
 
-        SchoolsFragment self = this;
         EditText filter = rootView.findViewById(R.id.editText);
 
         ListView listView = rootView.findViewById(R.id.listView);
@@ -87,7 +86,7 @@ public class SchoolsFragment extends Fragment {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             //here you can use the position to determine what checkbox to check
             //this assumes that you have an array of your checkboxes as well. called checkbox
-            String name = (String) adapter.getItem(position);
+            String name =  adapter.getItem(position);
             CacheSchoolMananger.getInstance().addFavoriteSchool(
                 DataAccessLayer.getInstance().getSchoolByName(name).Id
             );

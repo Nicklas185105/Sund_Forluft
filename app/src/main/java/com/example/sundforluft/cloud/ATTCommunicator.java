@@ -1,11 +1,9 @@
 package com.example.sundforluft.cloud;
 
-import android.net.Network;
 import android.os.NetworkOnMainThreadException;
 
 import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.ClassroomModel;
-import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.cloud.DAO.ATTDevice;
 import com.example.sundforluft.cloud.DAO.ATTDeviceInfo;
 import com.example.sundforluft.cloud.DAO.ATTDeviceInfoMeasurement;
@@ -15,18 +13,13 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
-import kotlin.NotImplementedError;
 
 public class ATTCommunicator {
     // Singleton instance.
@@ -167,7 +160,7 @@ public class ATTCommunicator {
             throw nmt;
         } catch (Exception e) {
             e.printStackTrace();
-            return null; // TODO: Custom exception here.
+            throw new RuntimeException("ATTCommunicator could not be initialized.");
         }
     }
 
@@ -268,7 +261,7 @@ public class ATTCommunicator {
         return devices;
     }
 
-    public boolean isLoading() {
+    private boolean isLoading() {
         return loading;
     }
     public void waitForLoad() {

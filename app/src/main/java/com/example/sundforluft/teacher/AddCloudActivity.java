@@ -56,7 +56,7 @@ public class AddCloudActivity extends AppCompatActivity {
             }
             DataAccessLayer dataAccessLayer = DataAccessLayer.getInstance();
             ClassroomModel modelFromDeviceId = dataAccessLayer.getClassroomByDeviceId(deviceId);
-            ClassroomModel modelFromName = dataAccessLayer.getInstance().getClassroomBySchooldAndName(id, name);
+            ClassroomModel modelFromName = DataAccessLayer.getInstance().getClassroomBySchooldAndName(id, name);
 
             if (modelFromDeviceId != null || modelFromName != null){
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);

@@ -1,16 +1,10 @@
 package com.example.sundforluft;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.cloud.ATTCommunicator;
@@ -20,7 +14,6 @@ import com.example.sundforluft.services.SchoolAverageLoader;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Objects;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -65,6 +58,7 @@ public class SplashScreen extends AppCompatActivity {
             }).start();
 
         }
+        schoolAverages.waitForLoad();
     }
 
     public static boolean isNetworkAvailable () {

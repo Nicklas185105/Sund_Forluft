@@ -1,5 +1,6 @@
 package com.example.sundforluft;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,7 +29,8 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public Toolbar toolbar;
+    @SuppressLint("StaticFieldLeak")
+    public static Toolbar toolbar;
     public static ActionBarDrawerToggle toggle;
     public static DrawerLayout drawer;
     public NavigationView navigationView;

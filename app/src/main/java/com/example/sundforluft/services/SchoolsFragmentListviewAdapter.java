@@ -17,13 +17,11 @@ import java.util.ArrayList;
 public class SchoolsFragmentListviewAdapter extends BaseAdapter implements Filterable {
 
     private ArrayList<String> schoolNames;
-    private Fragment fragment;
     private LayoutInflater inflater;
 
     public SchoolsFragmentListviewAdapter(Fragment fragment, ArrayList<String> schoolNames) {
             this.schoolNames = schoolNames;
-            this.fragment = fragment;
-            inflater = LayoutInflater.from(fragment.getActivity());
+        inflater = LayoutInflater.from(fragment.getActivity());
     }
 
     @Override
@@ -44,7 +42,7 @@ public class SchoolsFragmentListviewAdapter extends BaseAdapter implements Filte
     @SuppressLint("ViewHolder")
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        view = inflater.inflate(R.layout.custom_listview, parent, false);
+        view = inflater.inflate(R.layout.schools_custom_listview, parent, false);
 
 
 
@@ -53,7 +51,8 @@ public class SchoolsFragmentListviewAdapter extends BaseAdapter implements Filte
 
     @Override
     public Filter getFilter() {
-        Filter filter = new Filter() {
+
+        return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence constraint) {
                 FilterResults results = new FilterResults();
@@ -79,7 +78,5 @@ public class SchoolsFragmentListviewAdapter extends BaseAdapter implements Filte
                 notifyDataSetChanged();
             }
         };
-
-        return filter;
     }
 }

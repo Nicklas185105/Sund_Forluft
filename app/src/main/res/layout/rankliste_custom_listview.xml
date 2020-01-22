@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="50"
+        android:layout_height="50dp"
         android:text=""
         android:textSize="20sp"
         android:background="@drawable/bg_start_continue"

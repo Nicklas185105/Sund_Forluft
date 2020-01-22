@@ -85,8 +85,6 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
 
-        loadDeviceData(deviceId, ATTCommunicator.MeasurementInterval.MonthPerDay);
-
         // add some transparency to the color with "& 0x90FFFFFF"
         XAxis xAxis = chart.getXAxis();
         xAxis.setValueFormatter(dateFormatter);
@@ -148,9 +146,8 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
                 }
 
                 averageValue = avg_sum / count;
-
                 chart.notifyDataSetChanged();
-                chart.setVisibleXRangeMaximum(6);
+                //chart.setVisibleXRangeMaximum(6);
                 dateFormatter.setDates(times);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -159,8 +156,7 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
             //chart.getLegend().setEnabled(false);
 
             // Please do not move these lines around, they have to be above the ui thread
-            chart.setVisibleXRangeMaximum(7);
-            chart.moveViewToX(data.getEntryCount());
+
             Objects.requireNonNull(self).runOnUiThread(() -> {
 
 
@@ -168,7 +164,8 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
                 textView.setText( String.format(formatStr, highestValue, averageValue, lowestValue) );
 
                 chart.animateX(1500);
-
+                chart.setVisibleXRangeMaximum(7);
+                chart.moveViewToX(data.getEntryCount());
             });
 
         }).start();

@@ -86,10 +86,10 @@
     <string name="skole">Skole</string>
     <string name="velkommen_admin">Velkommen Admin</string>
     <string name="logout">Log Ud</string>
-    <string name="addCloud">Tilføj Sky</string>
     <string name="oversigt_over_skyer">Oversigt Over Skyer</string>
     <string name="admin_login">Admin Login</string>
     <string name="velkommen">Velkommen</string>
     <string name="SchoolAveragePlaceholder">Skolen Average Luft Kvalitet</string>
     <string name="removeCloud">Fjern Sky</string>
+    <string name="addCloud">Tilføj Sky</string>
 </resources>

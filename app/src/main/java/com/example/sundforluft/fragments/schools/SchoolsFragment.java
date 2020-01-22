@@ -22,12 +22,13 @@ import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 import com.example.sundforluft.fragments.favorite.FavoriteFragment;
 import com.example.sundforluft.services.CacheSchoolMananger;
+import com.example.sundforluft.services.SchoolsFragmentListviewAdapter;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class SchoolsFragment extends Fragment {
-    private ArrayAdapter<String> adapter;
+    private SchoolsFragmentListviewAdapter adapter;
 
     @Nullable
     @Override
@@ -45,7 +46,7 @@ public class SchoolsFragment extends Fragment {
             }
         }
 
-        adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_list_item_1, schools);
+        adapter = new SchoolsFragmentListviewAdapter(this, schools);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

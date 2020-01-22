@@ -72,7 +72,8 @@ public class AddSchoolActivity extends AppCompatActivity implements View.OnClick
             if (!Character.isAlphabetic(c) && !Character.isDigit(c) &&
                     Character.toLowerCase(c) != 'æ' &&
                     Character.toLowerCase(c) != 'ø' &&
-                    Character.toLowerCase(c) != 'å') {
+                    Character.toLowerCase(c) != 'å' &&
+                    Character.toLowerCase(c) != ' ') {
                 return false;
             }
 

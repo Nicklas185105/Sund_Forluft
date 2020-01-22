@@ -17,14 +17,16 @@ import java.util.Arrays;
 
 public class AdminCloudsOverviewAdapter extends BaseAdapter {
 
-    ArrayList<ClassroomModel> classrooms;
-    ArrayList<SchoolModel> schools;
-    Context context;
+    private ArrayList<ClassroomModel> classrooms;
+    private ArrayList<SchoolModel> schools;
+    private Context context;
+    private LayoutInflater inflater;
 
     public AdminCloudsOverviewAdapter(Context context, ArrayList<ClassroomModel> classroomModels, SchoolModel[] schoolModels) {
         this.context = context;
         this.classrooms = classroomModels;
         this.schools = new TypeArrayCaster<SchoolModel> (Arrays.stream(schoolModels).filter(c -> c.Id !=0).toArray()).getOutput();
+        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -45,7 +47,6 @@ public class AdminCloudsOverviewAdapter extends BaseAdapter {
     @SuppressLint("ViewHolder")
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(context);
         view = inflater.inflate(R.layout.activity_admin_all_schools_listview, parent, false);
 
         TextView tvleft = view.findViewById(R.id.adminCloudOverviewTextLeft);

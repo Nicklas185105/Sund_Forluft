@@ -29,9 +29,9 @@ public class FavoriteDetailedListviewAdapter extends BaseAdapter {
     private final LayoutInflater inflater;
 
     public FavoriteDetailedListviewAdapter(Fragment fragment) {
-        items = new ArrayList<>();
+        this.items = new ArrayList<>();
         this.fragment = fragment;
-        inflater = LayoutInflater.from(fragment.getActivity());
+        this.inflater = LayoutInflater.from(fragment.getActivity());
     }
 
     public void addClassroom(FavoriteDetailedListViewModel favoriteDetailedListviewModel) {

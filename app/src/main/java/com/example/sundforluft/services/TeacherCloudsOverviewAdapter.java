@@ -14,12 +14,14 @@ import java.util.ArrayList;
 
 public class TeacherCloudsOverviewAdapter extends BaseAdapter {
 
-    ArrayList<ClassroomModel> classrooms;
-    Context context;
+    private ArrayList<ClassroomModel> classrooms;
+    private Context context;
+    private LayoutInflater inflater;
 
     public TeacherCloudsOverviewAdapter(Context context, ArrayList<ClassroomModel> models) {
         this.context = context;
         this.classrooms = models;
+        this.inflater = LayoutInflater.from(context);
     }
 
     @Override
@@ -39,7 +41,6 @@ public class TeacherCloudsOverviewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        LayoutInflater inflater = LayoutInflater.from(context);
         view = inflater.inflate(R.layout.activity_teacher_clouds_overview_listview, parent, false);
 
         TextView tvleft = view.findViewById(R.id.teacherCloudOverviewTextLeft);

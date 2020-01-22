@@ -47,7 +47,7 @@ public class AddSchoolActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(android.view.View v) {
         if (v == add){
-            if (!username.getText().toString().equals("") && !password.getText().toString().equals("") && !school.getText().toString().equals("")){
+            if (validateInput(username.getText().toString()) && !password.getText().toString().equals("") && validateInput(school.getText().toString())) {
                 DataAccessLayer.getInstance().addSchool(
                         school.getText().toString(),
                         new UserModel(username.getText().toString(), password.getText().toString())
@@ -62,6 +62,22 @@ public class AddSchoolActivity extends AppCompatActivity implements View.OnClick
                 school.setText("");
             }
         }
+    }
+
+    private boolean validateInput(String input) {
+        if (input.equals("")) return false;
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+
+            if (!Character.isAlphabetic(c) && !Character.isDigit(c) &&
+                    Character.toLowerCase(c) != 'æ' &&
+                    Character.toLowerCase(c) != 'ø' &&
+                    Character.toLowerCase(c) != 'å') {
+                return false;
+            }
+
+        }
+        return true;
     }
 
 

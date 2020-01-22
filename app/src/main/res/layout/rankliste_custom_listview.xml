@@ -20,7 +20,7 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@android:id/text1"
+        android:id="@+id/text1"
         android:layout_height="?android:attr/listPreferredItemHeight"
         android:layout_width="match_parent"
         android:textSize="20sp"

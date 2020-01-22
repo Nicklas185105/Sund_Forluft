@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +36,8 @@ public class RanklistFragmentListviewAdapter extends ArrayAdapter {
     @Override
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
         view = inflater.inflate(R.layout.rankliste_custom_listview, null);
+        TextView text = view.findViewById(R.id.text1);
+        text.setText((String) getItem(position));
 
 
 

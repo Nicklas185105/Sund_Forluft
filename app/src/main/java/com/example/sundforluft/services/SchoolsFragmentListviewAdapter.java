@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,14 +28,14 @@ public class SchoolsFragmentListviewAdapter extends ArrayAdapter {
         inflater = LayoutInflater.from(fragment.getActivity());
     }
 
+
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
         view = inflater.inflate(R.layout.schools_custom_listview, null);
-
-
-
-
+        TextView text = view.findViewById(R.id.text1);
+        text.setText((String) getItem(position));
 
         return view;
     }

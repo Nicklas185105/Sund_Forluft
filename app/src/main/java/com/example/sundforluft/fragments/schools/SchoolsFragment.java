@@ -76,7 +76,7 @@ public class SchoolsFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                (self).adapter.getFilter().filter(s);
+                adapter.getFilter().filter(s);
             }
 
             @Override
@@ -88,7 +88,7 @@ public class SchoolsFragment extends Fragment {
         listView.setOnItemClickListener((parent, view, position, id) -> {
             //here you can use the position to determine what checkbox to check
             //this assumes that you have an array of your checkboxes as well. called checkbox
-            String name = adapter.getItem(position);
+            String name = (String) adapter.getItem(position);
             CacheSchoolMananger.getInstance().addFavoriteSchool(
                 DataAccessLayer.getInstance().getSchoolByName(name).Id
             );

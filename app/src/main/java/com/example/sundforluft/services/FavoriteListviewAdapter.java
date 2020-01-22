@@ -17,7 +17,7 @@ import com.example.sundforluft.models.FavoritListviewModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class FavoritListviewAdapter extends BaseAdapter implements View.OnClickListener {
+public class FavoriteListviewAdapter extends BaseAdapter implements View.OnClickListener {
     private ArrayList<FavoritListviewModel> items;
     private final Fragment fragment;
     private final LayoutInflater inflater;
@@ -65,7 +65,7 @@ public class FavoritListviewAdapter extends BaseAdapter implements View.OnClickL
     }
 
 
-    public FavoritListviewAdapter(Fragment fragment) {
+    public FavoriteListviewAdapter(Fragment fragment) {
         items = new ArrayList<>();
         this.fragment = fragment;
         inflater = LayoutInflater.from(fragment.getActivity());

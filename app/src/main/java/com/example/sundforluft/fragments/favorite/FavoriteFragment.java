@@ -19,7 +19,7 @@ import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 import com.example.sundforluft.models.FavoritListviewModel;
 import com.example.sundforluft.services.CacheSchoolMananger;
-import com.example.sundforluft.services.FavoritListviewAdapter;
+import com.example.sundforluft.services.FavoriteListviewAdapter;
 import com.example.sundforluft.services.SchoolAverageLoader;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.Objects;
 
 public class FavoriteFragment extends Fragment {
 
-    private FavoritListviewAdapter favoriteListviewAdapter;
+    private FavoriteListviewAdapter favoriteListviewAdapter;
 
     @Nullable
     @Override
@@ -35,7 +35,7 @@ public class FavoriteFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
 
 
-        favoriteListviewAdapter = new FavoritListviewAdapter(this);
+        favoriteListviewAdapter = new FavoriteListviewAdapter(this);
         favoriteListviewAdapter.setClickListener((model, type) -> {
             FragmentTransaction mFragmentTransaction = Objects.requireNonNull(getFragmentManager()).beginTransaction();
             switch (type) {

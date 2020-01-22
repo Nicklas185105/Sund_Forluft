@@ -19,6 +19,7 @@ import com.example.sundforluft.DAO.SchoolModelAverage;
 import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
 import com.example.sundforluft.fragments.favorite.FavoriteDetailedFragment;
+import com.example.sundforluft.services.RanklistFragmentListviewAdapter;
 import com.example.sundforluft.services.SchoolAverageLoader;
 
 import java.util.Arrays;
@@ -65,7 +66,7 @@ public class RanklistFragment extends Fragment{
             String[] avgList = Arrays.stream(averages)
                     .filter(e -> e.Id != 0)
                     .map(e -> e.Name + String.format(Locale.ENGLISH, " (%.2f)", e.getAverage())).toArray(String[]::new);
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, avgList);
+            ArrayAdapter<String> adapter = new RanklistFragmentListviewAdapter(this, avgList);
             listView.setAdapter(adapter);
         }
 

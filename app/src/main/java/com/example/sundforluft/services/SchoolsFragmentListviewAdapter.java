@@ -1,82 +1,41 @@
 package com.example.sundforluft.services;
 
 import android.annotation.SuppressLint;
+import android.content.pm.ApplicationInfo;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.sundforluft.R;
 
 import java.util.ArrayList;
 
-public class SchoolsFragmentListviewAdapter extends BaseAdapter implements Filterable {
+public class SchoolsFragmentListviewAdapter extends ArrayAdapter {
 
-    private ArrayList<String> schoolNames;
     private LayoutInflater inflater;
 
     public SchoolsFragmentListviewAdapter(Fragment fragment, ArrayList<String> schoolNames) {
-            this.schoolNames = schoolNames;
+        super(fragment.getContext(), 0, schoolNames);
         inflater = LayoutInflater.from(fragment.getActivity());
     }
 
+    @NonNull
     @Override
-    public int getCount() {
-        return schoolNames.size();
-    }
+    public View getView(int position, @Nullable View view, @NonNull ViewGroup parent) {
+        view = inflater.inflate(R.layout.schools_custom_listview, null);
 
-    @Override
-    public String getItem(int position) {
-        return schoolNames.get(position);
-    }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @SuppressLint("ViewHolder")
-    @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        view = inflater.inflate(R.layout.schools_custom_listview, parent, false);
 
 
 
         return view;
-    }
-
-    @Override
-    public Filter getFilter() {
-
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
-                FilterResults results = new FilterResults();
-                ArrayList<String> filteredList = new ArrayList<>();
-                if (constraint == null || constraint.length() == 0){
-                    results.values = schoolNames;
-                    results.count = schoolNames.size();
-                } else {
-                    for (String schoolName : schoolNames){
-                        if (schoolName.toLowerCase().contains(constraint.toString())){
-                            filteredList.add(schoolName);
-                        }
-                    }
-                    results.values = filteredList;
-                    results.count = filteredList.size();
-                }
-                return results;
-            }
-
-            @Override
-            protected void publishResults(CharSequence constraint, FilterResults results) {
-
-                notifyDataSetChanged();
-            }
-        };
     }
 }

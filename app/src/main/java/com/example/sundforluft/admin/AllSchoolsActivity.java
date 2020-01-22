@@ -12,7 +12,6 @@ import com.example.sundforluft.DAO.ClassroomModel;
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.R;
 import com.example.sundforluft.services.AdminCloudsOverviewAdapter;
-import com.example.sundforluft.services.RanklisteListviewAdapter;
 
 import java.util.ArrayList;
 

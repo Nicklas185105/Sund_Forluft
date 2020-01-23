@@ -46,4 +46,17 @@
         app:layout_constraintTop_toBottomOf="@id/skyerLine"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="35sp"
+        android:textColor="@color/textColor"
+        android:text="@string/no_clouds"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="@+id/listView"
+        app:layout_constraintBottom_toBottomOf="@+id/listView"
+        app:layout_constraintStart_toStartOf="@id/listView"
+        app:layout_constraintEnd_toEndOf="@id/listView"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

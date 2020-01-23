@@ -282,6 +282,7 @@ public class CloudDetailedFragment extends Fragment implements AdapterView.OnIte
         @Override
         public String getAxisLabel(float value, AxisBase axis) {
             int index = (int)value;
+            if (index <= 0) return "";
 
             if (dates != null && dates.size() > index) {
                 SimpleDateFormat simpleDateFormat;

@@ -75,4 +75,5 @@
     <string name="ppmDetails">Maksimum: %.2f ppm\nGennemsnit: %.2f ppm\nMinimum: %.2f ppm</string>
     <string name="one_month">1 Måned [per dag]</string>
     <string name="one_week">1 Uge [per time]</string>
+    <string name="no_clouds">Denne skole har ingen skyer.</string>
 </resources>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -14,19 +15,16 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-
 import com.example.sundforluft.DAL.DataAccessLayer;
 import com.example.sundforluft.DAO.ClassroomModel;
 import com.example.sundforluft.DAO.SchoolModel;
 import com.example.sundforluft.MainActivity;
 import com.example.sundforluft.R;
-
 import com.example.sundforluft.cloud.ATTCommunicator;
 import com.example.sundforluft.cloud.DAO.ATTDevice;
 import com.example.sundforluft.cloud.DAO.ATTDeviceInfo;
 import com.example.sundforluft.models.FavoriteDetailedListViewModel;
 import com.example.sundforluft.services.FavoriteDetailedListviewAdapter;
-
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -46,7 +44,6 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class FavoriteDetailedFragment extends Fragment {
-
     private BarChart chart;
     private Context context;
 
@@ -54,6 +51,9 @@ public class FavoriteDetailedFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_favorite_detailed, container, false);
+
+        TextView textView = view.findViewById(R.id.textView);
+        textView.setVisibility(View.GONE);
 
         context = getContext();
 
@@ -155,6 +155,9 @@ public class FavoriteDetailedFragment extends Fragment {
 
                 ListView schoolModelListView = view.findViewById(R.id.listView);
                 schoolModelListView.setAdapter(favoriteDetailedListviewAdapter);
+
+                if (favoriteDetailedListviewAdapter.getCount() != 0)textView.setVisibility(View.GONE);
+                else textView.setVisibility(View.VISIBLE);
             });
         }).start();
 

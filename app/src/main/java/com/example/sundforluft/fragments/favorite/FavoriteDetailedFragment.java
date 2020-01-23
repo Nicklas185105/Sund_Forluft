@@ -109,7 +109,6 @@ public class FavoriteDetailedFragment extends Fragment {
         ArrayList<ClassroomModel> classrooms = DataAccessLayer.getInstance().getClassroomsBySchoolId( school.Id );
 
         final Activity activity = getActivity();
-        final Fragment self = this;
 
         Toast.makeText(getContext(), getResources().getText(R.string.classroom_avg_load), Toast.LENGTH_SHORT).show();
         new Thread(() -> {
